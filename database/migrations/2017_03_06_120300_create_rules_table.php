@@ -16,8 +16,8 @@ class CreateRulesTable extends Migration
         Schema::create('rules', function(Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('eventId')->length(10);
-            $table->foreign('eventId')->references('id')->on('events')->onDelete('cascade');
             $table->text('rules');
+            $table->foreign('eventId')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
 
         });
