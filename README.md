@@ -35,7 +35,7 @@ Generate the Application key
 php artisan key:generate
 ```
 
-<!-- Migrate the database.
+Migrate the database.
 
 ```php
 php artisan migrate
@@ -45,24 +45,17 @@ Seed the database
 
 ```php
 php artisan db:seed
-``` -->
+```
 
 Set db credentials in `.env` and run the project.
 
-<!-- For Login
+For Login
 ```
-For Student login:
-Admission No. : 15cse075
+For Society login:
+Username : nibble
+Email Id : nibble@gmail.com
 Password : helloworld
-
-For Teacher login:
-Email Id : teacher@jssaten.com
-Password : helloworld
-
-For SuperAdmin:
-Email Id : admin@admin.com
-Password : helloworld
-``` -->
+```
 
 Run this project on localhost
 

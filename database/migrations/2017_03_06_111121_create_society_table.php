@@ -32,6 +32,6 @@ class CreateSocietyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('society');
+        Schema::dropIfExists('societies');
     }
 }

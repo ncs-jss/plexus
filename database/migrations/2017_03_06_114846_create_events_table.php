@@ -27,7 +27,7 @@ class CreateEventsTable extends Migration
             $table->boolean('active')->default(0);
             $table->string('forum', 500)->nullable();
             $table->boolean('winners');
-            $table->foreign('societyId')->references('id')->on('society')->onDelete('cascade');
+            $table->foreign('societyId')->references('id')->on('societies')->onDelete('cascade');
             $table->timestamps();
         });
     }

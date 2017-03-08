@@ -46,6 +46,8 @@ return [
             'provider' => 'users',
         ],
 
+        // User-defined guards
+
         'user' => [
             'driver' => 'session',
             'provider' => 'users',

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Society;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $society = new Society;
+        $society->username = 'nibble';
+        $society->email = 'nibble@gmail.com';
+        $society->password = Hash::make('helloworld');
+        $society->privilege = 1;
+        $society->socName = 'Nibble Computer Society';
+
+        $society->save();
+        echo "Seeding of Society is completed";
     }
 }
