@@ -13,7 +13,7 @@ class CreateSocietyTable extends Migration
      */
     public function up()
     {
-        Schema::create('society', function (Blueprint $table) {
+        Schema::create('societies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username')->unique();
             $table->string('email')->unique();

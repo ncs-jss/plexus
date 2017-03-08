@@ -14,10 +14,10 @@ class CreateForgetTable extends Migration
     public function up()
     {
         Schema::create('forget', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('socEmail');
-            $table->string('token');
-            $table->foreign('socEmail')->references('email')->on('society')->onDelete('cascade');
+            $table->string('socEmail')->index();
+            $table->string('token')->index();
+            // $table->foreign('socEmail')->references('email')->on('society')->onDelete('cascade');
+            $table->timestamp('created_at')->nullable();
         });
     }
 

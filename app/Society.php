@@ -15,7 +15,7 @@ class Society extends Model
      *
      * @var string
      */
-    protected $table = 'society';
+    protected $table = 'societies';
 
     /**
      * The attributes that are mass assignable.
