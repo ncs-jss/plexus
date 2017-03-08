@@ -15,4 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('api/society', 'Society\SocietyController');
+Route::group(
+    ['prefix' => 'api'], function() {
+    Route::resource('society', 'Society\SocietyController');
+    Route::resource('user', 'User\UserController');
+    Route::resource('event', 'Event\EventController');
+});
+

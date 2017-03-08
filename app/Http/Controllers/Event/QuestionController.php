@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Society;
+namespace App\Http\Controllers\Event;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,16 +11,11 @@ use Validator;
 use Session;
 use Auth;
 use Redirect;
-use App\Society;
+use App\Event;
+use App\Question;
 
-class SocietyController extends Controller
+class QuestionController extends Controller
 {
-
-    protected $loginMessage = [
-        'message' => 'You are logged in',
-        'class' => 'Success'
-    ];
-
     /**
      * Create a new controller instance.
      *
@@ -29,11 +24,8 @@ class SocietyController extends Controller
     public function __construct()
     {
         $this->middleware(
-            'society',
-            [
-                'except' => [
-                    'store', 'show', 'create', 'login', 'index'
-                ]
+            'society', [
+                'except' => ['show', 'index', 'store']
             ]
         );
     }
@@ -45,7 +37,7 @@ class SocietyController extends Controller
      */
     public function index()
     {
-        return Society::all();
+        //
     }
 
     /**
@@ -55,7 +47,11 @@ class SocietyController extends Controller
      */
     public function create()
     {
-
+        $eventId = Session::get('eventId');
+        if ($eventId != null) {
+            $event = Event::find($eventId);
+            return $event->toJson();
+        }
     }
 
     /**
@@ -68,32 +64,28 @@ class SocietyController extends Controller
     {
         $this->validate(
             $request, [
-            'username' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:societies',
-            'socName' => 'required|max:255',
-            'privilege' => 'required|max:255',
-            'password' => 'required|min:6|confirmed',
+            'question' => 'required|max:255',
+            'type' => 'required|max:255',
+            'level' => 'required|max:255',
             ]
         );
 
-        $societyInput = Input::all();
+        $questionInput = Input::all();
+        $eventId = Session::get('eventId');
 
-        $society = new Society;
-        $society->username = $societyInput['username'];
-        $society->email = $societyInput['email'];
-        $society->password = Hash::make($societyInput['password']);
-        $society->privilege = $societyInput['privilege'];
-        $society->socName = $societyInput['socName'];
-        $credentials = [
-            'username' => $societyInput['username'],
-            'password' => $societyInput['password']
-        ];
+        $question = new Question;
+        $question->eventId = $eventId;
+        $question->question = $questionInput['question'];
+        /*$image = array();
+        if (isset($questionInput['file'])) {
+            if (Input::file('file')->isValid()) {
+              $destinationPathvfile = 'uploads';
+              $extensionvfile = Input::file('file')->getClientOriginalExtension();
+              $fileNamevfile = $event->id.'.'.$extensionvfile; // renaming image
+              Input::file('file')->move($destinationPathvfile, $fileNamevfile);
+              $question->image = $fileNamevfile;
+            }*/
 
-        if ($society->save()) {
-            if (Auth::guard('society')->attempt($credentials)) {
-                return Redirect::to('/api/society')->with($loginMessage);
-            }
-        }
     }
 
     /**
