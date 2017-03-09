@@ -140,7 +140,7 @@ class UserController extends Controller
     }
 
     /**
-     * login a user.
+     * Login a user.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -154,10 +154,12 @@ class UserController extends Controller
 
         $userInput = Input::all();
 
-        $validator = Validator::make($userInput, [
+        $validator = Validator::make(
+            $userInput, [
             'email' => 'required|email|max:255',
             'password' => 'required|min:6',
-        ]);
+            ]
+        );
 
         if ($validator->fails()) {
             return $validator->errors()->toJson();

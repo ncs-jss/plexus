@@ -69,13 +69,15 @@ class SocietyController extends Controller
             'class' => 'Success'
         ];
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make(
+            $request->all(), [
             'username' => 'required|max:255|unique:societies',
             'email' => 'required|email|max:255|unique:societies',
             'socName' => 'required|max:255',
             'privilege' => 'required|max:255',
             'password' => 'required|min:6|confirmed',
-        ]);
+            ]
+        );
 
         if ($validator->fails()) {
             return $validator->errors()->toJson();
@@ -147,7 +149,7 @@ class SocietyController extends Controller
     }
 
     /**
-     * login a Society.
+     * Login a Society.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -162,10 +164,12 @@ class SocietyController extends Controller
 
         $societyInput = Input::all();
 
-        $validator = Validator::make($societyInput, [
+        $validator = Validator::make(
+            $societyInput, [
             'username' => 'required|max:255',
             'password' => 'required|min:6',
-        ]);
+            ]
+        );
 
         if ($validator->fails()) {
             return $validator->errors()->toJson();
