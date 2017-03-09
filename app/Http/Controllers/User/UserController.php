@@ -15,10 +15,6 @@ use App\User;
 
 class UserController extends Controller
 {
-    protected $loginMessage = [
-        'message' => 'You are logged in',
-        'class' => 'Success'
-    ];
 
     /**
      * Create a new controller instance.
@@ -54,7 +50,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -65,6 +61,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $loginMessage = [
+            'message' => 'You are logged in',
+            'class' => 'Success'
+        ];
+
         $this->validate(
             $request, [
             'name' => 'required|max:255',
@@ -136,5 +137,43 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * login a user.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function login(Request $request)
+    {
+        $loginMessage = [
+            'message' => 'You are logged in',
+            'class' => 'Success'
+        ];
+
+        $userInput = Input::all();
+
+        $validator = Validator::make($userInput, [
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->toJson();
+        }
+
+        $credentials = [
+            'email' => $userInput['email'],
+            'password' => $userInput['password']
+        ];
+
+        $remember = (Input::has('remember')) ? true : false;
+
+        if (Auth::guard('user')->attempt($credentials, $remember)) {
+            return Redirect::to('/api/user')->with($loginMessage);
+        }
+        return "Error in logging";
+
     }
 }

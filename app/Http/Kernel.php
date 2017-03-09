@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         // User-defined Middlewares
         'user' => \App\Http\Middleware\User::class,
         'society' => \App\Http\Middleware\Society::class,
+        'verify' => \App\Http\Middleware\RedirectIfLogin::class,
     ];
 }

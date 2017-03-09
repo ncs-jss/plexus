@@ -12,14 +12,10 @@ use Session;
 use Auth;
 use Redirect;
 use App\Society;
+use File;
 
 class SocietyController extends Controller
 {
-
-    protected $loginMessage = [
-        'message' => 'You are logged in',
-        'class' => 'Success'
-    ];
 
     /**
      * Create a new controller instance.
@@ -45,6 +41,8 @@ class SocietyController extends Controller
      */
     public function index()
     {
+        return var_dump(Auth::guard('society')->viaRemember());
+        // return File::get(public_path()."\\temp\\society\\login.html");
         return Society::all();
     }
 
@@ -66,15 +64,22 @@ class SocietyController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(
-            $request, [
-            'username' => 'required|max:255',
+        $loginMessage = [
+            'message' => 'You are logged in',
+            'class' => 'Success'
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|max:255|unique:societies',
             'email' => 'required|email|max:255|unique:societies',
             'socName' => 'required|max:255',
             'privilege' => 'required|max:255',
             'password' => 'required|min:6|confirmed',
-            ]
-        );
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->toJson();
+        }
 
         $societyInput = Input::all();
 
@@ -139,5 +144,42 @@ class SocietyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * login a Society.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function login(Request $request)
+    {
+
+        $loginMessage = [
+            'message' => 'You are logged in',
+            'class' => 'Success'
+        ];
+
+        $societyInput = Input::all();
+
+        $validator = Validator::make($societyInput, [
+            'username' => 'required|max:255',
+            'password' => 'required|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->toJson();
+        }
+
+        $credentials = [
+            'username' => $societyInput['username'],
+            'password' => $societyInput['password']
+        ];
+        $remember = (Input::has('remember')) ? true : false;
+        if (Auth::guard('society')->attempt($credentials, $remember)) {
+            return Redirect::to('/api/society')->with($loginMessage);
+        }
+        return "Error in logging";
+
     }
 }
