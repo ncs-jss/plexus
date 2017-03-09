@@ -69,8 +69,10 @@ class SocietyController extends Controller
             'class' => 'Success'
         ];
 
+        $societyInput = Input::all();
+
         $validator = Validator::make(
-            $request->all(), [
+            $societyInput, [
             'username' => 'required|max:255|unique:societies',
             'email' => 'required|email|max:255|unique:societies',
             'socName' => 'required|max:255',
@@ -82,8 +84,6 @@ class SocietyController extends Controller
         if ($validator->fails()) {
             return $validator->errors()->toJson();
         }
-
-        $societyInput = Input::all();
 
         $society = new Society;
         $society->username = $societyInput['username'];

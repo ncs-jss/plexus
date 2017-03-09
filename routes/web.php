@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Event\EventController@index');
 Route::group(
     ['prefix' => 'api'], function() {
 

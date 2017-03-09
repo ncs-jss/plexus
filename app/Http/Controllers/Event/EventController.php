@@ -13,6 +13,7 @@ use Auth;
 use Redirect;
 use App\Event;
 use App\Society;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -26,7 +27,7 @@ class EventController extends Controller
     {
         $this->middleware(
             'society', [
-                'except' => ['show', 'index', 'store']
+                'except' => ['show', 'index']
             ]
         );
     }
@@ -37,7 +38,30 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        // return strtotime(Carbon::now());
+        $currentEvents = Event::where(
+            [
+            ['startTime' , '<=', Carbon::now()],
+            ['endTime', '>', Carbon::now()],
+            ]
+        )->get()->toJson();
+
+        $pastEvents = Event::where(
+            'endTime', '<=', Carbon::now()
+        )->get()->toJson();
+
+        $futureEvents = Event::where(
+            'startTime', '>', Carbon::now()
+        )->get()->toJson();
+
+        $events = [
+            'currentEvents' => $currentEvents,
+            'futureEvents' => $futureEvents,
+            'pastEvents' => $pastEvents
+        ];
+
+        return response()->json($events);
+
     }
 
     /**
@@ -47,7 +71,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return File::get(public_path(). "\\File path");
     }
 
     /**
@@ -58,8 +82,10 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(
-            $request, [
+        $eventInput = Input::all();
+
+        $validator = Validator::make(
+            $eventInput, [
             'eventName' => 'required|max:255',
             'eventDes' => 'required|max:255',
             'startTime' => 'required|max:255',
@@ -72,8 +98,12 @@ class EventController extends Controller
             ]
         );
 
-        $eventInput = Input::all();
+        if ($validator->fails()) {
+            return $validator->errors()->toJson();
+        }
+
         $eventInput['societyId'] = Auth::guard('society')->id;
+
         /*$event = new Event;
         $event->eventName = $eventInput['eventName'];
         $event->eventDes = $eventInput['eventDes'];
@@ -91,8 +121,10 @@ class EventController extends Controller
         }*/
 
         $event = Event::create($eventInput);
+
         Session::put('eventId', $event->id);
-        return Redirect::to('api/question');
+
+        return Redirect::to('api/question/create');
     }
 
     /**
@@ -103,7 +135,13 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        // if (Auth::guard('society')->check()) {
+
+        // }
+
+        $event = Event::find($id)->toJson();
+
+        return $event;
     }
 
     /**
@@ -114,7 +152,9 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //
+        $event = Event::find($id)->toJson();
+
+        return $event;
     }
 
     /**
@@ -126,7 +166,41 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $eventInput = Input::all();
+
+        $validator = Validator::make(
+            $eventInput, [
+            'eventName' => 'required|max:255',
+            'eventDes' => 'required|max:255',
+            'startTime' => 'required|max:255',
+            'endTime' => 'required|max:255',
+            'duration' => 'required|max:255',
+            'totalQues' => 'required|max:255',
+            'type' => 'required|max:255',
+            // 'active' => 'required|max:255',
+            'forum' => 'required|max:255',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return $validator->errors()->toJson();
+        }
+
+        $event = Event::find($id);
+
+        $event->eventName = $eventInput['eventName'];
+        $event->eventDes = $eventInput['eventDes'];
+        $event->startTime = $eventInput['startTime'];
+        $event->endTime = $eventInput['endTime'];
+        $event->duration = $eventInput['duration'];
+        $event->totalQues = $eventInput['totalQues'];
+        $event->type = $eventInput['type'];
+        $event->forum = $eventInput['forum'];
+
+        if ($event->save()) {
+            return response()->json(["success" => "Event is updated"]);
+        }
+
     }
 
     /**
