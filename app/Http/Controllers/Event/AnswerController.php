@@ -64,15 +64,7 @@ class AnswerController extends Controller
 
         $validator = Validator::make(
             $answerInput, [
-            'answerName' => 'required|max:255',
-            'eventDes' => 'required|max:255',
-            'startTime' => 'required|max:255',
-            'endTime' => 'required|max:255',
-            'duration' => 'required|max:255',
-            'totalQues' => 'required|max:255',
-            'type' => 'required|max:255',
-            // 'active' => 'required|max:255',
-            'forum' => 'required|max:255',
+            'answer' => 'required|max:255',
             ]
         );
 
@@ -80,29 +72,7 @@ class AnswerController extends Controller
             return $validator->errors()->toJson();
         }
 
-        $eventInput['societyId'] = Auth::guard('society')->id;
 
-        /*$event = new Event;
-        $event->eventName = $eventInput['eventName'];
-        $event->eventDes = $eventInput['eventDes'];
-        $event->startTime = $eventInput['startTime'];
-        $event->endTime = $eventInput['endTime'];
-        $event->duration = $eventInput['duration'];
-        $event->totalQues = $eventInput['totalQues'];
-        $event->type = $eventInput['type'];
-        // $event->active = $eventInput['active'];
-        $event->forum = $eventInput['forum'];
-        $event->societyId = Auth::guard('society')->id;
-
-        if ( $event->save()) {
-
-        }*/
-
-        $event = Event::create($eventInput);
-
-        Session::put('eventId', $event->id);
-
-        return Redirect::to('api/question/create');
     }
 
     /**

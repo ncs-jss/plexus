@@ -13,6 +13,8 @@ use Auth;
 use Redirect;
 use App\Event;
 use App\Society;
+use App\Score;
+use App\Question;
 use Carbon\Carbon;
 
 class EventController extends Controller
@@ -135,14 +137,50 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        // if (Auth::guard('society')->check()) {
-
-        // }
-
+        // Get event details
         $event = Event::find($id)->toJson();
         Session::put('eventId', $id);
+        $level = 0;
+        $question = [];
 
-        return $event;
+        if (Auth::guard('user')->check()) {
+            $getScore = Score::where(
+                [
+                ['eventId', $id],
+                ['userId', Auth::guard('user')->id],
+                ]
+            )->get();
+
+            if ($getScore != []) {
+                $level = $getScore->level + 1;
+            } else {
+                $newUserScore = new Score;
+                $newUserScore->userId = Auth::guard('user')->id;
+                $newUserScore->eventId = $id;
+
+                $newUserScore->save();
+            }
+
+            $question = Question::where(
+                [
+                ['eventId', $id],
+                ['level', $level],
+                ]
+            )->get()->toJson();
+
+        } elseif (Auth::guard('society')->check()) {
+            $question = Question::where('eventId', $id)->get()->toJson();
+        } else {
+            return Redirect::to('/user/login')->
+                with('message', 'Login first to play');
+        }
+
+        $data = [
+            'event' => $event,
+            'question' => $question
+        ];
+
+        return $data;
     }
 
     /**

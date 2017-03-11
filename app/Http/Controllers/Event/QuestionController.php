@@ -67,6 +67,8 @@ class QuestionController extends Controller
             'question' => 'required|max:255',
             'type' => 'required|max:255',
             'level' => 'required|max:255',
+            'score' => 'required|max:255',
+            'answer' => 'required|max:255',
             ]
         );
 
@@ -86,17 +88,31 @@ class QuestionController extends Controller
               $question->image = $fileNamevfile;
             }*/
 
+
+        $answer = new Answer;
+        $answer->answer = $questionInput['answer'];
+        $answer->score = $questionInput['score'];
+        // $answer->quesId =
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int $level
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($level)
     {
-        //
+        $id = Session::get('eventId');
+        $question = Question::where(
+            [
+            ['eventId', $id],
+            ['level', $level],
+            ]
+        )->get()->toJson();
+
+        return $question;
     }
 
     /**
