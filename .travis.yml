@@ -10,9 +10,9 @@ before_install:
   - composer require satooshi/php-coveralls:dev-master
   - composer install --dev --ignore-platform-reqs
   - php artisan key:generate
-  # - mysql -e 'CREATE DATABASE zeal_db;'
-  # - php artisan migrate
-  # - php artisan db:seed
+  - mysql -e 'CREATE DATABASE zeal_db;'
+  - php artisan migrate
+  - php artisan db:seed
 
 script:
   - mkdir -p build/logs
