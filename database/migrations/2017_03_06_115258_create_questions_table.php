@@ -20,8 +20,8 @@ class CreateQuestionsTable extends Migration
             $table->string('options', 2000)->nullable();
             $table->string('image', 1000)->nullable();
             $table->string('html', 1000)->nullable();
-            $table->integer('type');
-            $table->integer('level');
+            $table->integer('type')->nullable();
+            $table->integer('level')->nullable();
             $table->foreign('eventId')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });

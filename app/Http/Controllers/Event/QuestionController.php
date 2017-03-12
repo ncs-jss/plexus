@@ -66,7 +66,7 @@ class QuestionController extends Controller
             $request, [
             'question' => 'required|max:255',
             'type' => 'required|max:255',
-            'level' => 'required|max:255',
+            // 'level' => 'required|max:255',
             'score' => 'required|max:255',
             'answer' => 'required|max:255',
             ]
@@ -74,43 +74,65 @@ class QuestionController extends Controller
 
         $questionInput = Input::all();
         $eventId = Session::get('eventId');
+        $event = Event::find($eventId);
 
         $question = new Question;
         $question->eventId = $eventId;
         $question->question = $questionInput['question'];
-        /*$image = array();
+
         if (isset($questionInput['file'])) {
             if (Input::file('file')->isValid()) {
-              $destinationPathvfile = 'uploads';
-              $extensionvfile = Input::file('file')->getClientOriginalExtension();
-              $fileNamevfile = $event->id.'.'.$extensionvfile; // renaming image
-              Input::file('file')->move($destinationPathvfile, $fileNamevfile);
-              $question->image = $fileNamevfile;
-            }*/
+                $destinationPathvfile = 'uploads';
+                $extensionvfile = Input::file('file')->getClientOriginalExtension();
+                $fileNamevfile = "Event".$eventId.'.'.$extensionvfile; // renaming image
+                Input::file('file')->move($destinationPathvfile, $fileNamevfile);
+                $question->image = $fileNamevfile;
+            }
+        }
 
+        if(isset($questionInput['html'])) {
+          $question->html = $questionInput['html'];
+        }
 
         $answer = new Answer;
-        $answer->answer = $questionInput['answer'];
+
+        if (intval($event->type) > 2) {
+
+            $question->options = serialize($questionInput['options']);
+            $question->save();
+
+            $answer->answer = serialize($questionInput['answers']);
+
+        } else {
+            $question->level = $questionInput['level'];
+            $question->save();
+
+            $answer->answer = $questionInput['answer'];
+        }
+
         $answer->score = $questionInput['score'];
-        // $answer->quesId =
+        $answer->quesId = Question::where('eventId', $eventId)->last()->id;
+
+        if (isset($questionInput['incorrect'])) {
+            $answer->incorrect = $questionInput['incorrect'];
+        }
+
+        $answer->save();
+
+        return "Add more Question";
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $level
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($level)
+    public function show($id)
     {
-        $id = Session::get('eventId');
-        $question = Question::where(
-            [
-            ['eventId', $id],
-            ['level', $level],
-            ]
-        )->get()->toJson();
+
+        $question = Question::find($id)->toJson();
 
         return $question;
     }
