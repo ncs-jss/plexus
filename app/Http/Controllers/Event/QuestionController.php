@@ -84,14 +84,15 @@ class QuestionController extends Controller
             if (Input::file('file')->isValid()) {
                 $destinationPathvfile = 'uploads';
                 $extensionvfile = Input::file('file')->getClientOriginalExtension();
-                $fileNamevfile = "Event".$eventId.'.'.$extensionvfile; // renaming image
+                // renaming image
+                $fileNamevfile = "Event".$eventId.'.'.$extensionvfile;
                 Input::file('file')->move($destinationPathvfile, $fileNamevfile);
                 $question->image = $fileNamevfile;
             }
         }
 
-        if(isset($questionInput['html'])) {
-          $question->html = $questionInput['html'];
+        if (isset($questionInput['html'])) {
+            $question->html = $questionInput['html'];
         }
 
         $answer = new Answer;
