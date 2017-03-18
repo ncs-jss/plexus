@@ -77,7 +77,9 @@ class QuestionController extends Controller
         if (Auth::guard('user')->check()) {
             return File::get(public_path()."\\backoffice\\pages\\addQuestion.html");
         } elseif (Auth::guard('society')->check()) {
-            return File::get(public_path()."\\backoffice\\pages\\manageQuestion.html");
+            return File::get(
+                public_path()."\\backoffice\\pages\\manageQuestion.html"
+            );
         }
         return Redirect::to('/');
 
