@@ -25,7 +25,7 @@ class QuestionController extends Controller
     {
         $this->middleware(
             'society', [
-                'except' => ['show', 'index', 'store']
+                'except' => ['show', 'index']
             ]
         );
     }
@@ -47,12 +47,11 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $eventId = Session::get('eventId');
 
-        if ($eventId != null) {
-            $event = Event::find($eventId);
-            return $event->toJson();
+        if (Session::has('eventId')) {
+            return File::get(public_path()."\\backoffice\\pages\\addQuestion.html");
         }
+        return File::get(public_path()."\\backoffice\\pages\\addEvent.html");
     }
 
     /**
@@ -63,67 +62,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(
-            $request, [
-            'question' => 'required|max:255',
-            'type' => 'required|max:255',
-            // 'level' => 'required|max:255',
-            'score' => 'required|max:255',
-            'answer' => 'required|max:255',
-            ]
-        );
 
-        $questionInput = Input::all();
-        $eventId = Session::get('eventId');
-        $event = Event::find($eventId);
-
-        $question = new Question;
-        $question->eventId = $eventId;
-        $question->question = $questionInput['question'];
-
-        if (isset($questionInput['file'])) {
-            if (Input::file('file')->isValid()) {
-                $destinationPathvfile = 'uploads';
-                $extensionvfile = Input::file('file')->getClientOriginalExtension();
-                // renaming image
-                $fileNamevfile = "Event".$eventId.'.'.$extensionvfile;
-                Input::file('file')->move($destinationPathvfile, $fileNamevfile);
-                $question->image = $fileNamevfile;
-            }
-        }
-
-        if (isset($questionInput['html'])) {
-            $question->html = $questionInput['html'];
-        }
-
-        $answer = new Answer;
-
-        if (intval($event->type) > 2) {
-
-            $question->options = serialize($questionInput['options']);
-
-            $answer->answer = serialize($questionInput['answers']);
-
-        } else {
-            $question->level = $questionInput['level'];
-
-            $answer->answer = $questionInput['answer'];
-        }
-
-        $question->type = $event->type;
-        $question->save();
-
-
-        $answer->score = $questionInput['score'];
-        $answer->quesId = Question::where('eventId', $eventId)->last()->id;
-
-        if (isset($questionInput['incorrect'])) {
-            $answer->incorrect = $questionInput['incorrect'];
-        }
-
-        $answer->save();
-
-        return "Add more Question";
 
     }
 
@@ -135,10 +74,13 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
+        if (Auth::guard('user')->check()) {
+            return File::get(public_path()."\\backoffice\\pages\\addQuestion.html");
+        } elseif (Auth::guard('society')->check()) {
+            return File::get(public_path()."\\backoffice\\pages\\manageQuestion.html");
+        }
+        return Redirect::to('/');
 
-        $question = Question::find($id)->toJson();
-
-        return $question;
     }
 
     /**
@@ -149,7 +91,7 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return File::get(public_path()."\\backoffice\\pages\\manageQuestion.html");
     }
 
     /**
