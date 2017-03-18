@@ -48,6 +48,7 @@ class QuestionController extends Controller
     public function create()
     {
         $eventId = Session::get('eventId');
+
         if ($eventId != null) {
             $event = Event::find($eventId);
             return $event->toJson();
@@ -100,16 +101,18 @@ class QuestionController extends Controller
         if (intval($event->type) > 2) {
 
             $question->options = serialize($questionInput['options']);
-            $question->save();
 
             $answer->answer = serialize($questionInput['answers']);
 
         } else {
             $question->level = $questionInput['level'];
-            $question->save();
 
             $answer->answer = $questionInput['answer'];
         }
+
+        $question->type = $event->type;
+        $question->save();
+
 
         $answer->score = $questionInput['score'];
         $answer->quesId = Question::where('eventId', $eventId)->last()->id;

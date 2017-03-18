@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
+    use SoftDeletes;
+
+
     /**
      * Table name.
      *
@@ -22,4 +26,11 @@ class Event extends Model
         'eventName', 'eventDes', 'startTime', 'endTime', 'duration', 'totalQues',
         'societyId', 'type', 'approve', 'active', 'forum', 'winners'
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 }

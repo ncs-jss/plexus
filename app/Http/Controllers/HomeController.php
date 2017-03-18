@@ -27,7 +27,8 @@ class HomeController extends Controller
      */
     public function society()
     {
-        return File::get(public_path()."\\Temp\\Society\\login.html");
+        // return File::get(public_path()."\\Temp\\Society\\login.html");
+        return View('auth.Society.login');
     }
 
     /**
