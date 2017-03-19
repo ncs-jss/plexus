@@ -207,7 +207,7 @@
                     // ques.image = $(".image").prop('files');
                     ques.answer = $(".answer").val();
                     ques.score = $(".score").val();
-                    ques.option = [$(".option1").val(),$(".option2").val(),$(".option3").val(),$(".option4").val()];
+                    ques.options = [$(".option1").val(),$(".option2").val(),$(".option3").val(),$(".option4").val()];
                     console.log(ques);
                     $.post(apiUrl, ques,
                         function(data, status) {
