@@ -15,14 +15,12 @@
 
 Route::get('/', 'Event\EventController@index');
 Route::resource('event', 'Event\EventController');
-
-
+Route::get('society/login', 'HomeController@society');
 
 
 Route::group(
     ['prefix' => 'api'], function() {
 
-    Route::get('society/login', 'HomeController@society');
     Route::get('society/dashboard', 'Society\SocietyController@index');
     Route::post('society/login', 'Society\SocietyController@login');
 

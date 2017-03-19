@@ -2,10 +2,11 @@
 $(document).ready(function() {
     var login = {};
     $("#login").click(function() {
-        login.email = $("#email").val();
-        login.password = $("#pass").val();
-        $.post("http://localhost:8080/login", login,function(data, status) {
+        login.username = $("#username").val();
+        login.password = $("#password").val();
+        $.post("http://127.0.0.1:8000/api/society/login", login,function(data, status) {
                 console.log("Data: " + data + "\nStatus: " + status);
+                window.location = data.redirect;
         });
     });
 });

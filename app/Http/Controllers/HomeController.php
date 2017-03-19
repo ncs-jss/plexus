@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use File;
 use Auth;
 use Session;
+use View;
 
 class HomeController extends Controller
 {
@@ -27,8 +28,8 @@ class HomeController extends Controller
      */
     public function society()
     {
-        // return File::get(public_path()."\\Temp\\Society\\login.html");
-        return View('auth.Society.login');
+        return File::get(public_path()."\\backoffice\\pages\\login.html");
+        // return View('auth.Society.login');
     }
 
     /**
