@@ -18,7 +18,7 @@ class RedirectIfLogin
     public function handle($request, Closure $next)
     {
         if (Auth::guard('user')->check() || Auth::guard('society')->check()) {
-            return Redirect::back();
+            return Redirect::to('/');
         }
         return $next($request);
     }

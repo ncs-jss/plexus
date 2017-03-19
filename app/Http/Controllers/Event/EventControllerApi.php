@@ -124,10 +124,12 @@ class EventControllerApi extends Controller
 
         $event = Event::create($eventInput);
 
-        return Response::json([
+        return Response::json(
+            [
             "redirect" => '/event',
-            "status" => True
-        ]);
+            "status" => true
+            ]
+        );
     }
 
     /**

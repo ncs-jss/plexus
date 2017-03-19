@@ -98,6 +98,10 @@ class SocietyControllerApi extends Controller
         $society = new Society;
         $society->username = $societyInput['username'];
         $society->email = $societyInput['email'];
+        $society->description = "This is the description of our Society";
+        if (!empty($societyInput['description'])) {
+            $society->description = $societyInput['description'];
+        }
         $society->password = Hash::make($societyInput['password']);
         $society->privilege = $societyInput['privilege'];
         $society->socName = $societyInput['socName'];

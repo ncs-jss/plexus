@@ -57,8 +57,8 @@ class QuestionControllerApi extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  int $id
      * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $id)
@@ -102,7 +102,9 @@ class QuestionControllerApi extends Controller
             //         getClientOriginalExtension();
             //         // renaming image
             //         $fileNamevfile = "Event".$eventId.'.'.$extensionvfile;
-            //         Input::file('file')->move($destinationPathvfile, $fileNamevfile);
+            //         Input::file('file')->move(
+            //              $destinationPathvfile, $fileNamevfile
+            //         );
             //         $question->image = $fileNamevfile;
             //     }
             // }
@@ -110,7 +112,6 @@ class QuestionControllerApi extends Controller
             if (isset($questionInput['html'])) {
                 $question->html = $questionInput['html'];
             }
-
 
             if (intval($event->type) == 2) {
                 $question->options = serialize($questionInput['options']);
@@ -131,14 +132,18 @@ class QuestionControllerApi extends Controller
 
             $answer->save();
 
-            return Response::json([
-                "status" => True
-            ]);
+            return Response::json(
+                [
+                "status" => true
+                ]
+            );
         }
-        return Response::json([
-            "status" => False,
+        return Response::json(
+            [
+            "status" => false,
             "error" => "Invalid Event"
-        ]);
+            ]
+        );
     }
 
     /**
