@@ -112,24 +112,6 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Option 1</label>
-                                                    <input class="form-control option1" placeholder="Enter option1"/>
-                                                </div>
-                                                <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Option 2</label>
-                                                    <input class="form-control option2" placeholder="Enter option2"/>
-                                                </div>
-                                                <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Option 3</label>
-                                                    <input class="form-control option3" placeholder="Enter option3"/>
-                                                </div>
-                                                <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Option 4</label>
-                                                    <input class="form-control option4" placeholder="Enter option4"/>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-xs-12 col-md-6">
                                                     <label>Correct Answer</label>
                                                     <input class="form-control answer" placeholder="Enter Answer"/>
                                                 </div>
@@ -195,9 +177,9 @@
                     ques.question = $(".question").val();
                     ques.level = $(".level").val();
                     ques.image = $(".image").val();
+                    ques.score = $(".score").val();
                     // ques.image = $(".image").prop('files');
                     ques.answer = $(".answer").val();
-                    ques.option = [$(".option1").val(),$(".option2").val(),$(".option3").val(),$(".option4").val()];
                     console.log(ques);
                     $.post(apiUrl, ques,
                         function(data, status) {
