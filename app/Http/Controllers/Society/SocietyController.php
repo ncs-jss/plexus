@@ -29,7 +29,7 @@ class SocietyController extends Controller
             'society',
             [
                 'except' => [
-                    'store', 'show', 'create', 'login', 'index'
+                    'store', 'show', 'create', 'login'
                 ]
             ]
         );
@@ -42,9 +42,12 @@ class SocietyController extends Controller
      */
     public function index()
     {
-        return File::get(public_path()."\\temp\\society\\login.html");
-
-        return Society::all();
+        $id = Auth::guard('society')->id();
+        $society = Society::find($id);
+        if ($society->privilege == 1) {
+            return Society::all();
+        }
+        return Response::json(["error" => "You are not authorised"]);
     }
 
     /**
@@ -149,44 +152,7 @@ class SocietyController extends Controller
         //
     }
 
-    /**
-     * Login a Society.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function login(Request $request)
-    {
 
-        $loginMessage = [
-            'message' => 'You are logged in',
-            'class' => 'Success'
-        ];
-
-        $societyInput = Input::all();
-
-        $validator = Validator::make(
-            $societyInput, [
-            'username' => 'required|max:255',
-            'password' => 'required|min:6',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return $validator->errors()->toJson();
-        }
-
-        $credentials = [
-            'username' => $societyInput['username'],
-            'password' => $societyInput['password']
-        ];
-        $remember = (Input::has('remember')) ? true : false;
-        if (Auth::guard('society')->attempt($credentials, $remember)) {
-            return Response::json(['redirect' => '/']);
-        }
-        return "Error in logging";
-
-    }
 
     /**
      * Display a listing of the resource.

@@ -13,6 +13,7 @@ use Auth;
 use Redirect;
 use App\Event;
 use App\Question;
+use File;
 
 class QuestionController extends Controller
 {
@@ -25,7 +26,7 @@ class QuestionController extends Controller
     {
         $this->middleware(
             'society', [
-                'except' => ['show', 'index']
+                'except' => ['show']
             ]
         );
     }

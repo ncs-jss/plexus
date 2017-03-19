@@ -47,13 +47,15 @@ class EventController extends Controller
     public function index()
     {
         if (Auth::guard('society')->check()) {
-            if (Auth::guard('society')->privilege == 1) {
+            $id = Auth::guard('society')->id();
+            $society = Society::find($id);
+
+            if ($society->privilege == 1) {
                 return File::get(public_path()."\\backoffice\\pages\\admin.html");
             }
             return File::get(public_path()."\\backoffice\\pages\\index.html");
         }
-        return File::get(public_path()."\\backoffice\\pages\\dashboard.html");
-        // return strtotime(Carbon::now());
+        return File::get(public_path()."\\dashboard.html");
     }
 
     /**
@@ -91,16 +93,16 @@ class EventController extends Controller
         if (Auth::guard('user')->check()) {
 
             if ($event->type == 1) {
-                return File::get(public_path()."\\backoffice\\pages\\play.html");
+                return File::get(public_path()."play.html");
             } elseif ($event->type == 2) {
-                return File::get(public_path()."\\backoffice\\pages\\play.html");
+                return File::get(public_path()."play.html");
             }
-            return File::get(public_path()."\\backoffice\\pages\\play.html");
+            return File::get(public_path()."play.html");
 
         } elseif (Auth::guard('society')->check()) {
-            return File::get(public_path()."\\backoffice\\pages\\showEvent.html");
+            return File::get(public_path()."\\backoffice\\pages\\manageEvent.html");
         }
-        return File::get(public_path()."\\backoffice\\pages\\login.html");
+        return File::get(public_path()."login.html");
 
     }
 
@@ -112,7 +114,7 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        return File::get(public_path()."\\backoffice\\pages\\editEvent.html");
+        return File::get(public_path()."\\backoffice\\pages\\manageEvent.html");
     }
 
     /**

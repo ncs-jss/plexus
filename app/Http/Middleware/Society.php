@@ -23,6 +23,6 @@ class Society
         } elseif (Auth::guard('user')->check()) {
             return Redirect::back();
         }
-        return Redirect::to('/login');
+        return Redirect::to('/society/login');
     }
 }
