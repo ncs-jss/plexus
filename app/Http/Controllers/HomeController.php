@@ -28,7 +28,7 @@ class HomeController extends Controller
      */
     public function society()
     {
-        return File::get(public_path()."\\backoffice\\pages\\login.html");
+        return File::get(public_path()."/backoffice/pages/login.html");
         // return View('auth.Society.login');
     }
 
@@ -39,7 +39,7 @@ class HomeController extends Controller
      */
     public function user()
     {
-        return File::get(public_path()."\\Temp\\User\\login.html");
+        return File::get(public_path()."/Temp/User/login.html");
     }
 
     public function logout(Request $request)

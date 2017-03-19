@@ -60,7 +60,7 @@ class SocietyController extends Controller
         $id = Auth::guard('society')->id();
         $society = Society::find($id);
         if ($society->privilege == 1) {
-            return File::get(public_path()."\\backoffice\\pages\\addSociety.html");
+            return File::get(public_path()."/backoffice/pages/addSociety.html");
         }
         return Redirect::back();
     }
@@ -95,7 +95,7 @@ class SocietyController extends Controller
      */
     public function edit($id)
     {
-        return File::get(public_path()."\\backoffice\\pages\\manageSociety.html");
+        return File::get(public_path()."/backoffice/pages/manageSociety.html");
     }
 
     /**
@@ -131,7 +131,7 @@ class SocietyController extends Controller
     public function dashboard()
     {
         // return var_dump(Auth::guard('society')->viaRemember());
-        // return File::get(public_path()."\\temp\\society\\login.html");
+        // return File::get(public_path()."/temp/society/login.html");
         return Society::all();
     }
 }
