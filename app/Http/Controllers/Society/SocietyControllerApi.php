@@ -29,7 +29,7 @@ class SocietyControllerApi extends Controller
             'society',
             [
                 'except' => [
-                    'store', 'show', 'create', 'login'
+                    'login'
                 ]
             ]
         );
@@ -52,7 +52,7 @@ class SocietyControllerApi extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -63,7 +63,47 @@ class SocietyControllerApi extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = Auth::guard('society')->id();
+        $loginSociety = Society::find($id);
+
+        if ($loginSociety->privilege != 1) {
+            return Response::json([
+                "status" => False
+            ]);
+        }
+
+        $societyInput = Input::all();
+
+        $validator = Validator::make(
+            $societyInput, [
+            'username' => 'required|max:255|unique:societies',
+            'email' => 'required|email|max:255|unique:societies',
+            'socName' => 'required|max:255',
+            'privilege' => 'required|max:255',
+            'password' => 'required|min:6|confirmed',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return Response::json([
+                "status" => False,
+                "errors" => $validator->errors()
+            ]);
+        }
+
+        $society = new Society;
+        $society->username = $societyInput['username'];
+        $society->email = $societyInput['email'];
+        $society->password = Hash::make($societyInput['password']);
+        $society->privilege = $societyInput['privilege'];
+        $society->socName = $societyInput['socName'];
+
+        if ($society->save()) {
+            return Response::json([
+                "status" => True,
+                "redirect" => '/'
+            ]);
+        }
     }
 
     /**
@@ -74,7 +114,8 @@ class SocietyControllerApi extends Controller
      */
     public function show($id)
     {
-        //
+        $society = Society::find($id);
+        return Response::json($society);
     }
 
     /**
@@ -97,7 +138,30 @@ class SocietyControllerApi extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($id != Auth::guard('society')->id()) {
+            return Response::json(["Qtiya hai kya"]);
+        }
+
+        $societyInput = Input::all();
+
+        $society = Society::find($id);
+        if (isset($societyInput['name'])) {
+            $society->name = $societyInput['name'];
+        }
+        if (isset($societyInput['password'])) {
+            $society->password = Hash::make($societyInput['password']);
+        }
+        $society->description = $societyInput['description'];
+        $society->socName = $societyInput['socName'];
+
+        if ($society->save()) {
+            return Response::json([
+                "status" => True
+            ]);
+        }
+        return Response::json([
+            "status" => False
+        ]);
     }
 
     /**
@@ -108,7 +172,22 @@ class SocietyControllerApi extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($id != Auth::guard('society')->id()) {
+            return Response::json(["Qtiya hai kya"]);
+        }
+
+        if ($loginSociety->privilege != 1) {
+            return Response::json([
+                "status" => False
+            ]);
+        }
+
+        $society = Society::find($id);
+        $society->delete();
+
+        return Response::json([
+            "status" => True
+        ]);
     }
 
     /**

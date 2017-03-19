@@ -16,6 +16,7 @@
 Route::get('/', 'Event\EventController@index');
 Route::resource('event', 'Event\EventController');
 Route::get('society/login', 'HomeController@society');
+Route::resource('society', 'Society\SocietyController');
 Route::resource('event/{id}/question', 'Event\QuestionController');
 
 

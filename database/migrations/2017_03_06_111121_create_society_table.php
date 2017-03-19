@@ -17,6 +17,7 @@ class CreateSocietyTable extends Migration
             $table->increments('id');
             $table->string('username')->unique();
             $table->string('email')->unique();
+            $table->text('description');
             $table->string('password');
             $table->tinyInteger('privilege');
             $table->string('socName');

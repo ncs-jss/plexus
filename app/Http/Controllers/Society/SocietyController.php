@@ -29,7 +29,7 @@ class SocietyController extends Controller
             'society',
             [
                 'except' => [
-                    'store', 'show', 'create', 'login'
+                    'login'
                 ]
             ]
         );
@@ -57,7 +57,12 @@ class SocietyController extends Controller
      */
     public function create()
     {
-
+        $id = Auth::guard('society')->id();
+        $society = Society::find($id);
+        if ($society->privilege == 1) {
+            return File::get(public_path()."\\backoffice\\pages\\addSociety.html");
+        }
+        return Redirect::back();
     }
 
     /**
@@ -68,43 +73,7 @@ class SocietyController extends Controller
      */
     public function store(Request $request)
     {
-        $loginMessage = [
-            'message' => 'You are logged in',
-            'class' => 'Success'
-        ];
-
-        $societyInput = Input::all();
-
-        $validator = Validator::make(
-            $societyInput, [
-            'username' => 'required|max:255|unique:societies',
-            'email' => 'required|email|max:255|unique:societies',
-            'socName' => 'required|max:255',
-            'privilege' => 'required|max:255',
-            'password' => 'required|min:6|confirmed',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return $validator->errors()->toJson();
-        }
-
-        $society = new Society;
-        $society->username = $societyInput['username'];
-        $society->email = $societyInput['email'];
-        $society->password = Hash::make($societyInput['password']);
-        $society->privilege = $societyInput['privilege'];
-        $society->socName = $societyInput['socName'];
-        $credentials = [
-            'username' => $societyInput['username'],
-            'password' => $societyInput['password']
-        ];
-
-        if ($society->save()) {
-            if (Auth::guard('society')->attempt($credentials)) {
-                return Redirect::to('/api/society')->with($loginMessage);
-            }
-        }
+        //
     }
 
     /**
@@ -126,7 +95,7 @@ class SocietyController extends Controller
      */
     public function edit($id)
     {
-        //
+        return File::get(public_path()."\\backoffice\\pages\\manageSociety.html");
     }
 
     /**
