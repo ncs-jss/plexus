@@ -90,7 +90,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Add Event</h1>
+                        <h1 class="page-header">Add Question</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -99,65 +99,49 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Event
-                                <strong></strong>
+                                Question
+                                <strong>1</strong>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div role="form">
+                                            <div class="form-group">
+                                                <label>Question</label>
+                                                <textarea class="form-control question"></textarea>
+                                                <p class="help-block">* Required</p>
+                                            </div>
                                             <div class="row">
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Event Name</label>
-                                                    <input class="form-control eventName" placeholder="Enter eventName" required/>
+                                                    <label>Technical Answer</label>
+                                                    <input class="form-control techAnswer" placeholder="Enter text"/>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>eventDes</label>
-                                                    <input class="form-control eventDes" placeholder="Enter eventDes" min="1" max="30" required/>
+                                                    <label>Non Technical Answer</label>
+                                                    <input class="form-control nonTechAnswer" placeholder="Enter text"/>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Event startTime</label>
-                                                    <input class="form-control startTime" type="date" placeholder="Enter Event startTime" required/>
+                                                    <label>Hint</label>
+                                                    <textarea class="form-control hint" placeholder="Hint"></textarea>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Event endTime</label>
-                                                    <input class="form-control endTime" type="date" placeholder="Enter Event endTime" required/>
-                                                </div>
-                                                <div class="form-group col-xs-12 col-md-6">
-                                                    <label>duration</label>
-                                                    <input class="form-control duration" type="text" placeholder="Enter duration" required/>
-                                                </div>
-                                                <div class="form-group col-xs-12 col-md-6">
-                                                    <label>totalQues</label>
-                                                    <input class="form-control totalQues" type="number" placeholder="Enter totalQues" min="1" required/>
-                                                </div>
-                                                <div class="form-group col-xs-12 col-md-6">
-                                                    <label>type</label>
-                                                    <select class="form-control type">
-                                                        <option value="1">One Word</option>
-                                                        <option value="2">MCQ</option>
-                                                        <option value="3">Picture</option>
-                                                        <option value="4">Level Blocked</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-xs-12 col-md-6">
-                                                    <label>forum url</label>
-                                                    <input class="form-control forum" type="url" placeholder="Enter forum url" min="1" required/>
+                                                    <label>Level</label>
+                                                    <input class="form-control level" placeholder="Level" type="number" min="1" max="30"/>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-8 alertBox">
                                                     <div class="alert alert-danger hidden">
                                                         <strong>Error !</strong>
-                                                        Event Not Added
+                                                        Question Not Added
                                                     </div>
                                                     <div class="alert alert-success hidden">
                                                         <strong>Success !</strong>
-                                                        Event Added
+                                                        Question Added
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-4">
-                                                    <button class="btn btn-success pull-right addEventBtn">Add Event</button>
+                                                    <button class="btn btn-success pull-right addQuesBtn">Add Question</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,30 +169,28 @@
         <script src="/backoffice/dist/js/sb-admin-2.js"></script>
         <script>
             $(document).ready(function() {
-                console.log(baseUrl);
-                var event = {};
-                $('.addEventBtn').click(function() {
-                    event.eventName = $(".eventName").val();
-                    event.eventDes = $(".eventDes").val();
-                    event.startTime = $(".startTime").val();
-                    event.endTime = $(".endTime").val();
-                    event.duration = $(".duration").val();
-                    event.totalQues = $(".totalQues").val();
-                    event.type = $(".type").val();
-                    event.forum = $(".forum").val();
-                    console.log(event);
-                    $.post(baseUrl+"event", event,
+                var ques = {};
+                var eventId = "1";
+                apiUrl = baseUrl+"event/"+eventId+"/question";
+                $('.addQuesBtn').click(function() {
+                    ques.question = $(".question").val();
+                    ques.level = $(".level").val();
+                    ques.techAnswer = $(".techAnswer").val();
+                    ques.nonTechAnswer = $(".nonTechAnswer").val();
+                    ques.hint = $(".hint").val();
+                    $.post(apiUrl, ques,
                         function(data, status) {
                             console.log("Data: " + data + "\nStatus: " + status);
                             if(data.status){
-                                $(".alert-success").removeClass("hidden");
                                 $('#page-wrapper input').val('');
+                                $(".alert-success").removeClass("hidden");
                             }else{
                                 $(".alert-error").removeClass("hidden");
                             }
-                    });
+                        });
                 });
             });
         </script>
+
     </body>
 </html>

@@ -1,140 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
-    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <!-- DataTables CSS -->
-    <link href="/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-    <!-- DataTables Responsive CSS -->
-    <link href="/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="/backoffice/dist/css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Tech Trek v2.0</a>
-            </div>
-            <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">
-                <li><a href="/logout" class="logOut"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-            </ul>
-            <!-- /.navbar-top-links -->
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search..." id="searchSidebar">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="/admin"><i class="fa fa-bar-chart fa-fw"></i> Leaderboard</a>
-                        </li>
-                        <li>
-                            <a href="/addQuestion"><i class="fa fa-plus fa-fw"></i> Add Question</a>
-                        </li>
-                        <li>
-                            <a href="/removeQuestion"><i class="fa fa-puzzle-piece fa-fw"></i> Manage Questions</a>
-                        </li>
-                        <li>
-                            <a href="/generateReference"><i class="fa fa-barcode fa-fw"></i> Generate Reference</a>
-                        </li>
-                    </ul>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <title>SB Admin 2 - Bootstrap Admin Theme</title>
+        <!-- Bootstrap Core CSS -->
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- MetisMenu CSS -->
+        <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet"/>
+        <!-- DataTables CSS -->
+        <link href="/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet"/>
+        <!-- DataTables Responsive CSS -->
+        <link href="/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet"/>
+        <!-- Custom CSS -->
+        <link href="/backoffice/dist/css/sb-admin-2.min.css" rel="stylesheet"/>
+        <!-- Custom Fonts -->
+        <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div id="wrapper">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Tech Trek v2.0</a>
                 </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Add Question</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Question <strong>1</strong>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div role="form">
-                                        <div class="form-group">
-                                            <label>Question</label>
-                                            <textarea class="form-control question"></textarea>
-                                            <p class="help-block">* Required</p>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-xs-12 col-md-6">
-                                                <label>Technical Answer</label>
-                                                <input class="form-control techAnswer" placeholder="Enter text">
-                                            </div>
-                                            <div class="form-group col-xs-12 col-md-6">
-                                                <label>Non Technical Answer</label>
-                                                <input class="form-control nonTechAnswer" placeholder="Enter text">
-                                            </div>
-                                            <div class="form-group col-xs-12 col-md-6">
-                                                <label>Hint</label>
-                                                <textarea class="form-control hint" placeholder="Hint"></textarea>
-                                            </div>
-                                            <div class="form-group col-xs-12 col-md-6">
-                                                <label>Level</label>
-                                                <input class="form-control level" placeholder="Level" type="number" min="1" max="30">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-8 alertBox">
-                                                <div class="alert alert-danger hidden"><strong>Error !</strong> Question Not Added</div>
-                                                <div class="alert alert-success hidden"><strong>Success !</strong> Question Added</div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-4">
-                                                <button class="btn btn-success pull-right addQuesBtn">Add Question</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                <!-- /.navbar-header -->
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a href="/logout" class="logOut">
+                            <i class="fa fa-sign-out fa-fw"></i>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.navbar-top-links -->
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control" placeholder="Search..." id="searchSidebar"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
                                 </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
-                            <!-- /.panel-body -->
-                        </div>
-                        <!-- /.panel -->
+                                <!-- /input-group -->
+                            </li>
+                            <li>
+                                <a href="/admin">
+                                    <i class="fa fa-bar-chart fa-fw"></i>
+                                    Leaderboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/addQuestion">
+                                    <i class="fa fa-plus fa-fw"></i>
+                                    Add Question
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/removeQuestion">
+                                    <i class="fa fa-puzzle-piece fa-fw"></i>
+                                    Manage Questions
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/generateReference">
+                                    <i class="fa fa-barcode fa-fw"></i>
+                                    Generate Reference
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Add Society</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Society
+                                <strong></strong>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div role="form">
+                                            <div class="row">
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Name</label>
+                                                    <input class="form-control username" placeholder="Enter text" required/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Society Name</label>
+                                                    <input class="form-control socName" placeholder="Enter Society Name" min="1" max="30" required/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Society Privelege</label>
+                                                    <input class="form-control privilege" type="number" placeholder="Enter Society Privelege" min="1" max="5" required/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Email</label>
+                                                    <input class="form-control email" type="email" placeholder="Enter Email" required/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Password</label>
+                                                    <input class="form-control password" type="password" placeholder="Enter Password" required/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Confirm Password</label>
+                                                    <input class="form-control cpassword" type="password" placeholder="Confirm Password" required/>
+                                                </div>
+                                                <div class="form-group col-xs-12">
+                                                    <label>Description</label>
+                                                    <textarea class="form-control description"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-8 alertBox">
+                                                    <div class="alert alert-danger hidden">
+                                                        <strong>Error !</strong>
+                                                        Society Not Added
+                                                    </div>
+                                                    <div class="alert alert-success hidden">
+                                                        <strong>Success !</strong>
+                                                        Society Added
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <button class="btn btn-success pull-right addSocBtn">Add Society</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.col-lg-6 (nested) -->
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /#page-wrapper -->
             </div>
-            <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper -->
         <script src="/vendor/jquery/jquery.min.js"></script>
@@ -144,7 +174,31 @@
         <script src="/vendor/metisMenu/metisMenu.min.js"></script>
         <!-- Custom Theme JavaScript -->
         <script src="/backoffice/dist/js/sb-admin-2.js"></script>
-        <script src="/backoffice/js/addQuestion.js"></script>
-</body>
-
+        <script>
+            $(document).ready(function() {
+                console.log(baseUrl);
+                var society = {};
+                $('.addSocBtn').click(function() {
+                    society.username = $(".username").val();
+                    society.socName = $(".socName").val();
+                    society.email = $(".email").val();
+                    society.password = $(".password").val();
+                    society.password_confirmation = $(".cpassword").val();
+                    society.privilege = $(".privilege").val();
+                    society.description = $(".description").val();
+                    console.log(society);
+                    $.post(baseUrl+"society", society,
+                        function(data, status) {
+                            console.log("Data: " + data + "\nStatus: " + status);
+                            if(data.status){
+                                $('#page-wrapper input').val('');
+                                $(".alert-success").removeClass("hidden");
+                            }else{
+                                $(".alert-error").removeClass("hidden");
+                            }
+                    });
+                });
+            });
+        </script>
+    </body>
 </html>
