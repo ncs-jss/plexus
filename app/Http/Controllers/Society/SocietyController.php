@@ -13,6 +13,7 @@ use Auth;
 use Redirect;
 use App\Society;
 use File;
+use Response;
 
 class SocietyController extends Controller
 {
@@ -181,7 +182,7 @@ class SocietyController extends Controller
         ];
         $remember = (Input::has('remember')) ? true : false;
         if (Auth::guard('society')->attempt($credentials, $remember)) {
-            return Redirect::to('/api/society/dashboard')->with($loginMessage);
+            return Response::json(['redirect' => '/']);
         }
         return "Error in logging";
 

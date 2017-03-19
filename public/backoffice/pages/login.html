@@ -12,26 +12,17 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
-    <link href="/css/backoffice/metisMenu/metisMenu.min.css" rel="stylesheet">
-
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="/css/backoffice/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="/backoffice/dist/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style>
-    </style>
-
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -47,10 +38,10 @@
                         <div role="form">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail or Ph. No." name="userid" type="text" id="userid" autofocus>
+                                    <input class="form-control" placeholder="Username" name="username" type="text" id="username" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="" id="pass">
+                                    <input class="form-control" placeholder="Password" name="password" type="password" value="" id="password">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <button class="btn btn-lg btn-success btn-block" id="login">Login</button>
@@ -63,17 +54,18 @@
     </div>
 
     <!-- jQuery -->
-    <script src="/js/jquery.min.js"></script>
-
+    <script src="/vendor/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="/js/bootstrap.min.js"></script>
-
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="/js/backoffice/metisMenu/metisMenu.min.js"></script>
-
+    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
     <!-- Custom Theme JavaScript -->
-    <script src="/js/backoffice/sb-admin-2.js"></script>
-    <script src="/js/backoffice/login.js"></script>
+    <script src="/backoffice/dist/js/sb-admin-2.js"></script>
+    <script src="/backoffice/js/login.js"></script>
 
 </body>
 
