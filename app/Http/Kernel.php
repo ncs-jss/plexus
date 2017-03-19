@@ -34,6 +34,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            App\Http\Middleware\Cors::class,
         ],
 
         'api' => [
@@ -61,5 +62,7 @@ class Kernel extends HttpKernel
         'user' => \App\Http\Middleware\User::class,
         'society' => \App\Http\Middleware\Society::class,
         'verify' => \App\Http\Middleware\RedirectIfLogin::class,
+
+        'cors' => App\Http\Middleware\Cors::class,
     ];
 }
