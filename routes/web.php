@@ -11,11 +11,19 @@
 |
 */
 
+// Routes
+
 Route::get('/', 'Event\EventController@index');
+Route::resource('event', 'Event\EventController');
+
+
+
+
 Route::group(
     ['prefix' => 'api'], function() {
 
     Route::get('society/login', 'HomeController@society');
+    Route::get('society/dashboard', 'Society\SocietyController@index');
     Route::post('society/login', 'Society\SocietyController@login');
 
     Route::get('user/login', 'HomeController@user');
@@ -33,5 +41,12 @@ Route::get('password/reset', function() {
 
 Route::get('/logout', 'HomeController@logout');
 
+// Api
 
-//
+Route::group(
+    ['prefix' => 'api'], function() {
+
+    Route::get('/', 'Event\EventController@index');
+    Route::resource('event', 'Event\EventControllerApi');
+
+});

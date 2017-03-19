@@ -41,8 +41,8 @@ class SocietyController extends Controller
      */
     public function index()
     {
-        return var_dump(Auth::guard('society')->viaRemember());
-        // return File::get(public_path()."\\temp\\society\\login.html");
+        return File::get(public_path()."\\temp\\society\\login.html");
+
         return Society::all();
     }
 
@@ -181,9 +181,22 @@ class SocietyController extends Controller
         ];
         $remember = (Input::has('remember')) ? true : false;
         if (Auth::guard('society')->attempt($credentials, $remember)) {
-            return Redirect::to('/api/society')->with($loginMessage);
+            return Redirect::to('/api/society/dashboard')->with($loginMessage);
         }
         return "Error in logging";
 
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard()
+    {
+        // return var_dump(Auth::guard('society')->viaRemember());
+        // return File::get(public_path()."\\temp\\society\\login.html");
+        return Society::all();
+    }
 }
+

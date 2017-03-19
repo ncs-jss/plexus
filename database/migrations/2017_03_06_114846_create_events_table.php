@@ -29,6 +29,7 @@ class CreateEventsTable extends Migration
             $table->tinyInteger('winners')->default(0);
             $table->foreign('societyId')->references('id')->on('societies')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

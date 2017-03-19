@@ -172,10 +172,20 @@ class UserController extends Controller
 
         $remember = (Input::has('remember')) ? true : false;
 
-        if (Auth::guard('user')->attempt($credentials, $remember)) {
-            return Redirect::to('/api/user')->with($loginMessage);
-        }
-        return "Error in logging";
+        $data = [
+        "error" => "Error in logging"
+        ];
 
+        if (Auth::guard('user')->attempt($credentials, $remember)) {
+
+            $data = [
+            // 'location' => '/api/user',
+            'message' => $loginMessage,
+            'privilege' => 5
+            ];
+            // return Redirect::to('/api/user')->with($loginMessage);
+        }
+        return $data->toJson();
     }
 }
+
