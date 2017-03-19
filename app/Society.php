@@ -22,7 +22,7 @@ class Society extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'description', 'password', 'privilege', 'socName'
+        'username', 'email', 'description', 'password', 'privilege', 'socName'
     ];
 
     /**

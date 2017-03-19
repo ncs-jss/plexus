@@ -58,7 +58,7 @@ class SocietyControllerApi extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -67,9 +67,11 @@ class SocietyControllerApi extends Controller
         $loginSociety = Society::find($id);
 
         if ($loginSociety->privilege != 1) {
-            return Response::json([
-                "status" => False
-            ]);
+            return Response::json(
+                [
+                "status" => false
+                ]
+            );
         }
 
         $societyInput = Input::all();
@@ -85,10 +87,12 @@ class SocietyControllerApi extends Controller
         );
 
         if ($validator->fails()) {
-            return Response::json([
-                "status" => False,
+            return Response::json(
+                [
+                "status" => false,
                 "errors" => $validator->errors()
-            ]);
+                ]
+            );
         }
 
         $society = new Society;
@@ -99,17 +103,19 @@ class SocietyControllerApi extends Controller
         $society->socName = $societyInput['socName'];
 
         if ($society->save()) {
-            return Response::json([
-                "status" => True,
+            return Response::json(
+                [
+                "status" => true,
                 "redirect" => '/'
-            ]);
+                ]
+            );
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -121,7 +127,7 @@ class SocietyControllerApi extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -132,8 +138,8 @@ class SocietyControllerApi extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -155,19 +161,23 @@ class SocietyControllerApi extends Controller
         $society->socName = $societyInput['socName'];
 
         if ($society->save()) {
-            return Response::json([
-                "status" => True
-            ]);
+            return Response::json(
+                [
+                "status" => true
+                ]
+            );
         }
-        return Response::json([
-            "status" => False
-        ]);
+        return Response::json(
+            [
+            "status" => false
+            ]
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -177,17 +187,21 @@ class SocietyControllerApi extends Controller
         }
 
         if ($loginSociety->privilege != 1) {
-            return Response::json([
-                "status" => False
-            ]);
+            return Response::json(
+                [
+                "status" => false
+                ]
+            );
         }
 
         $society = Society::find($id);
         $society->delete();
 
-        return Response::json([
-            "status" => True
-        ]);
+        return Response::json(
+            [
+            "status" => true
+            ]
+        );
     }
 
     /**
@@ -214,10 +228,12 @@ class SocietyControllerApi extends Controller
         );
 
         if ($validator->fails()) {
-            return Response::json([
-                "status" => False,
+            return Response::json(
+                [
+                "status" => false,
                 "errors" => $validator->errors()
-            ]);
+                ]
+            );
         }
 
         $credentials = [
@@ -227,16 +243,20 @@ class SocietyControllerApi extends Controller
 
         $remember = (Input::has('remember')) ? true : false;
         if (Auth::guard('society')->attempt($credentials, $remember)) {
-            return Response::json([
+            return Response::json(
+                [
                 'redirect' => '/',
-                'status' => True,
+                'status' => true,
                 'societyId' => Auth::guard('society')->id()
-            ]);
+                ]
+            );
         }
-        return Response::json([
-            'status' => False,
+        return Response::json(
+            [
+            'status' => false,
             'errors' => []
-        ]);
+            ]
+        );
 
     }
 }
