@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $society = new Society;
         $society->username = 'nibble';
         $society->email = 'nibble@gmail.com';
+        $society->description = "This is the description of my society";
         $society->password = Hash::make('helloworld');
         $society->privilege = 1;
         $society->socName = 'Nibble Computer Society';
