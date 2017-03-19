@@ -28,7 +28,7 @@ Route::group(
 
     Route::get('user/login', 'HomeController@user');
     Route::post('user/login', 'User\UserController@login');
-
+    Route::resource('event/{id}/question', 'Event\QuestionControllerApi');
     Route::resource('society', 'Society\SocietyControllerApi');
     Route::resource('user', 'User\UserController');
     Route::resource('event', 'Event\EventControllerApi');

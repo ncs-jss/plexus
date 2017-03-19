@@ -46,11 +46,26 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
+        $event = Event::find($id);
+        if ($event != "") {
+            switch ($event->type) {
+                 case 1:
+                    return File::get(public_path()."\\backoffice\\pages\\addQuestion1.html");
+                    break;
+                case 2:
+                    return File::get(public_path()."\\backoffice\\pages\\addQuestion2.html");
+                    break;
 
-        if (Session::has('eventId')) {
-            return File::get(public_path()."\\backoffice\\pages\\addQuestion.html");
+                case 3:
+                    return File::get(public_path()."\\backoffice\\pages\\addQuestion3.html");
+                    break;
+
+                default:
+                    return File::get(public_path()."\\backoffice\\pages\\addEvent.html");
+                    break;
+            }
         }
         return File::get(public_path()."\\backoffice\\pages\\addEvent.html");
     }

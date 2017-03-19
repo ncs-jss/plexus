@@ -44,5 +44,6 @@ $(function() {
             break;
         }
     }
-    baseUrl = "http://ncs-plexus-test.herokuapp.com/api/";
+    // baseUrl = "http://ncs-plexus-test.herokuapp.com/api/";
+    baseUrl = "/api/";
 });

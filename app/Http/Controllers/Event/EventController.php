@@ -51,11 +51,11 @@ class EventController extends Controller
             $society = Society::find($id);
 
             if ($society->privilege == 1) {
-                return File::get(public_path()."\\backoffice\\pages\\admin.html");
+                return File::get(public_path()."/backoffice/pages/admin.html");
             }
-            return File::get(public_path()."\\backoffice\\pages\\index.html");
+            return File::get(public_path()."/backoffice/pages/index.html");
         }
-        return File::get(public_path()."\\dashboard.html");
+        return File::get(public_path()."/dashboard.html");
     }
 
     /**
@@ -65,7 +65,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        return File::get(public_path()."\\backoffice\\pages\\addEvent.html");
+        return File::get(public_path()."/backoffice/pages/addEvent.html");
     }
 
     /**
@@ -100,7 +100,7 @@ class EventController extends Controller
             return File::get(public_path()."play.html");
 
         } elseif (Auth::guard('society')->check()) {
-            return File::get(public_path()."\\backoffice\\pages\\manageEvent.html");
+            return File::get(public_path()."/backoffice/pages/manageEvent.html");
         }
         return File::get(public_path()."login.html");
 
@@ -114,7 +114,7 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        return File::get(public_path()."\\backoffice\\pages\\manageEvent.html");
+        return File::get(public_path()."/backoffice/pages/manageEvent.html");
     }
 
     /**

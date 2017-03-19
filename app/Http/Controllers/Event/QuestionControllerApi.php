@@ -12,7 +12,9 @@ use Session;
 use Auth;
 use Redirect;
 use App\Event;
+use Response;
 use App\Question;
+use App\Answer;
 
 class QuestionControllerApi extends Controller
 {
@@ -55,19 +57,22 @@ class QuestionControllerApi extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param  int $id
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        if (Session::has('eventId')) {
+        $event = Event::find($id);
+
+        if ($event != "") {
 
             $questionInput = Input::all();
 
             $validator = Validator::make(
                 $questionInput, [
                 'question' => 'required|max:255',
-                'type' => 'required|max:255',
+                // 'type' => 'required|max:255',
                 // 'level' => 'required|max:255',
                 'score' => 'required|max:255',
                 'answer' => 'required|max:255',
@@ -75,53 +80,50 @@ class QuestionControllerApi extends Controller
             );
 
             if ($validator->fails()) {
-                return $validator->errors()->toJson();
+                return Response::json(
+                    [
+                    "status" => false,
+                    "errors" => $validator->errors()
+                    ]
+                );
             }
-
-            $eventId = Session::get('eventId');
-            $event = Event::find($eventId);
 
             $question = new Question;
-            $question->eventId = $eventId;
+            $answer = new Answer;
+
+            $question->eventId = $id;
             $question->question = $questionInput['question'];
 
-            if (isset($questionInput['file'])) {
-                if (Input::file('file')->isValid()) {
-                    $destinationPathvfile = public_path('upload');
+            // if (isset($questionInput['file'])) {
+            //     if (Input::file('file')->isValid()) {
+            //         $destinationPathvfile = public_path('upload');
 
-                    $extensionvfile = Input::file('file')->
-                    getClientOriginalExtension();
-                    // renaming image
-                    $fileNamevfile = "Event".$eventId.'.'.$extensionvfile;
-                    Input::file('file')->move($destinationPathvfile, $fileNamevfile);
-                    $question->image = $fileNamevfile;
-                }
-            }
+            //         $extensionvfile = Input::file('file')->
+            //         getClientOriginalExtension();
+            //         // renaming image
+            //         $fileNamevfile = "Event".$eventId.'.'.$extensionvfile;
+            //         Input::file('file')->move($destinationPathvfile, $fileNamevfile);
+            //         $question->image = $fileNamevfile;
+            //     }
+            // }
 
             if (isset($questionInput['html'])) {
                 $question->html = $questionInput['html'];
             }
 
-            $answer = new Answer;
 
-            if (intval($event->type) > 2) {
-
+            if (intval($event->type) == 2) {
                 $question->options = serialize($questionInput['options']);
-
-                $answer->answer = serialize($questionInput['answers']);
-
-            } else {
+            } elseif (intval($event->type) == 3) {
                 $question->level = $questionInput['level'];
-
-                $answer->answer = $questionInput['answer'];
             }
 
+            $answer->answer = $questionInput['answer'];
             $question->type = $event->type;
             $question->save();
 
-
             $answer->score = $questionInput['score'];
-            $answer->quesId = Question::where('eventId', $eventId)->last()->id;
+            $answer->quesId = $question->id;
 
             if (isset($questionInput['incorrect'])) {
                 $answer->incorrect = $questionInput['incorrect'];
@@ -129,9 +131,14 @@ class QuestionControllerApi extends Controller
 
             $answer->save();
 
-            return Redirect::to('question/create');
+            return Response::json([
+                "status" => True
+            ]);
         }
-        return Redirect::to('event/create');
+        return Response::json([
+            "status" => False,
+            "error" => "Invalid Event"
+        ]);
     }
 
     /**

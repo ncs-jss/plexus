@@ -17,6 +17,7 @@ use App\Score;
 use App\Question;
 use Carbon\Carbon;
 use File;
+use Response;
 
 class EventControllerApi extends Controller
 {
@@ -111,32 +112,22 @@ class EventControllerApi extends Controller
         );
 
         if ($validator->fails()) {
-            return $validator->errors()->toJson();
+            return Response::json(
+                [
+                "status" => false,
+                "errors" => $validator->errors()
+                ]
+            );
         }
 
-        $eventInput['societyId'] = Auth::guard('society')->id;
-
-        /*$event = new Event;
-        $event->eventName = $eventInput['eventName'];
-        $event->eventDes = $eventInput['eventDes'];
-        $event->startTime = $eventInput['startTime'];
-        $event->endTime = $eventInput['endTime'];
-        $event->duration = $eventInput['duration'];
-        $event->totalQues = $eventInput['totalQues'];
-        $event->type = $eventInput['type'];
-        // $event->active = $eventInput['active'];
-        $event->forum = $eventInput['forum'];
-        $event->societyId = Auth::guard('society')->id;
-
-        if ( $event->save()) {
-
-        }*/
+        $eventInput['societyId'] = Auth::guard('society')->id();
 
         $event = Event::create($eventInput);
 
-        Session::put('eventId', $event->id);
-
-        return Redirect::to('question/create');
+        return Response::json([
+            "redirect" => '/event',
+            "status" => True
+        ]);
     }
 
     /**
