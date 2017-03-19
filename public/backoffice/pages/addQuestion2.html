@@ -109,24 +109,50 @@
                                             <div class="form-group">
                                                 <label>Question</label>
                                                 <textarea class="form-control question"></textarea>
-                                                <p class="help-block">* Required</p>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Technical Answer</label>
-                                                    <input class="form-control techAnswer" placeholder="Enter text"/>
+                                                    <label>Option 1</label>
+                                                    <input class="form-control option1" placeholder="Enter option1"/>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Non Technical Answer</label>
-                                                    <input class="form-control nonTechAnswer" placeholder="Enter text"/>
+                                                    <label>Option 2</label>
+                                                    <input class="form-control option2" placeholder="Enter option2"/>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Hint</label>
-                                                    <textarea class="form-control hint" placeholder="Hint"></textarea>
+                                                    <label>Option 3</label>
+                                                    <input class="form-control option3" placeholder="Enter option3"/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Option 4</label>
+                                                    <input class="form-control option4" placeholder="Enter option4"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Correct Answer</label>
+                                                    <select class="form-control answer">
+                                                        <option value="1">Option A</option>
+                                                        <option value="2">Option B</option>
+                                                        <option value="3">Option C</option>
+                                                        <option value="4">Option D</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Image File</label>
+                                                    <input type="file" accept="image/*" class="form-control image" placeholder="Enter image"/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>html</label>
+                                                    <textarea class="form-control html" placeholder="html"></textarea>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
                                                     <label>Level</label>
-                                                    <input class="form-control level" placeholder="Level" type="number" min="1" max="30"/>
+                                                    <input class="form-control level" placeholder="Level" type="number" min="1" max="100"/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Score</label>
+                                                    <input class="form-control score" placeholder="Score" type="number" min="1" max="10"/>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -169,15 +195,20 @@
         <script src="/backoffice/dist/js/sb-admin-2.js"></script>
         <script>
             $(document).ready(function() {
+                console.log(baseUrl);
                 var ques = {};
-                var eventId = "1";
-                apiUrl = baseUrl+"event/"+eventId+"/question";
+                ques.eventId = "1";
+                ques.type = "1";
+                apiUrl = baseUrl+"event/"+ques.eventId+"/question";
                 $('.addQuesBtn').click(function() {
                     ques.question = $(".question").val();
                     ques.level = $(".level").val();
-                    ques.techAnswer = $(".techAnswer").val();
-                    ques.nonTechAnswer = $(".nonTechAnswer").val();
-                    ques.hint = $(".hint").val();
+                    ques.image = $(".image").val();
+                    // ques.image = $(".image").prop('files');
+                    ques.answer = $(".answer").val();
+                    ques.score = $(".score").val();
+                    ques.option = [$(".option1").val(),$(".option2").val(),$(".option3").val(),$(".option4").val()];
+                    console.log(ques);
                     $.post(apiUrl, ques,
                         function(data, status) {
                             console.log("Data: " + data + "\nStatus: " + status);
@@ -191,6 +222,5 @@
                 });
             });
         </script>
-
     </body>
 </html>
