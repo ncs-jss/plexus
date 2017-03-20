@@ -163,31 +163,31 @@
         <!-- Custom Theme JavaScript -->
         <script src="/backoffice/dist/js/sb-admin-2.js"></script>
         <script>
-            $(document).ready(function() {
-                console.log(baseUrl);
-                var ques = {};
-                ques.eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
-                ques.type = "1";
-                apiUrl = baseUrl+"event/"+ques.eventId+"/question";
-                $('.addQuesBtn').click(function() {
-                    ques.question = $(".question").val();
-                    ques.image = $(".image").val();
-                    ques.score = $(".score").val();
-                    // ques.image = $(".image").prop('files');
-                    ques.answer = $(".answer").val();
-                    console.log(ques);
-                    $.post(apiUrl, ques,
-                        function(data, status) {
-                            console.log("Data: " + data + "\nStatus: " + status);
-                            if(data.status){
-                                $('#page-wrapper input').val('');
-                                $(".alert-success").removeClass("hidden");
-                            }else{
-                                $(".alert-error").removeClass("hidden");
-                            }
+                    $(document).ready(function() {
+                        console.log(baseUrl);
+                        var ques = {};
+                        ques.eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                        ques.type = "1";
+                        apiUrl = baseUrl+"event/"+ques.eventId+"/question";
+                        $('.addQuesBtn').click(function() {
+                            ques.question = $(".question").val();
+                            ques.image = $(".image").val();
+                            ques.score = $(".score").val();
+                            // ques.image = $(".image").prop('files');
+                            ques.answer = $(".answer").val();
+                            console.log(ques);
+                            $.post(apiUrl, ques,
+                                function(data, status) {
+                                    console.log("Data: " + data + "\nStatus: " + status);
+                                    if(data.status){
+                                        $('#page-wrapper input').val('');
+                                        $(".alert-success").removeClass("hidden");
+                                    }else{
+                                        $(".alert-error").removeClass("hidden");
+                                    }
+                                });
                         });
-                });
-            });
-        </script>
+                    });
+                </script>
     </body>
 </html>
