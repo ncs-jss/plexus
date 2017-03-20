@@ -42,7 +42,7 @@ class QuestionControllerApi extends Controller
     public function index($id)
     {
         $question = Question::where('eventId', $id)->get();
-        if (empty($question)) {
+        if ($question) {
             return Response::json([
                 "status" => False,
                 "error" => "No Questions Added"
