@@ -15,7 +15,7 @@ use App\Event;
 use App\Society;
 use Carbon\Carbon;
 
-class AnswerController extends Controller
+class AnswerControllerApi extends Controller
 {
 
     /**
@@ -58,19 +58,38 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $eventId, $id)
     {
         $answerInput = Input::all();
+        $answerInput = $answerInput['answer'];
+        $correct = False;
 
-        $validator = Validator::make(
-            $answerInput, [
-            'answer' => 'required|max:255',
-            ]
-        );
+        $question = Question::find($id);
 
-        if ($validator->fails()) {
-            return $validator->errors()->toJson();
+        $answer = Answer::where('quesId', $id);
+
+        $score = Score::where([
+            ['userId' => Auth::guard('user')->id()],
+            ['eventId' => $eventId]
+        ]);
+
+        if ($answer->answer == $answerInput) {
+            $correct = True;
         }
+
+        if ($score == "") {
+            $score = new Score;
+            if ($correct) {
+                $score->score = $answer->score;
+                $score->userId = Auth::guard('user')->id();
+                $score->eventId = $eventId;
+                if ($event->type == 3) {
+                    $score->level = $event
+                }
+            }
+        }
+
+
 
 
     }
@@ -83,7 +102,10 @@ class AnswerController extends Controller
      */
     public function show($id)
     {
-        //
+        // $question
+        // if (condition) {
+        //     # code...
+        // }
     }
 
     /**
