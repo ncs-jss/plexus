@@ -28,7 +28,7 @@ class QuestionControllerApi extends Controller
     {
         $this->middleware(
             'society', [
-                'except' => ['show']
+                'except' => ['show', 'index']
             ]
         );
     }
@@ -42,7 +42,7 @@ class QuestionControllerApi extends Controller
     public function index($id)
     {
         $question = Question::where('eventId', $id)->get();
-        if ($question == "") {
+        if (empty($question)) {
             return Response::json([
                 "status" => False,
                 "error" => "No Questions Added"
