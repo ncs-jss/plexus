@@ -4,7 +4,7 @@ $(document).ready(function() {
     $("#login").click(function() {
         login.username = $("#username").val();
         login.password = $("#password").val();
-        $.post("http://127.0.0.1:8000/api/society/login", login,function(data, status) {
+        $.post(baseUrl+"society/login", login,function(data, status) {
                 console.log("Data: " + data + "\nStatus: " + status);
                 console.log(JSON.stringify(data));
                 window.location = data.redirect;
