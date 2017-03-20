@@ -147,10 +147,6 @@
                                                     <textarea class="form-control html" placeholder="html"></textarea>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Level</label>
-                                                    <input class="form-control level" placeholder="Level" type="number" min="1" max="100"/>
-                                                </div>
-                                                <div class="form-group col-xs-12 col-md-6">
                                                     <label>Score</label>
                                                     <input class="form-control score" placeholder="Score" type="number" min="1" max="10"/>
                                                 </div>
@@ -197,12 +193,12 @@
             $(document).ready(function() {
                 console.log(baseUrl);
                 var ques = {};
-                ques.eventId = "2";
-                ques.type = "1";
+                ques.eventId = parseInt($(location).attr('href').split("/")[4]) || "2";
+                ques.type = "2";
+                // console.log($(location).attr('href').split("/").splice(0, 5).join("/"));
                 apiUrl = baseUrl+"event/"+ques.eventId+"/question";
                 $('.addQuesBtn').click(function() {
                     ques.question = $(".question").val();
-                    ques.level = $(".level").val();
                     ques.image = $(".image").val();
                     // ques.image = $(".image").prop('files');
                     ques.answer = $(".answer").val();
