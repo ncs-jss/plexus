@@ -112,14 +112,12 @@
                                             <th>endTime</th>
                                             <th>duration</th>
                                             <th>totalQues</th>
-                                            <th>type</th>
                                             <th>forum</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody class="eventList">
                                         <tr class="hidden">
-                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -158,22 +156,25 @@
         <script src="/backoffice/dist/js/sb-admin-2.js"></script>
         <script>
             $(document).ready(function() {
+                var data;
                 console.log(baseUrl);
                 $.get(baseUrl+"event", function(res) {
-                    console.log(res);
-                    var data = JSON.parse(res.currentEvents);
+                    data = JSON.parse(res.currentEvents);
+                    console.log(data);
                     var openHtml = '<tr>';
-                    var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-success">Edit</button><button class="btn btn-danger deleteEventBtn">Delete</button></div></td></tr>';
-                    var allHtml;
+                    var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-success editEventBtn">Edit</button><button class="btn btn-danger deleteEventBtn">Delete</button></div></td></tr>';
+                    var allHtml = '';
                     for (var i = 0, l = data.length; i < l; i++) {
-                        allHtml = '';
-                        $.each(data[i], function(key, value) {
-                            if (key != "id") {
-                                allHtml += '<td>' + value + '</td>\n';
-                            }
-                        });
+                        allHtml = '<td>' + parseInt(i + 1) + '</td>\n';
+                        allHtml += '<td>' + data[i].eventName + '</td>\n';
+                        allHtml += '<td>' + data[i].startTime + '</td>\n';
+                        allHtml += '<td>' + data[i].endTime + '</td>\n';
+                        allHtml += '<td>' + data[i].duration + '</td>\n';
+                        allHtml += '<td>' + data[i].totalQues + '</td>\n';
+                        allHtml += '<td>' + data[i].forum + '</td>\n';
                         allHtml = openHtml + allHtml + closeHtml;
                         $(".eventList").append(allHtml);
+
                     }
                     $('#dataTables-example').DataTable({
                         responsive: true
@@ -181,16 +182,25 @@
                     $("#searchSidebar").focus(function(){
                         startDictation("#searchSidebar");
                     })
-                });
-                // Delete feature
-                $('.deleteEventBtn').click(function() {
-                    var event_ID = $(this).a;
-                    $.ajax({
-                       url: baseUrl+"event/"+event_ID,
-                       type: 'DELETE',
-                       success: function(data, status) {
-                        console.log("Data: " + data + "\nStatus: " + status);
-                    }
+                    // Delete feature
+                    $('.deleteEventBtn').click(function() {
+                        console.log($(this));
+                        var index = $('.deleteEventBtn').index($(this));
+                        console.log(data[index]);
+                        var event_ID = data[index].id;
+                        $.ajax({
+                           url: baseUrl+"event/"+event_ID,
+                           type: 'DELETE',
+                           success: function(data, status) {
+                            console.log("Data: " + data + "\nStatus: " + status);
+                        }
+                        });
+                    });
+                    $('.editEventBtn').click(function() {
+                        var index = $('.editEventBtn').index($(this));
+                        console.log(data[index]);
+                        var event_ID = data[index].id;
+                        window.location = "/event/"+event_ID+"/edit"
                     });
                 });
             });
