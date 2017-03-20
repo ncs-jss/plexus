@@ -17,8 +17,7 @@ Route::get('/', 'Event\EventController@index');
 Route::resource('event', 'Event\EventController');
 Route::get('society/login', 'HomeController@society');
 Route::resource('society', 'Society\SocietyController');
-Route::resource('event/{id}/question', 'Event\QuestionController');
-
+Route::resource('event/{eventId}/question', 'Event\QuestionController');
 
 Route::group(
     ['prefix' => 'api'], function() {
@@ -28,7 +27,8 @@ Route::group(
 
     Route::get('user/login', 'HomeController@user');
     Route::post('user/login', 'User\UserController@login');
-    Route::resource('event/{id}/question', 'Event\QuestionControllerApi');
+    Route::resource('event/{eventId}/question', 'Event\QuestionControllerApi');
+    Route::post('event/{eventId}/answer/{id}', 'Event\AnswerControllerApi@store');
     Route::resource('society', 'Society\SocietyControllerApi');
     Route::resource('user', 'User\UserController');
     Route::resource('event', 'Event\EventControllerApi');

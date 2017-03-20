@@ -25,9 +25,7 @@ class QuestionController extends Controller
     public function __construct()
     {
         $this->middleware(
-            'society', [
-                'except' => ['show']
-            ]
+            'society'
         );
     }
 
@@ -44,39 +42,39 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  int $id
+     * @param  int $eventId
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($eventId)
     {
-        $event = Event::find($id);
+        $event = Event::find($eventId);
         if ($event != "") {
             switch ($event->type) {
             case 1:
                 return File::get(
-                    public_path()."\\backoffice\\pages\\addQuestion1.html"
+                    public_path()."/backoffice/pages/addQuestion1.html"
                 );
                 break;
             case 2:
                 return File::get(
-                    public_path()."\\backoffice\\pages\\addQuestion2.html"
+                    public_path()."/backoffice/pages/addQuestion2.html"
                 );
                 break;
 
             case 3:
                 return File::get(
-                    public_path()."\\backoffice\\pages\\addQuestion3.html"
+                    public_path()."/backoffice/pages/addQuestion3.html"
                 );
                 break;
 
             default:
                 return File::get(
-                    public_path()."\\backoffice\\pages\\addEvent.html"
+                    public_path()."/backoffice/pages/addEvent.html"
                 );
                 break;
             }
         }
-        return File::get(public_path()."\\backoffice\\pages\\addEvent.html");
+        return File::get(public_path()."/backoffice/pages/addEvent.html");
     }
 
     /**
@@ -94,20 +92,30 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  int $eventId
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($eventId, $id)
     {
-        if (Auth::guard('user')->check()) {
-            return File::get(public_path()."\\backoffice\\pages\\addQuestion.html");
-        } elseif (Auth::guard('society')->check()) {
+        $question = Question::where([
+            ['id', $id],
+            ['eventId', $eventId]
+        ]);
+
+        if ($question == "") {
+            /*return Response::json([
+                "status" => False,
+                "error" => 'Not Found'
+            ]);*/
             return File::get(
-                public_path()."\\backoffice\\pages\\manageQuestion.html"
+                public_path()."/backoffice/pages/index.html"
             );
         }
-        return Redirect::to('/');
 
+        return File::get(
+            public_path()."/backoffice/pages/manageQuestion.html"
+        );
     }
 
     /**
@@ -116,9 +124,24 @@ class QuestionController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($eventId, $id)
     {
-        return File::get(public_path()."\\backoffice\\pages\\manageQuestion.html");
+        $question = Question::where([
+            ['id', $id],
+            ['eventId', $eventId]
+        ]);
+
+        if ($question == "") {
+            /*return Response::json([
+                "status" => False,
+                "error" => 'Not Found'
+            ]);*/
+            return File::get(
+                public_path()."/backoffice/pages/index.html"
+            );
+        }
+
+        return File::get(public_path()."/backoffice/pages/manageQuestion.html");
     }
 
     /**

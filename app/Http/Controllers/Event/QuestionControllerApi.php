@@ -58,12 +58,12 @@ class QuestionControllerApi extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  int                      $eventId
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request, $eventId)
     {
-        $event = Event::find($id);
+        $event = Event::find($eventId);
 
         if ($event != "") {
 
@@ -91,7 +91,7 @@ class QuestionControllerApi extends Controller
             $question = new Question;
             $answer = new Answer;
 
-            $question->eventId = $id;
+            $question->eventId = $eventId;
             $question->question = $questionInput['question'];
 
             // if (isset($questionInput['file'])) {
@@ -149,37 +149,80 @@ class QuestionControllerApi extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  int $eventId
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($eventId, $id)
     {
-        $question = Question::find($id)->toJson();
+        $question = Question::where([
+            ['id', $id],
+            ['eventId', $eventId]
+        ]);
 
-        return $question;
+        if ($question == "") {
+            return File::get(
+                public_path()."/backoffice/pages/index.html"
+            );
+        }
+
+        if (Auth::guard('user')->check()) {
+            $event = Event::find($eventId);
+            if ($event->type == 3) {
+                $score = Score::where([
+                    ['userId' => Auth::guard('user')->id()],
+                    ['eventId' => $eventId]
+                ]);
+                if ($score->level != $question->level-1) {
+                    return Response::json([
+                        "status" => False,
+                        "error" => "Invalid Level"
+                    ]);
+                }
+            }
+        }
+
+        return Response::json([
+            "status" => True,
+            "data" => $question
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  int $eventId
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($eventId, $id)
     {
-        $question = Question::find($id)->toJson();
+        $question = Question::where([
+            ['id', $id],
+            ['eventId', $eventId]
+        ]);
 
-        return $question;
+        if ($question == "") {
+            return File::get(
+                public_path()."/backoffice/pages/index.html"
+            );
+        }
+
+        return Response::json([
+            "status" => True,
+            "data" => $question
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
+     * @param  int                      $eventId
      * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $eventId, $id)
     {
         //
     }
@@ -187,11 +230,20 @@ class QuestionControllerApi extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  int $eventId
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($eventId, $id)
     {
-        //
+        $question = Question::where([
+            ['id', $id],
+            ['eventId', $eventId]
+        ]);
+
+        if ($event->delete()) {
+            return Response::json(["success" => "Event is deleted"]);
+        }
+        return Response::json(["error" => "Error in deletion"]);
     }
 }
