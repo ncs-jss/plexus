@@ -7,6 +7,9 @@ use File;
 use Auth;
 use Session;
 use View;
+use App\Score;
+use App\User;
+use Response;
 
 class HomeController extends Controller
 {
@@ -18,7 +21,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('verify', ['except' => ['logout']]);
+        $this->middleware('verify', ['except' => ['logout', 'leaderboard', 'showLeaderboard']]);
     }
 
     /**
@@ -40,6 +43,31 @@ class HomeController extends Controller
     public function user()
     {
         return File::get(public_path()."/Temp/User/login.html");
+    }
+
+    /**
+     * LeaderBoard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLeaderboard($id)
+    {
+        return File::get(public_path()."/gameplay/leaderboard.html");
+    }
+
+    /**
+     * LeaderBoard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function leaderboard($id)
+    {
+        $score = Score::where('eventId', $id)->orderBy('score', 'desc')->limit(5)->get();
+        foreach ($score as $key => $value) {
+            $user = User::find($value->userId);
+            $score[$key]->user = $user;
+        }
+        return Response::json(["data" => $score]);
     }
 
     public function logout(Request $request)
