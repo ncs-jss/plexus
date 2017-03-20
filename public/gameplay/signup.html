@@ -16,43 +16,13 @@
         <!--  CSS for Demo Purpose, don't include it in your project     -->
         <link href="/assets/css/demo.css" rel="stylesheet"/>
         <!--     Fonts and icons     -->
-        <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'/>
         <link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
     </head>
     <body>
         <div class="wrapper">
-            <div class="sidebar" data-color="purple" data-image="/assets/img/sidebar-5.jpg">
-                <!--
-                
-                        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-                        Tip 2: you can also add an image using data-image tag
-                
-                    -->
-                <div class="sidebar-wrapper">
-                    <div class="logo">
-                        <div class="text-center" style="margin-top: 20px;">
-                            <img src="/assets/img/tim_80x80.png" alt="" class="img-circle" style="width: 80px;height: 80px;"/>
-                        </div>
-                        <a href="http://www.creative-tim.com" class="simple-text">Aditya</a>
-                    </div>
-                    <ul class="nav">
-                        <li class="active">
-                            <a href="/gameplay/dashboard1">
-                                <i class="pe-7s-science"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/gameplay/user">
-                                <i class="pe-7s-user"></i>
-                                <p>Edit Profile</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="main-panel">
+            <div class="main-panel" style="width: 100%;background: #56CCF2;background: linear-gradient(to bottom, #56CCF2 , #2F80ED);">
                 <nav class="navbar navbar-default navbar-fixed">
                     <div class="container-fluid">
                         <div class="navbar-header">
@@ -62,80 +32,55 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="#">Profile</a>
+                            <a class="navbar-brand" href="#">Login</a>
                         </div>
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <a href="/api/logout">Log out</a>
+                                    <a href="#">Sign Up</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </nav>
                 <div class="content">
-                    <div class="container-fluid">
+                    <div class="container">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="card card-user">
-                                    <div class="image">
-                                        <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-                                    </div>
-                                    <div class="content">
-                                        <div class="author">
-                                            <a href="#">
-                                                <img class="avatar border-gray" src="/assets/img/faces/face-3.jpg" alt="..."/>
-                                                <h4 class="title">
-                                                    Mike Andrew
-                                                    <br/>
-                                                    <small>michael24@gmail.com</small>
-                                                </h4>
-                                            </a>
-                                        </div>
-                                        <h3 class="description text-center" style="font-size: 18px;">
-                                            <br/>
-                                            Score  : 40 pts.
-                                            <br/>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6 col-md-offset-3">
                                 <div class="card">
                                     <div class="header">
-                                        <h4 class="title">Edit Profile</h4>
+                                        <h4 class="title text-center">SignUp</h4>
+                                        <hr>
                                     </div>
-                                    <div class="content">
+                                    <div class="content" style="margin: 6px;">
                                         <form>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-6" style="padding-left: 6px;">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Email address</label>
                                                         <input type="email" class="form-control" placeholder="Email" value="michael24@gmail.com" disabled/>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6" style="">
+                                                    <div class="form-group">
+                                                        <label>Name</label>
+                                                        <input type="text" class="form-control" placeholder="Password" value="Mike"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" style="">
                                                     <div class="form-group">
                                                         <label>Password</label>
                                                         <input type="password" class="form-control" placeholder="Password" value="Mike"/>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-6" style="">
                                                     <div class="form-group">
-                                                        <label>First Name</label>
-                                                        <input type="text" class="form-control" placeholder="Company" value="Mike"/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Last Name</label>
-                                                        <input type="text" class="form-control" placeholder="Last Name" value="Andrew"/>
+                                                        <label>Confirm Password</label>
+                                                        <input type="password" class="form-control" placeholder="Password" value="Mike"/>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                            <button type="submit" class="btn btn-info btn-fill pull-right">SignUp</button>
                                             <div class="clearfix"></div>
                                         </form>
                                     </div>
@@ -181,6 +126,8 @@
     <script src="/assets/js/chartist.min.js"></script>
     <!--  Notifications Plugin    -->
     <script src="/assets/js/bootstrap-notify.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="/assets/js/light-bootstrap-dashboard.js"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
