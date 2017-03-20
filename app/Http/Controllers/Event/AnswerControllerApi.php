@@ -83,8 +83,8 @@ class AnswerControllerApi extends Controller
                 $score->score = $answer->score;
                 $score->userId = Auth::guard('user')->id();
                 $score->eventId = $eventId;
-                if ($event->type == 3) {
-                    $score->level = $event
+                if ($question->type == 3) {
+                    $score->level = $question->level;
                 }
             }
         }
