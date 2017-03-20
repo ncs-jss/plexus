@@ -165,7 +165,8 @@ class EventControllerApi extends Controller
         } elseif (Auth::guard('society')->check()) {
             $question = Question::where('eventId', $id)->get()->toJson();
         } else {
-            return Redirect::to('/login');
+            // return Redirect::to('/login');
+            $question = Question::where('eventId', $id)->get()->toJson();
         }
 
         $data = [

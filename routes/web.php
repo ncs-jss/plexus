@@ -14,6 +14,8 @@
 // Routes
 
 Route::get('/', 'Event\EventController@index');
+Route::get('/event/{eventId}/leaderboard', 'HomeController@showLeaderboard');
+Route::get('event/{id}/about', 'Event\EventController@about');
 Route::resource('event', 'Event\EventController');
 Route::get('society/login', 'HomeController@society');
 Route::resource('society', 'Society\SocietyController');
@@ -24,7 +26,7 @@ Route::group(
 
     Route::get('society/dashboard', 'Society\SocietyController@index');
     Route::post('society/login', 'Society\SocietyControllerApi@login');
-
+    Route::get('/event/{eventId}/leaderboard', 'HomeController@leaderboard');
     Route::get('user/login', 'HomeController@user');
     Route::post('user/login', 'User\UserController@login');
     Route::resource('event/{eventId}/question', 'Event\QuestionControllerApi');

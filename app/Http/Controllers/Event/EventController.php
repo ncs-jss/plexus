@@ -30,7 +30,7 @@ class EventController extends Controller
     {
         $this->middleware(
             'society', [
-                'except' => ['show', 'index']
+                'except' => ['show', 'index', 'about']
             ]
         );
     }
@@ -88,17 +88,15 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::find($id);
-        Session::put('eventId', $event->id);
 
         if (Auth::guard('user')->check()) {
 
             if ($event->type == 1) {
-                return File::get(public_path()."play.html");
+                return File::get(public_path()."/gameplay/dashboard1.html");
             } elseif ($event->type == 2) {
-                return File::get(public_path()."play.html");
+                return File::get(public_path()."/gameplay/dashboard2.html");
             }
-            return File::get(public_path()."play.html");
-
+            return File::get(public_path()."/gameplay/dashboard3.html");
         } elseif (Auth::guard('society')->check()) {
             return File::get(public_path()."/backoffice/pages/manageEvent.html");
         }
@@ -138,5 +136,24 @@ class EventController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function about($id)
+    {
+        $event = Event::find($id);
+
+        // if (Auth::guard('user')->check()) {
+            return File::get(public_path()."/gameplay/about.html");
+        // } elseif (Auth::guard('society')->check()) {
+        //     return File::get(public_path()."/gameplay/about.html");
+        // }
+        // return File::get(public_path()."/login.html");
+
     }
 }
