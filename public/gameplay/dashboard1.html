@@ -50,6 +50,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="/gameplay/about">
+                                <i class="pe-7s-graph"></i>
+                                <p>About Event</p>
+                            </a>
+                        </li>
+                        <li>
                             <a href="/gameplay/user">
                                 <i class="pe-7s-user"></i>
                                 <p>Edit Profile</p>
@@ -68,7 +74,9 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="#"><strong>Errata</strong></a>
+                            <a class="navbar-brand" href="#">
+                                <strong>Errata</strong>
+                            </a>
                         </div>
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
@@ -85,10 +93,13 @@
                             <div class="col-md-6">
                                 <div class="card fadeInUp">
                                     <div class="header">
-                                        <h2 class="title"><i class="pe-7s-comment"></i>&nbsp; Question</h2>
+                                        <h2 class="title">
+                                            <i class="pe-7s-comment"></i>
+                                            &nbsp; Question
+                                        </h2>
                                         <hr/>
                                     </div>
-                                    <div class="content">
+                                    <div class="content ques">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos adipisci animi repudiandae, omnis. Illo deserunt, nam blanditiis iste, ab, quibusdam totam dolor consectetur dicta reprehenderit voluptatem laboriosam eius consequuntur veritatis.</p>
                                         <div style="width: 100%;height: 200px;text-align: center;margin: 20px;">
                                             <img src="/assets/img/one.jpg" alt="" class="" style="object-fit: cover;height: 100%;"/>
@@ -99,20 +110,68 @@
                             <div class="col-md-6">
                                 <div class="card ">
                                     <div class="header">
-                                        <h4 class="title"><i class="pe-7s-light"></i>&nbsp; Options</h4>
+                                        <h4 class="title">
+                                            <i class="pe-7s-light"></i>
+                                            &nbsp; Options
+                                        </h4>
                                         <p class="category">Pick one from the following</p>
                                     </div>
                                     <div class="content">
                                         <div class="table-full-width">
-                                            <table class="table">
+                                            <table class="table optionTable">
                                                 <tbody>
                                                     <tr>
                                                         <td>
                                                             <div class="row">
                                                                 <div class="col-xs-12">
-                                                                    <label class="radio" style="width: 100%;">
-                                                                        <input type="radio" value="" data-toggle="radio"/>
+                                                                    <label class="radio" style="height: auto;width: 100%;">
+                                                                        <input type="radio" name="optionRadio" value="1" data-toggle="radio"/>
                                                                         <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 1</h5>
+                                                                    </label>
+                                                                </div>
+                                                                <!-- <div class="col-xs-11">
+                                                                    <h5 style="margin-top: 0">Option 1</h5>
+                                                                </div> -->
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <label class="radio" style="height: auto;width: 100%;">
+                                                                        <input type="radio" name="optionRadio" value="2" data-toggle="radio"/>
+                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 2</h5>
+                                                                    </label>
+                                                                </div>
+                                                                <!-- <div class="col-xs-11">
+                                                                    <h5 style="margin-top: 0">Option 1</h5>
+                                                                </div> -->
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <label class="radio" style="height: auto;width: 100%;">
+                                                                        <input type="radio" name="optionRadio" value="3" data-toggle="radio"/>
+                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 3</h5>
+                                                                    </label>
+                                                                </div>
+                                                                <!-- <div class="col-xs-11">
+                                                                    <h5 style="margin-top: 0">Option 1</h5>
+                                                                </div> -->
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <label class="radio" style="height: auto;width: 100%;">
+                                                                        <input type="radio" name="optionRadio" value="4" data-toggle="radio"/>
+                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 4</h5>
                                                                     </label>
                                                                 </div>
                                                                 <!-- <div class="col-xs-11">
@@ -204,16 +263,55 @@
                     "Mayday! Mayday! Unknown response!!",
                     "Are you still knocking at the door? ",
                     "Ahoy!! but you still missed it."
-                ]
-                $(".submitBtn").click(function(){
-                    $.notifyClose();
-                    $.notify({
-                        icon: 'pe-7s-gift',
-                        message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
-                    },{
-                        type: 'danger',
-                        timer: 10,
-                        newest_on_top: true
+                ];
+                var ques = {
+                    id:1
+                }
+                var u = "http://127.0.0.1:8080/event/2/leaderboard"
+                // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                console.log(u.split("/"));
+                var eventId = parseInt(u.split("/")[4]) || "1";
+                var apiQuesUrl = baseUrl+"event/"+eventId+"/question";
+                var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer"+ques.id;
+                $.get(apiQuesUrl, function(data) {
+                    if (!data.status) {
+                        // window.location = data.redirect;
+                    } else {
+                        setTimeout(function() {
+                            $(".ques p").addClass("animated fadeIn");
+                            $(".ques p").html(data.question);
+
+                        }, 600);
+                    }
+                    $(".submitBtn").click(function(){
+                        var selected = {
+                            answer : $(".optionTable .radio input:checked").val()
+                        };
+                        console.log(selected);
+                        $.post(apiCheckAnsUrl, selected,
+                            function(data, status) {
+                                console.log("Data: " + data + "\nStatus: " + status);
+                                $.notifyClose();
+                                if(data.status){
+                                    $.notify({
+                                        icon: 'pe-7s-attention',
+                                        message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
+                                    },{
+                                        type: 'danger',
+                                        timer: 10,
+                                        newest_on_top: true
+                                    });
+                                }else{
+                                    $.notify({
+                                        icon: 'pe-7s-cup',
+                                        message: "Bingo !"
+                                    },{
+                                        type: 'success',
+                                        timer: 10,
+                                        newest_on_top: true
+                                    });
+                                }
+                            });
                     });
                 });
             });

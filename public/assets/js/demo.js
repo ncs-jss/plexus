@@ -1,6 +1,7 @@
 type = ['','info','success','warning','danger'];
-    	
-
+var baseUrl;
+baseUrl = "http://ncs-plexus.herokuapp.com/api/";
+// baseUrl = "/api/";
 demo = {
     initPickColor: function(){
         $('.pick-class-label').click(function(){

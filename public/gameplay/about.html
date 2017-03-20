@@ -295,4 +295,20 @@
     <script src="/assets/js/light-bootstrap-dashboard.js"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
+    <script>
+        $(document).ready(function() {
+            var data;
+            console.log(baseUrl);
+            var u = "http://127.0.0.1:8080/event/2"
+            // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+            console.log(u.split("/"));
+            var eventId = parseInt(u.split("/")[4]) || "1";
+            apiUrl = baseUrl+"event/"+eventId;
+            console.log(apiUrl);
+            $.get(apiUrl, function(res) {
+                data = JSON.parse(res.currentEvents);
+                console.log(data);
+            });
+        });
+    </script>
 </html>
