@@ -117,11 +117,21 @@
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
                                                     <label>Event startTime</label>
-                                                    <input class="form-control startTime" type="datetime-local" placeholder="Enter Event startTime" required/>
+                                                    <div class='input-group date ' id='datetimepicker1'>
+                                                        <input type='text' class="form-control startTime"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
                                                     <label>Event endTime</label>
-                                                    <input class="form-control endTime" type="datetime-local" placeholder="Enter Event endTime" required/>
+                                                    <div class='input-group date' id='datetimepicker2'>
+                                                        <input type='text' class="form-control endTime"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
                                                     <label>duration</label>
@@ -181,12 +191,27 @@
         <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
         <!-- Metis Menu Plugin JavaScript -->
         <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+        <script src="/vendor/moment/min/moment.min.js"></script>
+        <script src="/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <link href="/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
         <!-- Custom Theme JavaScript -->
         <script src="/backoffice/dist/js/sb-admin-2.js"></script>
         <script>
             $(document).ready(function() {
                 console.log(baseUrl);
                 var event = {};
+                $('.date').datetimepicker({
+                    format:"YYYY-MM-DD HH:MM"
+                });
+                $('#datetimepicker2').datetimepicker({
+                    useCurrent: false 
+                });
+                $("#datetimepicker1").on("dp.change", function (e) {
+                    $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+                });
+                $("#datetimepicker2").on("dp.change", function (e) {
+                    $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+                });
                 $('.addEventBtn').click(function() {
                     event.eventName = $(".eventName").val();
                     event.eventDes = $(".eventDes").val();
