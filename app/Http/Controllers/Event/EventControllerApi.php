@@ -60,14 +60,6 @@ class EventControllerApi extends Controller
 
         $privilege = 0;
 
-        if (Auth::guard('society')->check()) {
-            $privilege = Auth::guard('society')->privilege;
-        } elseif (Auth::guard('user')->check()) {
-            $privilege = 5;
-        } else {
-            $privilege = 10;
-        }
-
         $events = [
             'currentEvents' => $currentEvents,
             'futureEvents' => $futureEvents,
