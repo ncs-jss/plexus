@@ -189,8 +189,8 @@
                                     	<th>Score</th>
                                         <th>Total Submits</th>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody class="userList">
+                                        <tr class="hidden">
                                             <td>1</td>
                                             <td><img src="/assets/img/tim_80x80.png" alt="" class="img-circle" style="width: 40px;height: 40px;"></td>
                                             <td>Dakota Rice</td>
@@ -268,6 +268,36 @@
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="/assets/js/demo.js"></script>
+    <script>
+        $(document).ready(function() {
+            var data;
+            console.log(baseUrl);
+            var u = "http://127.0.0.1:8080/event/2/leaderboard"
+            // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+            console.log(u.split("/"));
+            var eventId = parseInt(u.split("/")[4]) || "1";
+            apiUrl = baseUrl+"event";
+            // apiUrl = baseUrl+"event/"+eventId+"/leaderboard";
+            console.log(apiUrl);
+            $.get(apiUrl, function(res) {
+                data = JSON.parse(res.currentEvents);
+                console.log(data);
+                var openHtml = '<tr>';
+                var closeHtml = '</tr>';
+                var allHtml = '';
+                for (var i = 0, l = data.length; i < l; i++) {
+                    allHtml = '<td>' + parseInt(i + 1) + '</td>\n';
+                    allHtml += '<td>' + data[i].startTime + '</td>\n';
+                    allHtml += '<td>' + data[i].eventName + '</td>\n';
+                    allHtml += '<td>' + data[i].endTime + '</td>\n';
+                    allHtml += '<td>' + data[i].duration + '</td>\n';
+                    allHtml += '<td>' + data[i].totalQues + '</td>\n';
+                    allHtml = openHtml + allHtml + closeHtml;
+                    $(".userList").append(allHtml);
 
+                }
+            });
+        });
+    </script>
 
 </html>

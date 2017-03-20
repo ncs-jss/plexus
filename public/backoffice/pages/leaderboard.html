@@ -1,154 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
-    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <!-- DataTables CSS -->
-    <link href="/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-    <!-- DataTables Responsive CSS -->
-    <link href="/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="/backoffice/dist/css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Tech Trek v2.0</a>
-            </div>
-            <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">
-                <li><a href="/logout" class="logOut"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-            </ul>
-            <!-- /.navbar-top-links -->
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search..." id="searchSidebar">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="/admin"><i class="fa fa-bar-chart fa-fw"></i> Leaderboard</a>
-                        </li>
-                        <li>
-                            <a href="/addQuestion"><i class="fa fa-plus fa-fw"></i> Add Question</a>
-                        </li>
-                        <li>
-                            <a href="/removeQuestion"><i class="fa fa-puzzle-piece fa-fw"></i> Manage Questions</a>
-                        </li>
-                        <li>
-                            <a href="/generateReference"><i class="fa fa-barcode fa-fw"></i> Generate Reference</a>
-                        </li>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <title>SB Admin 2 - Bootstrap Admin Theme</title>
+        <!-- Bootstrap Core CSS -->
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- MetisMenu CSS -->
+        <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet"/>
+        <!-- DataTables CSS -->
+        <link href="/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet"/>
+        <!-- DataTables Responsive CSS -->
+        <link href="/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet"/>
+        <!-- Custom CSS -->
+        <link href="/backoffice/dist/css/sb-admin-2.min.css" rel="stylesheet"/>
+        <!-- Custom Fonts -->
+        <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div id="wrapper">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Tech Trek v2.0</a>
+                </div>
+                <!-- /.navbar-header -->
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a href="/logout" class="logOut">
+                            <i class="fa fa-sign-out fa-fw"></i>
+                            Logout
+                        </a>
                     </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Leaderboard</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
- <!--                        <div class="panel-heading">
-                            DataTables Advanced Tables
-                        </div> -->
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Rank</th>
-                                        <th class="text-center">Name</th>
-                                        <th class="text-center">Score</th>
-                                        <th class="text-center">Level</th>
-                                        <th class="text-center">Year</th>
-                                        <th class="text-center">Email</th>
-                                        <th class="text-center"></th>
-
-                                    </tr>
-                                </thead>
-                                <tbody class="userList">
-                                    <tr class="hidden">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- /.table-responsive -->
+                    <!-- /.navbar-top-links -->
+                    <div class="navbar-default sidebar" role="navigation">
+                        <div class="sidebar-nav navbar-collapse">
+                            <ul class="nav" id="side-menu">
+                                <li class="sidebar-search">
+                                    <div class="input-group custom-search-form">
+                                        <input type="text" class="form-control" placeholder="Search..." id="searchSidebar"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <!-- /input-group -->
+                                </li>
+                                <li>
+                                    <a href="/admin">
+                                        <i class="fa fa-bar-chart fa-fw"></i>
+                                        Leaderboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/addQuestion">
+                                        <i class="fa fa-plus fa-fw"></i>
+                                        Add Question
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/removeQuestion">
+                                        <i class="fa fa-puzzle-piece fa-fw"></i>
+                                        Manage Questions
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/generateReference">
+                                        <i class="fa fa-barcode fa-fw"></i>
+                                        Generate Reference
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <!-- /.panel-body -->
+                        <!-- /.sidebar-collapse -->
                     </div>
-                    <!-- /.panel -->
+                    <!-- /.navbar-static-side -->
+                </nav>
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Leaderboard</h1>
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <!--                        <div class="panel-heading">
+                                                           DataTables Advanced Tables
+                                                       </div> -->
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>Rank</th>
+                                                <th></th>
+                                                <th>Name</th>
+                                                <th>Username</th>
+                                                <th>Score</th>
+                                                <th>Total Submits</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="userList">
+                                            <tr class="hidden">
+                                                <td>1</td>
+                                                <td>
+                                                    <img src="/assets/img/tim_80x80.png" alt="" class="img-circle" style="width: 40px;height: 40px;"/>
+                                                </td>
+                                                <td>Dakota Rice</td>
+                                                <td>$36,738</td>
+                                                <td>Niger</td>
+                                                <td>200</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- /.table-responsive -->
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <!-- /.row -->
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /#page-wrapper -->
             </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
-    </div>
-    <!-- /#wrapper -->
-    <!-- jQuery -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
-    <!-- DataTables JavaScript -->
-    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="/backoffice/dist/js/sb-admin-2.js"></script>
-    <script src="/backoffice/js/leaderboard.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-        $("#searchSidebar").focus(function(){
-            startDictation("#searchSidebar");
-        })
-    });
-    </script>
-</body>
-
-</html>
+            <!-- /#wrapper -->
+            <!-- jQuery -->
+            <script src="/vendor/jquery/jquery.min.js"></script>
+            <!-- Bootstrap Core JavaScript -->
+            <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+            <!-- Metis Menu Plugin JavaScript -->
+            <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+            <!-- DataTables JavaScript -->
+            <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+            <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+            <!-- Custom Theme JavaScript -->
+            <script src="/backoffice/dist/js/sb-admin-2.js"></script>
+            <script>
+                    $(document).ready(function() {
+                        var data;
+                        console.log(baseUrl);
+                        var u = "http://127.0.0.1:8080/event/2/leaderboard"
+                        // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                        console.log(u.split("/"));
+                        var eventId = parseInt(u.split("/")[4]) || "1";
+                        apiUrl = baseUrl+"event";
+                        // apiUrl = baseUrl+"event/"+eventId+"/leaderboard";
+                        console.log(apiUrl);
+                        $.get(apiUrl, function(res) {
+                            data = JSON.parse(res.currentEvents);
+                            console.log(data);
+                            var openHtml = '<tr>';
+                            var closeHtml = '</tr>';
+                            var allHtml = '';
+                            for (var i = 0, l = data.length; i < l; i++) {
+                                allHtml = '<td>' + parseInt(i + 1) + '</td>\n';
+                                allHtml += '<td>' + data[i].startTime + '</td>\n';
+                                allHtml += '<td>' + data[i].eventName + '</td>\n';
+                                allHtml += '<td>' + data[i].endTime + '</td>\n';
+                                allHtml += '<td>' + data[i].duration + '</td>\n';
+                                allHtml += '<td>' + data[i].totalQues + '</td>\n';
+                                allHtml = openHtml + allHtml + closeHtml;
+                                $(".userList").append(allHtml);
+            
+                            }
+                        });
+                    });
+                </script>
+            <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+            <script>
+            
+                $(document).ready(function() {
+                    $('#dataTables-example').DataTable({
+                        responsive: true
+                    });
+                    $("#searchSidebar").focus(function(){
+                        startDictation("#searchSidebar");
+                    })
+                });
+                </script>
+        </body>
+    </html>
