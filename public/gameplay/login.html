@@ -47,7 +47,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-2 col-md-offset-5 text-center">
-                                <img src="/assets/img/zeallogo.png" alt="" style="width: 150px;">
+                                <img src="/assets/img/zeallogo.png" alt="" style="width: 150px;"/>
                             </div>
                         </div>
                         <div class="row">
@@ -60,15 +60,18 @@
                                         <form role="form" data-toggle="validator" id="loginForm">
                                             <div class="row" style="display: flex;align-items: center;flex-direction: column;">
                                                 <div class="col-md-11" style="padding: 0;">
-                                                    <div class="form-group">
+                                                    <div class="form-group has-feedback">
                                                         <label for="exampleInputEmail1">Email address</label>
-                                                        <input type="email" class="form-control email" placeholder="Email" value="michael24@gmail.com" required/>
+                                                        <input type="email" class="form-control email" placeholder="Email" value="michael24@gmail.com" data-error="Bruh, that email address is invalid" required/>
+                                                        <div class="help-block with-errors"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-11" style="padding: 0;">
                                                     <div class="form-group">
                                                         <label>Password</label>
                                                         <input type="password" class="form-control password" placeholder="Password" value="Mike" data-minlength="6" required/>
+
+                                                        <div class="help-block"> <i class="pe-7s-info"></i> Minimum of 6 characters </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -120,37 +123,25 @@
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#loginForm').validator()
-            var login = {};
-            $('#loginForm').validator().on('submit', function (e) {
-              if (e.isDefaultPrevented()) {
-                console.log('test');
-              } else {
-                // everything looks good!
-                event.preventDefault();
-                console.log('test2');
-                login.email = $(".email").val();
-                login.password = $(".password").val();
-                console.log(login);
-                $.post(baseUrl+"user/login", login,function(data, status) {
-                        console.log("Data: " + data + "\nStatus: " + status);
-                        console.log(JSON.stringify(data));
-                        // window.location = data.redirect;
+            $(document).ready(function() {
+                var login = {};
+                $('#loginForm').validator().on('submit', function (e) {
+                  if (e.isDefaultPrevented()) {
+                    console.log('test');
+                  } else {
+                    // everything looks good!
+                    event.preventDefault();
+                    console.log('test2');
+                    login.email = $(".email").val();
+                    login.password = $(".password").val();
+                    console.log(login);
+                    $.post(baseUrl+"user/login", login,function(data, status) {
+                            console.log("Data: " + data + "\nStatus: " + status);
+                            console.log(JSON.stringify(data));
+                            // window.location = data.redirect;
+                    });
+                  }
                 });
-              }
             });
-/*            $(".submitBtn").click(function(event) {
-                // event.preventDefault();
-                login.email = $(".email").val();
-                login.password = $(".password").val();
-                console.log(login);
-                $.post(baseUrl+"user/login", login,function(data, status) {
-                        console.log("Data: " + data + "\nStatus: " + status);
-                        console.log(JSON.stringify(data));
-                        // window.location = data.redirect;
-                });
-            });*/
-        });
-    </script>
+        </script>
 </html>

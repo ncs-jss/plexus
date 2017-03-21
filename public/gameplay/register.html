@@ -20,41 +20,41 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'/>
         <link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
         <style>
-            .avatarContainer{
-                /*width: 100%;*/
-                overflow: hidden;
-                margin-bottom: 24px;
-                margin-top: 5px;
-            }
-            .avatarContainer>div{
-                text-align: center;
-            }
-            .avatarContainer input[type="radio"] {
-                display: none;
-            }
-            .avatarContainer input+.avatar {
-                background-image: url(/assets/img/tim_80x80.png);
-            }
-            .avatarContainer input[value="0"]+.avatar {
-                background-image: url(/assets/img/avatar-0.png);
-            }
-            .avatarContainer .avatar {
-                width: 70px;
-                height: 70px;
-                /* margin: 10px auto 30px; */
-                border-radius: 100%;
-                background-size: cover;
-                box-sizing: border-box;
-            }
-            .avatarContainer input[type="radio"]:checked + .avatar {
-                -webkit-transition: 0.4s;
-                transition: 0.4s;
-                -webkit-transform: scale(0.9) rotate(-360deg);
-                transform: scale(0.9) rotate(-360deg) ;
-                box-shadow: 0px 0px 11px 0px #666;
-            }
-
-        </style>
+                    .avatarContainer{
+                        /*width: 100%;*/
+                        overflow: hidden;
+                        margin-bottom: 24px;
+                        margin-top: 5px;
+                    }
+                    .avatarContainer>div{
+                        text-align: center;
+                    }
+                    .avatarContainer input[type="radio"] {
+                        display: none;
+                    }
+                    .avatarContainer input+.avatar {
+                        background-image: url(/assets/img/tim_80x80.png);
+                    }
+                    .avatarContainer input[value="0"]+.avatar {
+                        background-image: url(/assets/img/avatar-0.png);
+                    }
+                    .avatarContainer .avatar {
+                        width: 70px;
+                        height: 70px;
+                        /* margin: 10px auto 30px; */
+                        border-radius: 100%;
+                        background-size: cover;
+                        box-sizing: border-box;
+                    }
+                    .avatarContainer input[type="radio"]:checked + .avatar {
+                        -webkit-transition: 0.4s;
+                        transition: 0.4s;
+                        -webkit-transform: scale(0.9) rotate(-360deg);
+                        transform: scale(0.9) rotate(-360deg) ;
+                        box-shadow: 0px 0px 11px 0px #666;
+                    }
+        
+                </style>
     </head>
     <body>
         <div class="wrapper">
@@ -89,57 +89,100 @@
                                         <hr/>
                                     </div>
                                     <div class="content" style="margin: 6px;">
-                                        <form>  
+                                        <form role="form" data-toggle="validator" id="registerForm">
                                             <p class="text-center" style="color:#9A9A9A;">Select Your Avatar</p>
                                             <div class="avatarContainer row">
                                                 <div class="col-xs-3">
                                                     <label>
-                                                        <input type="radio" name="selectAvatar" value="0" checked=""/>
+                                                        <input type="radio" name="selectAvatar" value="0" required/>
                                                         <div class="avatar"></div>
                                                     </label>
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label>
-                                                        <input type="radio" name="selectAvatar" value="1"/>
+                                                        <input type="radio" name="selectAvatar" value="1" checked required/>
                                                         <div class="avatar"></div>
                                                     </label>
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label>
-                                                        <input type="radio" name="selectAvatar" value="2"/>
+                                                        <input type="radio" name="selectAvatar" value="2" required/>
                                                         <div class="avatar"></div>
                                                     </label>
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label>
-                                                        <input type="radio" name="selectAvatar" value="3"/>
+                                                        <input type="radio" name="selectAvatar" value="3" required/>
                                                         <div class="avatar"></div>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6" style="padding-left: 6px;">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Email address</label>
-                                                        <input type="email" class="form-control email" placeholder="Email" value="michael24@gmail.com"/>
+                                                        <input type="email" class="form-control email" placeholder="Email" value="michael24@gmail.com" data-error="Bruh, that email address is invalid" required/>
+                                                        <div class="help-block with-errors"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6" style="">
                                                     <div class="form-group">
                                                         <label>Name</label>
-                                                        <input type="text" class="form-control name" placeholder="Password" value="Mike"/>
+                                                        <input type="text" class="form-control name" placeholder="Name" value="Mike" data-error="That's required too" required/>
+                                                        <div class="help-block with-errors"></div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-md-6" style="">
                                                     <div class="form-group">
                                                         <label>Password</label>
-                                                        <input type="password" class="form-control password" placeholder="Password" value="Mike"/>
+                                                        <input type="password" class="form-control password" placeholder="Password" value="" data-minlength="6" required/>
+                                                        <div class="help-block">
+                                                            <i class="pe-7s-info"></i>
+                                                            Minimum of 6 characters
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6" style="">
                                                     <div class="form-group">
                                                         <label>Confirm Password</label>
-                                                        <input type="password" class="form-control cpassword" placeholder="Password" value="Mike"/>
+                                                        <input type="password" class="form-control cpassword" placeholder="Confirm Password" value="" data-match=".password" data-match-error="Whoops, these don't match"/>
+                                                        <div class="help-block with-errors"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="collegeSelect">Select College:</label>
+                                                        <select class="form-control collegeSelect" id="collegeSelect">
+                                                            <option value="0" selected="selected">JSSATE</option>
+                                                            <option value="1">Other</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 collegeToggle" style="">
+                                                    <div class="form-group">
+                                                        <label>Then Specify College Name</label>
+                                                        <input type="text" class="form-control college" placeholder="College" value="JSSATE" data-error="That's required too" required/>
+                                                        <div class="help-block with-errors"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 collegeToggle" style="">
+                                                    <div class="form-group">
+                                                        <label>Then Specify Admission No</label>
+                                                        <input type="text" class="form-control admissionNo" placeholder="Admission No" value="15CS006" data-error="That's required too" data-minlength="7" required/>
+                                                        <div class="help-block with-errors"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6" style="">
+                                                    <div class="form-group">
+                                                        <label>Contact No.</label>
+                                                        <input type="text" class="form-control contact" placeholder="Contact No." value="9911502986" data-error="That's required too" required/>
+                                                        <div class="help-block with-errors"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,6 +226,7 @@
     <!--   Core JS Files   -->
     <script src="/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/vendor/bootstrap-validator/dist/validator.min.js"></script>
     <!--  Notifications Plugin    -->
     <script src="/assets/js/bootstrap-notify.js"></script>
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
@@ -192,12 +236,30 @@
     <script>
         $(document).ready(function() {
             var signup = {};
-            $(".submitBtn").click(function(event) {
+            $('.collegeSelect').on('change', function(){
+                collegeToggler();
+            });
+            function collegeToggler(){
+                var selected = parseInt($(".collegeSelect option:selected").val());
+                console.log(selected);
+                $(".collegeToggle").eq(selected).hide();
+                $(".college").val("JSSATE");
+                $(".collegeToggle").eq((selected+1)%2).show();
+            }
+            collegeToggler();
+            $('#registerForm').validator().on('submit', function (e) {
+              if (e.isDefaultPrevented()) {
+                console.log('test');
+              } else {
+                // everything looks good!
                 event.preventDefault();
                 signup.email = $(".email").val();
                 signup.name = $(".name").val();
                 signup.password = $(".password").val();
                 signup.password_confirmation = $(".cpassword").val();
+                signup.admissionNo = $(".admissionNo").val();
+                signup.college = $(".college").val();
+                signup.contact = $(".contact").val();
                 signup.avatar = "/assets/img/avatar-"+$(".avatarContainer input[type='radio']:checked").val()+".png";
                 console.log(signup);
                 $.post(baseUrl+"user", signup,function(data, status) {
@@ -205,6 +267,7 @@
                         console.log(JSON.stringify(data));
                         // window.location = data.redirect;
                 });
+              }
             });
         });
     </script>
