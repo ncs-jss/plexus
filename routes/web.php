@@ -51,13 +51,3 @@ Route::group(
 
 
 Route::get('/logout', 'HomeController@logout');
-
-// Api
-
-Route::group(
-    ['prefix' => 'api'], function() {
-
-    Route::get('/', 'Event\EventController@index');
-    Route::resource('event', 'Event\EventControllerApi');
-
-});

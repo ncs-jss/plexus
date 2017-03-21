@@ -12,6 +12,7 @@ use Session;
 use Auth;
 use Redirect;
 use App\User;
+use App\UserDetails;
 use File;
 use App\Society;
 use Response;
@@ -94,6 +95,8 @@ class UserControllerApi extends Controller
             'email' => 'required|email|max:255|unique:users',
             'avatar' => 'required|max:255',
             'password' => 'required|min:6|confirmed',
+            'contact' => 'required|max:10',
+            'college' => 'required',
             ]
         );
 
@@ -110,6 +113,13 @@ class UserControllerApi extends Controller
         ];
 
         if ($user->save()) {
+            $userDetails = new UserDetails;
+            $userDetails->admissionNo = $userInput['admissionNo'];
+            $userDetails->contact = $userInput['contact'];
+            $userDetails->college = $userInput['college'];
+            $userDetails->usedId = $user->id;
+            $userDetails->save();
+
             if (Auth::guard('user')->attempt($credentials)) {
                 return Response::json(
                     [
