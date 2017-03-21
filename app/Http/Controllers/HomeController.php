@@ -21,7 +21,14 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('verify', ['except' => ['logout', 'leaderboard', 'showLeaderboard']]);
+        $this->middleware(
+            'verify',
+            [
+                'except' => [
+                    'logout', 'leaderboard', 'showLeaderboard'
+                ]
+            ]
+        );
     }
 
     /**
@@ -42,12 +49,24 @@ class HomeController extends Controller
      */
     public function user()
     {
-        return File::get(public_path()."/Temp/User/login.html");
+        return File::get(public_path()."/gameplay/login.html");
     }
+
+    /**
+     * Show the form for login of the User.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userRegister()
+    {
+        return File::get(public_path()."/gameplay/register.html");
+    }
+
 
     /**
      * LeaderBoard.
      *
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function showLeaderboard($id)
@@ -58,19 +77,23 @@ class HomeController extends Controller
     /**
      * LeaderBoard.
      *
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function leaderboard($id)
     {
-        $score = Score::where('eventId', $id)->orderBy('score', 'desc')->limit(5)->get();
+        $score = Score::where('eventId', $id)
+            ->orderBy('score', 'desc')->limit(5)->get();
         foreach ($score as $key => $value) {
             $user = User::find($value->userId);
             $score[$key]->user = $user;
         }
-        return Response::json([
-            "status" => True,
+        return Response::json(
+            [
+            "status" => true,
             "data" => $score
-        ]);
+            ]
+        );
     }
 
     public function logout(Request $request)

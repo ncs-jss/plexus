@@ -34,10 +34,10 @@
         <div class="wrapper">
             <div class="sidebar" data-color="purple" data-image="/assets/img/sidebar-5.jpg">
                 <!--
-                
+
                         Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
                         Tip 2: you can also add an image using data-image tag
-                
+
                     -->
                 <div class="sidebar-wrapper">
                     <div class="logo">
@@ -228,7 +228,7 @@
                     console.log(card);
                     card.find("span").html(data[i].eventName);
                     card.find("p").html(data[i].eventDes);
-                    // card.find("a").attr("href","/event/"+data[i].id+"/dashboard");
+                    card.find("a").attr("href","/event/"+data[i].id+"/dashboard");
                     var endTime = moment(data[i].endTime).format('Do MMM, h:mm a');
                     card.find("small").html("ends on "+ endTime);
                     card.show();

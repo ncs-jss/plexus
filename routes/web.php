@@ -13,6 +13,9 @@
 
 // Routes
 Route::get('society/login', 'HomeController@society');
+Route::get('login', 'HomeController@user');
+Route::get('register', 'HomeController@userRegister');
+Route::get('user/edit', 'User\UserController@profile');
 
 Route::get('/', 'Event\EventController@index');
 
@@ -24,12 +27,15 @@ Route::get('event/{id}/dashboard', 'Event\EventController@dashboard');
 
 Route::resource('event', 'Event\EventController');
 Route::resource('society', 'Society\SocietyController');
+Route::resource('user', 'User\UserController');
 Route::resource('event/{eventId}/question', 'Event\QuestionController');
 
 Route::group(
     ['prefix' => 'api'], function() {
 
+    Route::get('user/edit', 'User\UserControllerApi@profile');
     Route::post('society/login', 'Society\SocietyControllerApi@login');
+    Route::post('user/login', 'User\UserControllerApi@login');
 
     Route::get('society/dashboard', 'Society\SocietyControllerApi@dashboard');
     Route::get('/event/{eventId}/leaderboard', 'HomeController@leaderboard');
@@ -38,7 +44,7 @@ Route::group(
     Route::resource('event/{eventId}/question', 'Event\QuestionControllerApi');
     Route::post('event/{eventId}/answer/{id}', 'Event\AnswerControllerApi@store');
     Route::resource('society', 'Society\SocietyControllerApi');
-    Route::resource('user', 'User\UserController');
+    Route::resource('user', 'User\UserControllerApi');
     Route::resource('event', 'Event\EventControllerApi');
 
 });

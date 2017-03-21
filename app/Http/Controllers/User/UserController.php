@@ -12,6 +12,7 @@ use Session;
 use Auth;
 use Redirect;
 use App\User;
+use File;
 
 class UserController extends Controller
 {
@@ -27,7 +28,7 @@ class UserController extends Controller
             'user',
             [
                 'except' => [
-                    'store', 'show', 'create', 'login', 'index'
+                    'profile'
                 ]
             ]
         );
@@ -40,7 +41,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        //
     }
 
     /**
@@ -61,37 +62,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $loginMessage = [
-            'message' => 'You are logged in',
-            'class' => 'Success'
-        ];
 
-        $this->validate(
-            $request, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'avatar' => 'required|max:255',
-            'password' => 'required|min:6|confirmed',
-            ]
-        );
-
-        $userInput = Input::all();
-
-        $user = new User;
-        $user->name = $userInput['name'];
-        $user->email = $userInput['email'];
-        $user->password = Hash::make($userInput['password']);
-        $user->avatar = $userInput['avatar'];
-        $credentials = [
-            'email' => $userInput['email'],
-            'password' => $userInput['password']
-        ];
-
-        if ($user->save()) {
-            if (Auth::guard('user')->attempt($credentials)) {
-                return Redirect::to('/api/user')->with($loginMessage);
-            }
-        }
     }
 
     /**
@@ -139,53 +110,15 @@ class UserController extends Controller
         //
     }
 
+
     /**
-     * Login a user.
+     * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function profile()
     {
-        $loginMessage = [
-            'message' => 'You are logged in',
-            'class' => 'Success'
-        ];
-
-        $userInput = Input::all();
-
-        $validator = Validator::make(
-            $userInput, [
-            'email' => 'required|email|max:255',
-            'password' => 'required|min:6',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return $validator->errors()->toJson();
-        }
-
-        $credentials = [
-            'email' => $userInput['email'],
-            'password' => $userInput['password']
-        ];
-
-        $remember = (Input::has('remember')) ? true : false;
-
-        $data = [
-        "error" => "Error in logging"
-        ];
-
-        if (Auth::guard('user')->attempt($credentials, $remember)) {
-
-            $data = [
-            // 'location' => '/api/user',
-            'message' => $loginMessage,
-            'privilege' => 5
-            ];
-            // return Redirect::to('/api/user')->with($loginMessage);
-        }
-        return $data->toJson();
+        return File::get(public_path()."/gameplay/user.html");
     }
 }
 

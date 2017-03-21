@@ -30,7 +30,7 @@ class EventController extends Controller
     {
         $this->middleware(
             'society', [
-                'except' => ['show', 'index', 'about']
+                'except' => ['show', 'index', 'about', 'dashboard']
             ]
         );
     }
@@ -55,7 +55,7 @@ class EventController extends Controller
             }
             return File::get(public_path()."/backoffice/pages/index.html");
         }
-        return File::get(public_path()."/welcome.html");
+        return File::get(public_path()."/gameplay/welcome.html");
     }
 
     /**
@@ -154,7 +154,7 @@ class EventController extends Controller
         } elseif (Auth::guard('society')->check()) {
             return File::get(public_path()."/backoffice/pages/manageEvent.html");
         }
-        return File::get(public_path()."/login.html");
+        return Redirect::to("/login");
 
     }
 }

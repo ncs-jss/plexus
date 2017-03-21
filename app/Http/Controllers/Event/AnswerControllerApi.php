@@ -56,25 +56,29 @@ class AnswerControllerApi extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
+     * @param  int                      $eventId
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $eventId, $id)
     {
         $answerInput = Input::all();
         $answerInput = $answerInput['answer'];
-        $correct = False;
+        $correct = false;
 
         $question = Question::find($id);
 
         $answer = Answer::where('quesId', $id);
 
-        $score = Score::where([
+        $score = Score::where(
+            [
             ['userId' => Auth::guard('user')->id()],
             ['eventId' => $eventId]
-        ]);
+            ]
+        );
 
         if ($answer->answer == $answerInput) {
-            $correct = True;
+            $correct = true;
         }
 
         if ($score == "") {

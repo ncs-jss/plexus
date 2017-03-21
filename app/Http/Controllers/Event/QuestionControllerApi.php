@@ -37,22 +37,27 @@ class QuestionControllerApi extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function index($id)
     {
         $question = Question::where('eventId', $id)->get();
         if ($question) {
-            return Response::json([
-                "status" => False,
+            return Response::json(
+                [
+                "status" => false,
                 "error" => "No Questions Added",
                 "data" => $question
-            ]);
+                ]
+            );
         }
-        return Response::json([
-            "status" => True,
+        return Response::json(
+            [
+            "status" => true,
             "data" => $question
-        ]);
+            ]
+        );
     }
 
     /**
@@ -166,10 +171,12 @@ class QuestionControllerApi extends Controller
      */
     public function show($eventId, $id)
     {
-        $question = Question::where([
+        $question = Question::where(
+            [
             ['id', $id],
             ['eventId', $eventId]
-        ]);
+            ]
+        );
 
         if ($question == "") {
             return File::get(
@@ -180,23 +187,29 @@ class QuestionControllerApi extends Controller
         if (Auth::guard('user')->check()) {
             $event = Event::find($eventId);
             if ($event->type == 3) {
-                $score = Score::where([
+                $score = Score::where(
+                    [
                     ['userId' => Auth::guard('user')->id()],
                     ['eventId' => $eventId]
-                ]);
+                    ]
+                );
                 if ($score->level != $question->level-1) {
-                    return Response::json([
-                        "status" => False,
+                    return Response::json(
+                        [
+                        "status" => false,
                         "error" => "Invalid Level"
-                    ]);
+                        ]
+                    );
                 }
             }
         }
 
-        return Response::json([
-            "status" => True,
+        return Response::json(
+            [
+            "status" => true,
             "data" => $question
-        ]);
+            ]
+        );
     }
 
     /**
@@ -208,10 +221,12 @@ class QuestionControllerApi extends Controller
      */
     public function edit($eventId, $id)
     {
-        $question = Question::where([
+        $question = Question::where(
+            [
             ['id', $id],
             ['eventId', $eventId]
-        ]);
+            ]
+        );
 
         if ($question == "") {
             return File::get(
@@ -219,10 +234,12 @@ class QuestionControllerApi extends Controller
             );
         }
 
-        return Response::json([
-            "status" => True,
+        return Response::json(
+            [
+            "status" => true,
             "data" => $question
-        ]);
+            ]
+        );
     }
 
     /**
@@ -247,10 +264,12 @@ class QuestionControllerApi extends Controller
      */
     public function destroy($eventId, $id)
     {
-        $question = Question::where([
+        $question = Question::where(
+            [
             ['id', $id],
             ['eventId', $eventId]
-        ]);
+            ]
+        );
 
         if ($event->delete()) {
             return Response::json(["success" => "Event is deleted"]);
