@@ -36,6 +36,7 @@ class EventControllerApi extends Controller
         );
     }
 
+
     /**
      * Display a listing of the resource.
      *
@@ -67,7 +68,7 @@ class EventControllerApi extends Controller
             'privilege' => $privilege
         ];
 
-        return response()->json($events);
+        return Response::json($events);
     }
 
     /**
@@ -133,48 +134,20 @@ class EventControllerApi extends Controller
     public function show($id)
     {
         // Get event details
-        $event = Event::find($id)->toJson();
-        $level = 0;
-        $question = [];
+        $event = Event::find($id);
 
-        if (Auth::guard('user')->check()) {
-            $getScore = Score::where(
-                [
-                ['eventId', $id],
-                ['userId', Auth::guard('user')->id],
-                ]
-            )->get();
-
-            if ($getScore != []) {
-                $level = $getScore->level + 1;
-            } else {
-                $newUserScore = new Score;
-                $newUserScore->userId = Auth::guard('user')->id;
-                $newUserScore->eventId = $id;
-
-                $newUserScore->save();
-            }
-
-            $question = Question::where(
-                [
-                ['eventId', $id],
-                ['level', $level],
-                ]
-            )->get()->toJson();
-
-        } elseif (Auth::guard('society')->check()) {
-            $question = Question::where('eventId', $id)->get()->toJson();
-        } else {
-            // return Redirect::to('/login');
-            $question = Question::where('eventId', $id)->get()->toJson();
+        if (Auth::guard('user')->check() || Auth::guard('society')->check()) {
+            return Response::json([
+                "status" => True,
+                "data" => $event
+            ]);
         }
+        return Response::json([
+            "status" => False,
+            "data" => [],
+            "error" => "You are not logged in"
+        ]);
 
-        $data = [
-            'event' => $event,
-            'question' => $question
-        ];
-
-        return response()->json($data);
     }
 
     /**
@@ -185,9 +158,7 @@ class EventControllerApi extends Controller
      */
     public function edit($id)
     {
-        $event = Event::find($id)->toJson();
-
-        return $event;
+        //
     }
 
     /**
@@ -246,9 +217,16 @@ class EventControllerApi extends Controller
         $event = Event::find($id);
 
         if ($event->delete()) {
-            return response()->json(["success" => "Event is deleted"]);
+            return Response::json([
+                "status" => True,
+                "data" => ["Event is deleted"]
+            ]);
         }
-        return response()->json(["error" => "Error in deletion"]);
+        return Response::json([
+            "status" => False,
+            "data" => [],
+            "error" => "Error in deletion"
+        ]);
     }
 
     /**
@@ -265,11 +243,17 @@ class EventControllerApi extends Controller
 
         if ($approve['approve']) {
             $event->approve = 1;
-            return response()->json(["success" => "Event is approved"]);
-        } else {
-            $event->approve = 0;
-            return response()->json(["error" => "Event in disapproved"]);
+            return Response::json([
+                "status" => True,
+                "data" => ["Event is approved"]
+            ]);
         }
+        $event->approve = 0;
+        return Response::json([
+            "status" => False,
+            "data" => [],
+            "error" => "Event in disapproved"
+        ]);
     }
 
     /**
@@ -285,11 +269,71 @@ class EventControllerApi extends Controller
         $event = Event::find($id);
 
         if ($active['active']) {
-            $event->activate = 1;
-            return response()->json(["success" => "Event is activated"]);
-        } else {
-            $event->activate = 0;
-            return response()->json(["error" => "Event is deactivated"]);
+            $event->active = 1;
+            return Response::json([
+                "status" => True,
+                "data" => ["Event is activated"]
+            ]);
         }
+        $event->active = 0;
+        return Response::json([
+            "status" => False,
+            "data" => [],
+            "error" => ["Event is deactivated"]
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard($id)
+    {
+        // Get event details
+        $event = Event::find($id)->toJson();
+        $level = 0;
+        $question = [];
+
+        if (Auth::guard('user')->check()) {
+            $getScore = Score::where(
+                [
+                ['eventId', $id],
+                ['userId', Auth::guard('user')->id],
+                ]
+            )->get();
+
+            if ($getScore != []) {
+                $level = $getScore->level + 1;
+            } else {
+                $newUserScore = new Score;
+                $newUserScore->userId = Auth::guard('user')->id;
+                $newUserScore->eventId = $id;
+
+                $newUserScore->save();
+            }
+
+            $question = Question::where(
+                [
+                ['eventId', $id],
+                ['level', $level],
+                ]
+            )->get()->toJson();
+
+        } elseif (Auth::guard('society')->check()) {
+            $question = Question::where('eventId', $id)->get()->toJson();
+        } else {
+            return Redirect::to('/login');
+            // $question = Question::where('eventId', $id)->get()->toJson();
+        }
+
+        $data = [
+            'status' => True,
+            'event' => $event,
+            'question' => $question
+        ];
+
+        return Response::json($data);
     }
 }

@@ -14,6 +14,7 @@ use Redirect;
 use App\Society;
 use File;
 use Response;
+use App\Event;
 
 class SocietyControllerApi extends Controller
 {
@@ -262,5 +263,20 @@ class SocietyControllerApi extends Controller
             ]
         );
 
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard()
+    {
+        $id = Auth::guard('society')->id();
+        $event = Event::where('societyId', $id)->get();
+        return Response::json([
+            "status" => True,
+            "data" => $event
+        ]);
     }
 }

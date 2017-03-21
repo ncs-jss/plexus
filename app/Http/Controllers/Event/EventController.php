@@ -55,7 +55,7 @@ class EventController extends Controller
             }
             return File::get(public_path()."/backoffice/pages/index.html");
         }
-        return File::get(public_path()."/dashboard.html");
+        return File::get(public_path()."/welcome.html");
     }
 
     /**
@@ -90,17 +90,12 @@ class EventController extends Controller
         $event = Event::find($id);
 
         if (Auth::guard('user')->check()) {
+            return File::get(public_path()."/gameplay/about.html");
 
-            if ($event->type == 1) {
-                return File::get(public_path()."/gameplay/dashboard1.html");
-            } elseif ($event->type == 2) {
-                return File::get(public_path()."/gameplay/dashboard2.html");
-            }
-            return File::get(public_path()."/gameplay/dashboard3.html");
         } elseif (Auth::guard('society')->check()) {
-            return File::get(public_path()."/backoffice/pages/manageEvent.html");
+            return File::get(public_path()."/backoffice/pages/editEvent.html");
         }
-        return File::get(public_path()."login.html");
+        return File::get(public_path()."/login.html");
 
     }
 
@@ -112,7 +107,7 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        return File::get(public_path()."/backoffice/pages/manageEvent.html");
+        return File::get(public_path()."/backoffice/pages/editEvent.html");
     }
 
     /**
@@ -144,16 +139,22 @@ class EventController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function about($id)
+    public function dashboard($id)
     {
         $event = Event::find($id);
 
-        // if (Auth::guard('user')->check()) {
-            return File::get(public_path()."/gameplay/about.html");
-        // } elseif (Auth::guard('society')->check()) {
-        //     return File::get(public_path()."/gameplay/about.html");
-        // }
-        // return File::get(public_path()."/login.html");
+        if (Auth::guard('user')->check()) {
+
+            if ($event->type == 1) {
+                return File::get(public_path()."/gameplay/dashboard1.html");
+            } elseif ($event->type == 2) {
+                return File::get(public_path()."/gameplay/dashboard1.html");
+            }
+            return File::get(public_path()."/gameplay/dashboard1.html");
+        } elseif (Auth::guard('society')->check()) {
+            return File::get(public_path()."/backoffice/pages/manageEvent.html");
+        }
+        return File::get(public_path()."/login.html");
 
     }
 }

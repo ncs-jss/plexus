@@ -67,7 +67,10 @@ class HomeController extends Controller
             $user = User::find($value->userId);
             $score[$key]->user = $user;
         }
-        return Response::json(["data" => $score]);
+        return Response::json([
+            "status" => True,
+            "data" => $score
+        ]);
     }
 
     public function logout(Request $request)

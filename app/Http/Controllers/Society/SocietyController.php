@@ -122,7 +122,6 @@ class SocietyController extends Controller
     }
 
 
-
     /**
      * Display a listing of the resource.
      *
@@ -130,9 +129,7 @@ class SocietyController extends Controller
      */
     public function dashboard()
     {
-        // return var_dump(Auth::guard('society')->viaRemember());
-        // return File::get(public_path()."/temp/society/login.html");
-        return Society::all();
+        return File::get(public_path()."/backoffice/pages/manageEvent.html");
     }
 }
 
