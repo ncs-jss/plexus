@@ -35,34 +35,35 @@
                             <img src="/assets/img/avatar-0.png" alt="" class="img-circle userAvatar" style="width: 80px;height: 80px;"/>
                         </div>
                         <a href="/user/edit" class="simple-text userName">Aditya</a>
+
                     </div>
                     <ul class="nav">
                         <li>
-                            <a href="/">
+                            <a href="/gameplay/welcome">
                                 <i class="pe-7s-home"></i>
                                 <p>Home</p>
                             </a>
                         </li>
                         <li class="active">
-                            <a href="javascript:void(0)">
+                            <a href="/gameplay/dashboard1">
                                 <i class="pe-7s-science"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
                         <li>
-                            <a href="/leaderboard">
+                            <a href="/gameplay/leaderboard">
                                 <i class="pe-7s-graph"></i>
                                 <p>Leaderboard</p>
                             </a>
                         </li>
                         <li>
-                            <a href="/about">
+                            <a href="/gameplay/about">
                                 <i class="pe-7s-note2"></i>
                                 <p>About Event</p>
                             </a>
                         </li>
                         <li>
-                            <a href="/user">
+                            <a href="/gameplay/user">
                                 <i class="pe-7s-user"></i>
                                 <p>Edit Profile</p>
                             </a>
@@ -70,10 +71,7 @@
                         <li class="active-pro userPoints">
                             <a href="javascript:void(0)">
                                 <i class="pe-7s-rocket"></i>
-                                <p>
-                                    Score :
-                                    <b>80pts</b>
-                                </p>
+                                <p>Score : <b>80pts</b></p>
                             </a>
                         </li>
                     </ul>
@@ -105,7 +103,7 @@
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
+                            <div class="col-md-6">
                                 <div class="card fadeInUp">
                                     <div class="header">
                                         <h2 class="title">
@@ -119,19 +117,92 @@
                                         <div style="width: 100%;height: 200px;text-align: center;margin: 20px;">
                                             <img src="/assets/img/one.jpg" alt="" class="" style="object-fit: cover;height: 100%;"/>
                                         </div>
-                                        <div class="answerBlock">
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <div class="form-group has-feedback">
-                                                        <input type="email" class="form-control answer" placeholder="Give answer here" value="" required/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <button type="submit" class="btn btn-info btn-fill submitBtn">
-                                                        <i class="fa fa-paper-plane"></i>
-                                                        Submit
-                                                    </button>
-                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card ">
+                                    <div class="header">
+                                        <h4 class="title">
+                                            <i class="pe-7s-light"></i>
+                                            &nbsp; Options
+                                        </h4>
+                                        <p class="category">Pick one from the following</p>
+                                    </div>
+                                    <div class="content">
+                                        <div class="table-full-width">
+                                            <table class="table optionTable">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <label class="radio" style="height: auto;width: 100%;">
+                                                                        <input type="radio" name="optionRadio" value="1" data-toggle="radio"/>
+                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 1</h5>
+                                                                    </label>
+                                                                </div>
+                                                                <!-- <div class="col-xs-11">
+                                                                    <h5 style="margin-top: 0">Option 1</h5>
+                                                                </div> -->
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <label class="radio" style="height: auto;width: 100%;">
+                                                                        <input type="radio" name="optionRadio" value="2" data-toggle="radio"/>
+                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 2</h5>
+                                                                    </label>
+                                                                </div>
+                                                                <!-- <div class="col-xs-11">
+                                                                    <h5 style="margin-top: 0">Option 1</h5>
+                                                                </div> -->
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <label class="radio" style="height: auto;width: 100%;">
+                                                                        <input type="radio" name="optionRadio" value="3" data-toggle="radio"/>
+                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 3</h5>
+                                                                    </label>
+                                                                </div>
+                                                                <!-- <div class="col-xs-11">
+                                                                    <h5 style="margin-top: 0">Option 1</h5>
+                                                                </div> -->
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <label class="radio" style="height: auto;width: 100%;">
+                                                                        <input type="radio" name="optionRadio" value="4" data-toggle="radio"/>
+                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 4</h5>
+                                                                    </label>
+                                                                </div>
+                                                                <!-- <div class="col-xs-11">
+                                                                    <h5 style="margin-top: 0">Option 1</h5>
+                                                                </div> -->
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="footer">
+                                            <hr/>
+                                            <div class="stats" style="width: 100%;">
+                                                <button type="submit" class="btn btn-info btn-fill pull-right submitBtn">
+                                                    <i class="fa fa-paper-plane"></i>
+                                                    Submit
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -211,7 +282,7 @@
                         }
                         function submitAnswer() {
                             var selected = {
-                                answer: $("answer").val()
+                                answer: $(".optionTable .radio input:checked").val()
                             };
                             console.log(selected);
                             $.post(apiCheckAnsUrl, selected, function (res, status) {
