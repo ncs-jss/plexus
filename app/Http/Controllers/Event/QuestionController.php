@@ -98,10 +98,12 @@ class QuestionController extends Controller
      */
     public function show($eventId, $id)
     {
-        $question = Question::where([
+        $question = Question::where(
+            [
             ['id', $id],
             ['eventId', $eventId]
-        ]);
+            ]
+        );
 
         if ($question == "") {
             /*return Response::json([
@@ -121,15 +123,18 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  int $eventId
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($eventId, $id)
     {
-        $question = Question::where([
+        $question = Question::where(
+            [
             ['id', $id],
             ['eventId', $eventId]
-        ]);
+            ]
+        );
 
         if ($question == "") {
             /*return Response::json([

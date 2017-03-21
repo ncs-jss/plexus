@@ -137,16 +137,20 @@ class EventControllerApi extends Controller
         $event = Event::find($id);
 
         if (Auth::guard('user')->check() || Auth::guard('society')->check()) {
-            return Response::json([
-                "status" => True,
+            return Response::json(
+                [
+                "status" => true,
                 "data" => $event
-            ]);
+                ]
+            );
         }
-        return Response::json([
-            "status" => False,
+        return Response::json(
+            [
+            "status" => false,
             "data" => [],
             "error" => "You are not logged in"
-        ]);
+            ]
+        );
 
     }
 
@@ -217,16 +221,20 @@ class EventControllerApi extends Controller
         $event = Event::find($id);
 
         if ($event->delete()) {
-            return Response::json([
-                "status" => True,
+            return Response::json(
+                [
+                "status" => true,
                 "data" => ["Event is deleted"]
-            ]);
+                ]
+            );
         }
-        return Response::json([
-            "status" => False,
+        return Response::json(
+            [
+            "status" => false,
             "data" => [],
             "error" => "Error in deletion"
-        ]);
+            ]
+        );
     }
 
     /**
@@ -243,17 +251,21 @@ class EventControllerApi extends Controller
 
         if ($approve['approve']) {
             $event->approve = 1;
-            return Response::json([
-                "status" => True,
+            return Response::json(
+                [
+                "status" => true,
                 "data" => ["Event is approved"]
-            ]);
+                ]
+            );
         }
         $event->approve = 0;
-        return Response::json([
-            "status" => False,
+        return Response::json(
+            [
+            "status" => false,
             "data" => [],
             "error" => "Event in disapproved"
-        ]);
+            ]
+        );
     }
 
     /**
@@ -270,17 +282,21 @@ class EventControllerApi extends Controller
 
         if ($active['active']) {
             $event->active = 1;
-            return Response::json([
-                "status" => True,
+            return Response::json(
+                [
+                "status" => true,
                 "data" => ["Event is activated"]
-            ]);
+                ]
+            );
         }
         $event->active = 0;
-        return Response::json([
-            "status" => False,
+        return Response::json(
+            [
+            "status" => false,
             "data" => [],
             "error" => ["Event is deactivated"]
-        ]);
+            ]
+        );
     }
 
     /**
@@ -329,7 +345,7 @@ class EventControllerApi extends Controller
         }
 
         $data = [
-            'status' => True,
+            'status' => true,
             'event' => $event,
             'question' => $question
         ];

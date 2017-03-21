@@ -274,9 +274,11 @@ class SocietyControllerApi extends Controller
     {
         $id = Auth::guard('society')->id();
         $event = Event::where('societyId', $id)->get();
-        return Response::json([
-            "status" => True,
+        return Response::json(
+            [
+            "status" => true,
             "data" => $event
-        ]);
+            ]
+        );
     }
 }
