@@ -197,10 +197,10 @@
                 signup.email = $(".email").val();
                 signup.name = $(".name").val();
                 signup.password = $(".password").val();
-                signup.cpassword = $(".cpassword").val();
+                signup.password_confirmation = $(".cpassword").val();
                 signup.avatar = "/assets/img/avatar-"+$(".avatarContainer input[type='radio']:checked").val()+".png";
                 console.log(signup);
-                $.post(baseUrl+"signup", signup,function(data, status) {
+                $.post(baseUrl+"user", signup,function(data, status) {
                         console.log("Data: " + data + "\nStatus: " + status);
                         console.log(JSON.stringify(data));
                         // window.location = data.redirect;
