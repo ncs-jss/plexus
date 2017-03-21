@@ -51,7 +51,7 @@
                         </li>
                         <li>
                             <a href="/gameplay/about">
-                                <i class="pe-7s-graph"></i>
+                                <i class="pe-7s-note2"></i>
                                 <p>About Event</p>
                             </a>
                         </li>
@@ -59,6 +59,12 @@
                             <a href="/gameplay/user">
                                 <i class="pe-7s-user"></i>
                                 <p>Edit Profile</p>
+                            </a>
+                        </li>
+                        <li class="active-pro">
+                            <a href="javascript:void(0)">
+                                <i class="pe-7s-rocket"></i>
+                                <p>Score : <b>80pts</b></p>
                             </a>
                         </li>
                     </ul>
@@ -243,77 +249,77 @@
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
     <script type="text/javascript">
-            $(document).ready(function(){    
-                var wrongNotifs = [
-                    "Your key didn't open the door!",
-                    "Be like Bill and just do it!",
-                    "Server says... it's wrong.",
-                    "Use the force! Luke. ",
-                    "Boom!.. But incorrect :P",
-                    "Our Alien couldn't digest your answer.",
-                    "Remember.. Google is there for help.",
-                    "Sorry dude...",
-                    "Keep trying. You can do it!!",
-                    "Just don't bang your head on wall :P",
-                    "C'mon let's give it another shot",
-                    "String didn't match.",
-                    "Whoops! couldn't launch the next question.",
-                    "Sherlock ignored your answer",
-                    "Still waiting to say hurray!!",
-                    "Mayday! Mayday! Unknown response!!",
-                    "Are you still knocking at the door? ",
-                    "Ahoy!! but you still missed it."
-                ];
-                var ques = {
-                    id:1
-                }
-                var u = "http://127.0.0.1:8080/event/2/leaderboard"
-                // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
-                console.log(u.split("/"));
-                var eventId = parseInt(u.split("/")[4]) || "1";
-                var apiQuesUrl = baseUrl+"event/"+eventId+"/question";
-                var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer"+ques.id;
-                $.get(apiQuesUrl, function(data) {
-                    if (!data.status) {
-                        // window.location = data.redirect;
-                    } else {
-                        setTimeout(function() {
-                            $(".ques p").addClass("animated fadeIn");
-                            $(".ques p").html(data.question);
-
-                        }, 600);
+                $(document).ready(function(){    
+                    var wrongNotifs = [
+                        "Your key didn't open the door!",
+                        "Be like Bill and just do it!",
+                        "Server says... it's wrong.",
+                        "Use the force! Luke. ",
+                        "Boom!.. But incorrect :P",
+                        "Our Alien couldn't digest your answer.",
+                        "Remember.. Google is there for help.",
+                        "Sorry dude...",
+                        "Keep trying. You can do it!!",
+                        "Just don't bang your head on wall :P",
+                        "C'mon let's give it another shot",
+                        "String didn't match.",
+                        "Whoops! couldn't launch the next question.",
+                        "Sherlock ignored your answer",
+                        "Still waiting to say hurray!!",
+                        "Mayday! Mayday! Unknown response!!",
+                        "Are you still knocking at the door? ",
+                        "Ahoy!! but you still missed it."
+                    ];
+                    var ques = {
+                        id:1
                     }
-                    $(".submitBtn").click(function(){
-                        var selected = {
-                            answer : $(".optionTable .radio input:checked").val()
-                        };
-                        console.log(selected);
-                        $.post(apiCheckAnsUrl, selected,
-                            function(data, status) {
-                                console.log("Data: " + data + "\nStatus: " + status);
-                                $.notifyClose();
-                                if(data.status){
-                                    $.notify({
-                                        icon: 'pe-7s-attention',
-                                        message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
-                                    },{
-                                        type: 'danger',
-                                        timer: 10,
-                                        newest_on_top: true
-                                    });
-                                }else{
-                                    $.notify({
-                                        icon: 'pe-7s-cup',
-                                        message: "Bingo !"
-                                    },{
-                                        type: 'success',
-                                        timer: 10,
-                                        newest_on_top: true
-                                    });
-                                }
-                            });
+                    var u = "http://127.0.0.1:8080/event/2/leaderboard"
+                    // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                    console.log(u.split("/"));
+                    var eventId = parseInt(u.split("/")[4]) || "1";
+                    var apiQuesUrl = baseUrl+"event/"+eventId+"/question";
+                    var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer"+ques.id;
+                    $.get(apiQuesUrl, function(data) {
+                        if (!data.status) {
+                            // window.location = data.redirect;
+                        } else {
+                            setTimeout(function() {
+                                $(".ques p").addClass("animated fadeIn");
+                                $(".ques p").html(data.question);
+    
+                            }, 600);
+                        }
+                        $(".submitBtn").click(function(){
+                            var selected = {
+                                answer : $(".optionTable .radio input:checked").val()
+                            };
+                            console.log(selected);
+                            $.post(apiCheckAnsUrl, selected,
+                                function(data, status) {
+                                    console.log("Data: " + data + "\nStatus: " + status);
+                                    $.notifyClose();
+                                    if(data.status){
+                                        $.notify({
+                                            icon: 'pe-7s-attention',
+                                            message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
+                                        },{
+                                            type: 'danger',
+                                            timer: 10,
+                                            newest_on_top: true
+                                        });
+                                    }else{
+                                        $.notify({
+                                            icon: 'pe-7s-cup',
+                                            message: "Bingo !"
+                                        },{
+                                            type: 'success',
+                                            timer: 10,
+                                            newest_on_top: true
+                                        });
+                                    }
+                                });
+                        });
                     });
                 });
-            });
-        </script>
+            </script>
 </html>

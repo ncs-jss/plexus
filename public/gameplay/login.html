@@ -22,7 +22,7 @@
     </head>
     <body>
         <div class="wrapper">
-            <div class="main-panel" style="width: 100%;background: #36b0ca;">
+            <div class="main-panel" style="width: 100%;background: #36b0ca;background: linear-gradient(to bottom, #56CCF2 , #2F80ED);">
                 <nav class="navbar navbar-default navbar-fixed">
                     <div class="container-fluid">
                         <div class="navbar-header">
@@ -62,17 +62,17 @@
                                                 <div class="col-md-11" style="padding: 0;">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Email address</label>
-                                                        <input type="email" class="form-control" placeholder="Email" value="michael24@gmail.com" disabled/>
+                                                        <input type="email" class="form-control email" placeholder="Email" value="michael24@gmail.com"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-11" style="padding: 0;">
                                                     <div class="form-group">
                                                         <label>Password</label>
-                                                        <input type="password" class="form-control" placeholder="Password" value="Mike"/>
+                                                        <input type="password" class="form-control password" placeholder="Password" value="Mike"/>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-info btn-fill pull-right">Login</button>
+                                            <button type="submit" class="btn btn-info btn-fill pull-right submitBtn">Login</button>
                                             <div class="clearfix"></div>
                                         </form>
                                     </div>
@@ -112,16 +112,26 @@
     <!--   Core JS Files   -->
     <script src="/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
-    <!--  Checkbox, Radio & Switch Plugins -->
-    <script src="/assets/js/bootstrap-checkbox-radio-switch.js"></script>
-    <!--  Charts Plugin -->
-    <script src="/assets/js/chartist.min.js"></script>
     <!--  Notifications Plugin    -->
     <script src="/assets/js/bootstrap-notify.js"></script>
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="/assets/js/light-bootstrap-dashboard.js"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
+    <script>
+        $(document).ready(function() {
+            var login = {};
+            $(".submitBtn").click(function(event) {
+                event.preventDefault();
+                login.email = $(".email").val();
+                login.password = $(".password").val();
+                console.log(login);
+                $.post(baseUrl+"login", login,function(data, status) {
+                        console.log("Data: " + data + "\nStatus: " + status);
+                        console.log(JSON.stringify(data));
+                        // window.location = data.redirect;
+                });
+            });
+        });
+    </script>
 </html>
