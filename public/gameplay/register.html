@@ -25,6 +25,7 @@
                         overflow: hidden;
                         margin-bottom: 24px;
                         margin-top: 5px;
+                        padding: 20px 5px;
                     }
                     .avatarContainer>div{
                         text-align: center;
@@ -33,25 +34,38 @@
                         display: none;
                     }
                     .avatarContainer input+.avatar {
-                        background-image: url(/assets/img/tim_80x80.png);
+                        /*background-image: url(/assets/img/tim_80x80.png);*/
                     }
                     .avatarContainer input[value="0"]+.avatar {
                         background-image: url(/assets/img/avatar-0.png);
                     }
+                    .avatarContainer input[value="1"]+.avatar {
+                        background-image: url(/assets/img/avatar-1.png);
+                    }
+                    .avatarContainer input[value="2"]+.avatar {
+                        background-image: url(/assets/img/avatar-2.png);
+                    }
+                    .avatarContainer input[value="3"]+.avatar {
+                        background-image: url(/assets/img/avatar-3.png);
+                    }
                     .avatarContainer .avatar {
-                        width: 70px;
-                        height: 70px;
+                        width: 80px;
+                        height: 80px;
                         /* margin: 10px auto 30px; */
                         border-radius: 100%;
                         background-size: cover;
                         box-sizing: border-box;
                     }
                     .avatarContainer input[type="radio"]:checked + .avatar {
-                        -webkit-transition: 0.4s;
-                        transition: 0.4s;
-                        -webkit-transform: scale(0.9) rotate(-360deg);
-                        transform: scale(0.9) rotate(-360deg) ;
-                        box-shadow: 0px 0px 11px 0px #666;
+                        -webkit-transition: 0.9s;
+                        transition: 0.9s;
+                        -webkit-transform: scale(1.1);
+                        transform: scale(1.1) ;
+                        border: 10px solid #dfdfdf;
+                        /*box-sizing: content-box;*/
+                        /*-webkit-transform: scale(0.9);*/
+                        /*transform: scale(0.9);*/
+                        /*box-shadow: 0px 0px 1px 10px #eee;*/
                     }
         
                 </style>
