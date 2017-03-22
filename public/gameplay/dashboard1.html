@@ -11,6 +11,8 @@
         <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
         <!-- Animation library for notifications   -->
         <link href="/assets/css/animate.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="/vendor/flipclock/compiled/flipclock.css"/>
+        <!-- <link rel="stylesheet" href="/vendor/flipclock/compiled/custom.css"> -->
         <!--  Light Bootstrap Table core CSS    -->
         <link href="/assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
         <!--  CSS for Demo Purpose, don't include it in your project     -->
@@ -19,6 +21,22 @@
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'/>
         <link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
+        <style>
+            .clockContainer{
+                /*background: #2b2b2b;*/
+            }
+            .endingClock {
+                transform-origin: 0 0;
+                transform: scale(.65);
+                -ms-transform: scale(.65);
+                -webkit-transform-origin: 0 0;
+                -webkit-transform: scale(.65);
+                -o-transform-origin: 0 0;
+                -o-transform: scale(.65);
+                -moz-transform-origin: 0 0;
+                -moz-transform: scale(.65);
+            }
+        </style>
     </head>
     <body>
         <div class="wrapper">
@@ -99,6 +117,13 @@
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
+                            <div class="col-md-10 col-md-offset-1 clockContainer">
+                                <div class="pull-right">
+                                    <div class="endingClock"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-10 col-md-offset-1">
                                 <div class="card fadeInUp">
                                     <div class="header">
@@ -168,79 +193,95 @@
     <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="/assets/js/bootstrap-checkbox-radio-switch.js"></script>
+    <script src="/vendor/flipclock/compiled/flipclock.min.js"></script>
     <!--  Charts Plugin -->
     <script src="/assets/js/chartist.min.js"></script>
     <!--  Notifications Plugin    -->
     <script src="/assets/js/bootstrap-notify.js"></script>
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="/assets/js/light-bootstrap-dashboard.js"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
     <script type="text/javascript">
-                $(document).ready(function(){    
-                    var u = "http://127.0.0.1:8080/event/2/leaderboard"
-                    // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
-                    console.log(u.split("/"));
-                    var eventId = parseInt(u.split("/")[4]) || "1";
-                    var apiQuesUrl = baseUrl+"event/"+eventId+"/question";
-                    var apiUserUrl = baseUrl+"event/"+eventId+"/user";
-                    var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer";
-                    $.get(apiQuesUrl, function(ques) {
-                        if (!ques.status) {
-                            window.location = ques.redirect;
-                        } else {
-                            $.get(apiUserUrl, function(userData) {
-                                console.log(userData);
-                                $(".userPoints p b").html(userData.score);
-                                $(".userName").html(userData.name);
-                                $(".userAvatar").attr(src,userData.avatar);
-                            });
-                            $(".navbar-brand").html()
-                            setTimeout(function() {
-                                $(".ques p").addClass("animated fadeIn");
-                                $(".ques p").html(ques.question);
-                            }, 600);
-                        }
-                        function submitAnswer() {
-                            var selected = {
-                                answer: $("answer").val()
-                            };
-                            console.log(selected);
-                            $.post(apiCheckAnsUrl, selected, function (res, status) {
-                                console.log("Data: " + res + "\nStatus: " + status);
-                                $.notifyClose();
-                                if (res.status) {
-                                    $.notify({
-                                        icon: 'pe-7s-attention',
-                                        message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
-                                    }, {
-                                        type: 'danger',
-                                        timer: 10,
-                                        newest_on_top: true
-                                    });
-                                } else {
-                                    $.notify({
-                                        icon: 'pe-7s-cup',
-                                        message: "Bingo !"
-                                    }, {
-                                        type: 'success',
-                                        timer: 10,
-                                        newest_on_top: true
-                                    });
-                                }
-                            });
-                        }
-                        $(".submitBtn").click(submitAnswer);
-                        $(document).keypress(function (e) {
-                            var key = e.which;
-                            if(key == 13) {
-                                submitAnswer();
-                                return false;  
-                             }
-                        }); 
+                    $(document).ready(function(){    
+                        var u = "http://127.0.0.1:8080/event/2/leaderboard"
+                        // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                        console.log(u.split("/"));
+                        var eventId = parseInt(u.split("/")[4]) || "1";
+                        var apiQuesUrl = baseUrl+"event/"+eventId+"/question";
+                        var apiUserUrl = baseUrl+"event/"+eventId+"/user";
+                        var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer";
+                        // Grab the current date
+                        var currentDate = new Date();
+                        
+                        // Set some date in the future. In this case, it's always Jan 1
+                        var futureDate  = new Date(currentDate.getFullYear() + 1, 0, 1);
+                        
+                        // Calculate the difference in seconds between the future and current date
+                        var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+                        // var clock = $('.endingClock').FlipClock(diff,{
+                        //     clockFace: 'DailyCounter',
+                        //     countdown : true
+                        // });
+                        var clock = new FlipClock($('.endingClock'), 500, {
+                            clockFace: 'HourlyCounter',
+                            autoStart: true,
+                            countdown: true
+                        });
+                        $.get(apiQuesUrl, function(ques) {
+                            if (!ques.status) {
+                                window.location = ques.redirect;
+                            } else {
+                                $.get(apiUserUrl, function(userData) {
+                                    console.log(userData);
+                                    $(".userPoints p b").html(userData.score);
+                                    $(".userName").html(userData.name);
+                                    $(".userAvatar").attr(src,userData.avatar);
+                                });
+                                $(".navbar-brand").html()
+                                setTimeout(function() {
+                                    $(".ques p").addClass("animated fadeIn");
+                                    $(".ques p").html(ques.question);
+                                }, 600);
+                            }
+                            function submitAnswer() {
+                                var selected = {
+                                    answer: $("answer").val()
+                                };
+                                console.log(selected);
+                                $.post(apiCheckAnsUrl, selected, function (res, status) {
+                                    console.log("Data: " + res + "\nStatus: " + status);
+                                    $.notifyClose();
+                                    if (res.status) {
+                                        $.notify({
+                                            icon: 'pe-7s-attention',
+                                            message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
+                                        }, {
+                                            type: 'danger',
+                                            timer: 10,
+                                            newest_on_top: true
+                                        });
+                                    } else {
+                                        $.notify({
+                                            icon: 'pe-7s-cup',
+                                            message: "Bingo !"
+                                        }, {
+                                            type: 'success',
+                                            timer: 10,
+                                            newest_on_top: true
+                                        });
+                                    }
+                                });
+                            }
+                            $(".submitBtn").click(submitAnswer);
+                            $(document).keypress(function (e) {
+                                var key = e.which;
+                                if(key == 13) {
+                                    submitAnswer();
+                                    return false;  
+                                 }
+                            }); 
+                        });
                     });
-                });
-            </script>
+                </script>
 </html>
