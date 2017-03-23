@@ -67,7 +67,7 @@
                         /*transform: scale(0.9);*/
                         /*box-shadow: 0px 0px 1px 10px #eee;*/
                     }
-        
+
                 </style>
     </head>
     <body>
@@ -272,7 +272,7 @@
                 $.post(baseUrl+"user", signup,function(data, status) {
                         console.log("Data: " + data + "\nStatus: " + status);
                         console.log(JSON.stringify(data));
-                        // window.location = data.redirect;
+                        window.location = data.redirect;
                 });
               }
             });

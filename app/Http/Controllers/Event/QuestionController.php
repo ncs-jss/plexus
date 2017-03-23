@@ -36,7 +36,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        return File::get(public_path()."/backoffice/pages/manageEvent.html");
+
     }
 
     /**

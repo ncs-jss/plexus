@@ -22,7 +22,7 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'/>
         <link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
         <style>
-            
+
         </style>
     </head>
     <body>
@@ -186,7 +186,7 @@
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
     <script type="text/javascript">
-                    $(document).ready(function(){    
+                    $(document).ready(function(){
                         var u = "http://127.0.0.1:8080/event/2/leaderboard"
                         // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
                         console.log(u.split("/"));
@@ -196,10 +196,10 @@
                         var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer";
                         // Grab the current date
                         var currentDate = new Date();
-                        
+
                         // Set some date in the future. In this case, it's always Jan 1
                         var futureDate  = new Date(currentDate.getFullYear() + 1, 0, 1);
-                        
+
                         // Calculate the difference in seconds between the future and current date
                         var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
                         // var clock = $('.endingClock').FlipClock(diff,{
@@ -263,9 +263,9 @@
                                 var key = e.which;
                                 if(key == 13) {
                                     submitAnswer();
-                                    return false;  
+                                    return false;
                                  }
-                            }); 
+                            });
                         });
                     });
                 </script>

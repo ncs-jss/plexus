@@ -143,6 +143,12 @@ class EventController extends Controller
     {
         $event = Event::find($id);
 
+        if ($event->startTime > Carbon::now()) {
+            return Redirect::to('');
+        } elseif ($event->endTime < Carbon::now()) {
+            return Redirect::to('event/'.$id.'/leaderboard');
+        }
+
         if (Auth::guard('user')->check()) {
 
             if ($event->type == 1) {
