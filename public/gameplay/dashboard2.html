@@ -11,6 +11,7 @@
         <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
         <!-- Animation library for notifications   -->
         <link href="/assets/css/animate.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="/vendor/flipclock/compiled/flipclock.css"/>
         <!--  Light Bootstrap Table core CSS    -->
         <link href="/assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
         <!--  CSS for Demo Purpose, don't include it in your project     -->
@@ -35,7 +36,6 @@
                             <img src="/assets/img/avatar-0.png" alt="" class="img-circle userAvatar" style="width: 80px;height: 80px;"/>
                         </div>
                         <a href="/user/edit" class="simple-text userName">Aditya</a>
-
                     </div>
                     <ul class="nav">
                         <li>
@@ -71,7 +71,10 @@
                         <li class="active-pro userPoints">
                             <a href="javascript:void(0)">
                                 <i class="pe-7s-rocket"></i>
-                                <p>Score : <b>80pts</b></p>
+                                <p>
+                                    Score :
+                                    <b>80pts</b>
+                                </p>
                             </a>
                         </li>
                     </ul>
@@ -103,113 +106,83 @@
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="card fadeInUp">
-                                    <div class="header">
-                                        <h2 class="title">
-                                            <i class="pe-7s-comment"></i>
-                                            &nbsp; Question
-                                        </h2>
-                                        <hr/>
-                                    </div>
-                                    <div class="content ques">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos adipisci animi repudiandae, omnis. Illo deserunt, nam blanditiis iste, ab, quibusdam totam dolor consectetur dicta reprehenderit voluptatem laboriosam eius consequuntur veritatis.</p>
-                                        <div style="width: 100%;height: 200px;text-align: center;margin: 20px;">
-                                            <img src="/assets/img/one.jpg" alt="" class="" style="object-fit: cover;height: 100%;"/>
+                                    <div class="row">
+                                        <div class="col-md-4 col-md-push-8">
+                                            <div class="clockContainer">
+                                                <div class="endingClock"></div>
+                                            </div>
+                                            <div class="levelJumpContainer">
+                                                <div class="form-group">
+                                                    <label for="selectQuesNo">Jump To Question:</label>
+                                                    <select class="form-control selectQuesNo" id="selectQuesNo">
+                                                        <option value="0" selected="selected">Level 1</option>
+                                                        <option value="1">Level 2</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card ">
-                                    <div class="header">
-                                        <h4 class="title">
-                                            <i class="pe-7s-light"></i>
-                                            &nbsp; Options
-                                        </h4>
-                                        <p class="category">Pick one from the following</p>
-                                    </div>
-                                    <div class="content">
-                                        <div class="table-full-width">
-                                            <table class="table optionTable">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-xs-12">
-                                                                    <label class="radio" style="height: auto;width: 100%;">
-                                                                        <input type="radio" name="optionRadio" value="1" data-toggle="radio"/>
-                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 1</h5>
-                                                                    </label>
-                                                                </div>
-                                                                <!-- <div class="col-xs-11">
-                                                                    <h5 style="margin-top: 0">Option 1</h5>
-                                                                </div> -->
+                                        <div class="col-md-8 col-md-pull-4">
+                                            <div class="header">
+                                                <h2 class="title">
+                                                    <i class="pe-7s-comment"></i>
+                                                    &nbsp; Question
+                                                </h2>
+                                                <hr/>
+                                            </div>
+                                            <div class="content ques">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos adipisci animi repudiandae, omnis. Illo deserunt, nam blanditiis iste, ab, quibusdam totam dolor consectetur dicta reprehenderit voluptatem laboriosam eius consequuntur veritatis.</p>
+                                                <div class="quesImg text-center">
+                                                    <img src="/assets/img/one.jpg" alt="" class="hidden-sm" style="height: 200px;width: auto;max-width: 100%;"/>
+                                                    <img src="/assets/img/one.jpg" alt="" class="img-responsive visible-sm" style=""/>
+                                                </div>
+                                                <hr/>
+                                                <div class="optionBlock">
+                                                    <div class="header">
+                                                        <h4 class="title text-center">
+                                                            <i class="pe-7s-light"></i>
+                                                            &nbsp; Options
+                                                        </h4>
+                                                        <br/>
+                                                    </div>
+                                                    <div class="options" style="margin-left: 30px;">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="optionRadio" value="1" data-toggle="radio"/>
+                                                                    <p>Option 1 lorem ipsum dolor sit amet, consectetur adipisicing elit. Id inventore, nemo architecto esse quos ex dolore doloremque enim quasi velit, consequuntur sunt commodi nulla repellendus, facere placeat officia. Ipsa, rem.</p>
+                                                                </label>
                                                             </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-xs-12">
-                                                                    <label class="radio" style="height: auto;width: 100%;">
-                                                                        <input type="radio" name="optionRadio" value="2" data-toggle="radio"/>
-                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 2</h5>
-                                                                    </label>
-                                                                </div>
-                                                                <!-- <div class="col-xs-11">
-                                                                    <h5 style="margin-top: 0">Option 1</h5>
-                                                                </div> -->
+                                                            <div class="col-md-6">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="optionRadio" value="2" data-toggle="radio"/>
+                                                                    <p>Option 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus voluptate dolorum repudiandae, animi maiores officiis enim possimus omnis molestiae et incidunt quasi, aut amet reprehenderit temporibus porro, nesciunt! Inventore, dolorum.</p>
+                                                                </label>
                                                             </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-xs-12">
-                                                                    <label class="radio" style="height: auto;width: 100%;">
-                                                                        <input type="radio" name="optionRadio" value="3" data-toggle="radio"/>
-                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 3</h5>
-                                                                    </label>
-                                                                </div>
-                                                                <!-- <div class="col-xs-11">
-                                                                    <h5 style="margin-top: 0">Option 1</h5>
-                                                                </div> -->
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="optionRadio" value="3" data-toggle="radio"/>
+                                                                    <p>Option 3</p>
+                                                                </label>
                                                             </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-xs-12">
-                                                                    <label class="radio" style="height: auto;width: 100%;">
-                                                                        <input type="radio" name="optionRadio" value="4" data-toggle="radio"/>
-                                                                        <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">Option 4</h5>
-                                                                    </label>
-                                                                </div>
-                                                                <!-- <div class="col-xs-11">
-                                                                    <h5 style="margin-top: 0">Option 1</h5>
-                                                                </div> -->
+                                                            <div class="col-md-6">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="optionRadio" value="4" data-toggle="radio"/>
+                                                                    <p>Option 4</p>
+                                                                </label>
                                                             </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="footer">
-                                            <hr/>
-                                            <div class="stats" style="width: 100%;">
-                                                <button type="submit" class="btn btn-info btn-fill pull-right submitBtn">
-                                                    <i class="fa fa-paper-plane"></i>
-                                                    Submit
-                                                </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row"></div>
                     </div>
                 </div>
                 <footer class="footer">
@@ -243,6 +216,7 @@
     <!--   Core JS Files   -->
     <script src="/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/vendor/flipclock/compiled/flipclock.min.js"></script>
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="/assets/js/bootstrap-checkbox-radio-switch.js"></script>
     <!--  Charts Plugin -->
@@ -264,6 +238,22 @@
                     var apiQuesUrl = baseUrl+"event/"+eventId+"/question";
                     var apiUserUrl = baseUrl+"event/"+eventId+"/user";
                     var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer";
+                    var currentDate = new Date();
+                    
+                    // Set some date in the future. In this case, it's always Jan 1
+                    var futureDate  = new Date(currentDate.getFullYear() + 1, 0, 1);
+                    
+                    // Calculate the difference in seconds between the future and current date
+                    var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+                    // var clock = $('.endingClock').FlipClock(diff,{
+                    //     clockFace: 'DailyCounter',
+                    //     countdown : true
+                    // });
+                    var clock = new FlipClock($('.endingClock'), 500, {
+                        clockFace: 'HourlyCounter',
+                        autoStart: true,
+                        countdown: true
+                    });
                     $.get(apiQuesUrl, function(ques) {
                         if (!ques.status) {
                             window.location = ques.redirect;

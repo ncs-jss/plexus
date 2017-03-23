@@ -22,25 +22,12 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'/>
         <link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
         <style>
-            .clockContainer{
-                /*background: #2b2b2b;*/
-            }
-            .endingClock {
-                transform-origin: 0 0;
-                transform: scale(.65);
-                -ms-transform: scale(.65);
-                -webkit-transform-origin: 0 0;
-                -webkit-transform: scale(.65);
-                -o-transform-origin: 0 0;
-                -o-transform: scale(.65);
-                -moz-transform-origin: 0 0;
-                -moz-transform: scale(.65);
-            }
+            
         </style>
     </head>
     <body>
         <div class="wrapper">
-            <div class="sidebar" data-color="purple" data-image="/assets/img/sidebar-5.jpg">
+            <div class="sidebar" data-color="azure" data-image="/assets/img/sidebar-5.jpg">
                 <div class="sidebar-wrapper">
                     <div class="logo">
                         <div class="text-center" style="margin-top: 20px;">
@@ -108,7 +95,7 @@
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <a href="/api/logout">Log out</a>
+                                    <a href="/logout">Log out</a>
                                 </li>
                             </ul>
                         </div>
@@ -117,39 +104,42 @@
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-10 col-md-offset-1 clockContainer">
-                                <div class="pull-right">
-                                    <div class="endingClock"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
+                            <div class="col-md-12">
                                 <div class="card fadeInUp">
-                                    <div class="header">
-                                        <h2 class="title">
-                                            <i class="pe-7s-comment"></i>
-                                            &nbsp; Question
-                                        </h2>
-                                        <hr/>
-                                    </div>
-                                    <div class="content ques">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos adipisci animi repudiandae, omnis. Illo deserunt, nam blanditiis iste, ab, quibusdam totam dolor consectetur dicta reprehenderit voluptatem laboriosam eius consequuntur veritatis.</p>
-                                        <div style="width: 100%;height: 200px;text-align: center;margin: 20px;">
-                                            <img src="/assets/img/one.jpg" alt="" class="" style="object-fit: cover;height: 100%;"/>
+                                    <div class="row">
+                                        <div class="col-md-4 col-md-push-8">
+                                            <div class="clockContainer">
+                                                <div class="endingClock"></div>
+                                            </div>
                                         </div>
-                                        <div class="answerBlock">
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <div class="form-group has-feedback">
-                                                        <input type="email" class="form-control answer" placeholder="Give answer here" value="" required/>
-                                                    </div>
+                                        <div class="col-md-8 col-md-pull-4">
+                                            <div class="header">
+                                                <h2 class="title">
+                                                    <i class="pe-7s-comment"></i>
+                                                    &nbsp; Question
+                                                </h2>
+                                                <hr/>
+                                            </div>
+                                            <div class="content ques">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos adipisci animi repudiandae, omnis. Illo deserunt, nam blanditiis iste, ab, quibusdam totam dolor consectetur dicta reprehenderit voluptatem laboriosam eius consequuntur veritatis.</p>
+                                                <div class="quesImg text-center">
+                                                    <img src="/assets/img/one.jpg" alt="" class="hidden-sm" style="height: 200px;width: auto;max-width: 100%;"/>
+                                                    <img src="/assets/img/one.jpg" alt="" class="img-responsive visible-sm" style=""/>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <button type="submit" class="btn btn-info btn-fill submitBtn">
-                                                        <i class="fa fa-paper-plane"></i>
-                                                        Submit
-                                                    </button>
+                                                <div class="answerBlock">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <div class="form-group has-feedback">
+                                                                <input type="email" class="form-control answer" placeholder="Give answer here" value="" required/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 col-xs-offset-3 col-md-offset-0">
+                                                            <button type="submit" class="btn btn-info btn-fill submitBtn">
+                                                                <i class="fa fa-paper-plane"></i>
+                                                                Submit
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
