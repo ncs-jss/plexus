@@ -53,7 +53,7 @@
                         transform: scale(0.9) rotate(-360deg) ;
                         box-shadow: 0px 0px 11px 0px #666;
                     }
-        
+
                 </style>
     </head>
     <body>
@@ -265,7 +265,7 @@
                 $.post(baseUrl+"user", signup,function(data, status) {
                         console.log("Data: " + data + "\nStatus: " + status);
                         console.log(JSON.stringify(data));
-                        // window.location = data.redirect;
+                        window.location = data.redirect;
                 });
               }
             });

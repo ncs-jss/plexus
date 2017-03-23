@@ -47,7 +47,6 @@ class QuestionControllerApi extends Controller
             return Response::json(
                 [
                 "status" => false,
-                "error" => "No Questions Added",
                 "data" => $question
                 ]
             );
@@ -55,6 +54,7 @@ class QuestionControllerApi extends Controller
         return Response::json(
             [
             "status" => true,
+            "error" => "No Questions Added",
             "data" => $question
             ]
         );

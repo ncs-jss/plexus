@@ -24,10 +24,10 @@
         <div class="wrapper">
             <div class="sidebar" data-color="purple" data-image="/assets/img/sidebar-5.jpg">
                 <!--
-                
+
                         Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
                         Tip 2: you can also add an image using data-image tag
-                
+
                     -->
                 <div class="sidebar-wrapper">
                     <div class="logo">
@@ -255,7 +255,7 @@
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
     <script type="text/javascript">
-                $(document).ready(function(){    
+                $(document).ready(function(){
                     var wrongNotifs = [
                         "Your key didn't open the door!",
                         "Be like Bill and just do it!",
@@ -280,9 +280,9 @@
                         id:1
                     }
                     var u = "http://127.0.0.1:8080/event/2/leaderboard"
-                    // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                    var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
                     console.log(u.split("/"));
-                    var eventId = parseInt(u.split("/")[4]) || "1";
+                    // var eventId = parseInt(u.split("/")[4]) || "1";
                     var apiQuesUrl = baseUrl+"event/"+eventId+"/question";
                     var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer"+ques.id;
                     $.get(apiQuesUrl, function(data) {
@@ -292,7 +292,7 @@
                             setTimeout(function() {
                                 $(".ques p").addClass("animated fadeIn");
                                 $(".ques p").html(data.question);
-    
+
                             }, 600);
                         }
                         $(".submitBtn").click(function(){

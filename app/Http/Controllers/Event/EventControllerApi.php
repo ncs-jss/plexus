@@ -31,7 +31,7 @@ class EventControllerApi extends Controller
     {
         $this->middleware(
             'society', [
-                'except' => ['show', 'index']
+                'except' => ['show', 'index', 'dashboard']
             ]
         );
     }
@@ -308,23 +308,41 @@ class EventControllerApi extends Controller
     public function dashboard($id)
     {
         // Get event details
-        $event = Event::find($id)->toJson();
+        $event = Event::find($id);
+        $type = $event->type;
         $level = 0;
         $question = [];
 
+        if ($event->startTime > Carbon::now()) {
+            return Redirect::to('');
+        } elseif ($event->endTime < Carbon::now()) {
+            return Redirect::to('event/'.$id.'/leaderboard');
+        }
+
         if (Auth::guard('user')->check()) {
+
             $getScore = Score::where(
                 [
                 ['eventId', $id],
-                ['userId', Auth::guard('user')->id],
+                ['userId', Auth::guard('user')->id()],
                 ]
             )->get();
 
-            if ($getScore != []) {
+            if ($type == 1) {
+                //
+            } elseif ($type == 2) {
+                //
+            } else {
+
+            }
+
+
+
+            if ($getScore) {
                 $level = $getScore->level + 1;
             } else {
                 $newUserScore = new Score;
-                $newUserScore->userId = Auth::guard('user')->id;
+                $newUserScore->userId = Auth::guard('user')->id();
                 $newUserScore->eventId = $id;
 
                 $newUserScore->save();
@@ -335,13 +353,13 @@ class EventControllerApi extends Controller
                 ['eventId', $id],
                 ['level', $level],
                 ]
-            )->get()->toJson();
+            )->first()->toJson();
+
 
         } elseif (Auth::guard('society')->check()) {
             $question = Question::where('eventId', $id)->get()->toJson();
         } else {
             return Redirect::to('/login');
-            // $question = Question::where('eventId', $id)->get()->toJson();
         }
 
         $data = [

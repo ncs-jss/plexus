@@ -36,6 +36,9 @@ Route::group(
     Route::get('user/edit', 'User\UserControllerApi@profile');
     Route::post('society/login', 'Society\SocietyControllerApi@login');
     Route::post('user/login', 'User\UserControllerApi@login');
+    Route::get('/event/{eventId}/user', 'User\UserControllerApi@details');
+
+    Route::get('event/{id}/dashboard', 'Event\EventControllerApi@dashboard');
 
     Route::get('society/dashboard', 'Society\SocietyControllerApi@dashboard');
     Route::get('/event/{eventId}/leaderboard', 'HomeController@leaderboard');

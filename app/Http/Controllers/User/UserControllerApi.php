@@ -12,7 +12,7 @@ use Session;
 use Auth;
 use Redirect;
 use App\User;
-use App\UserDetails;
+use App\UserDetail;
 use File;
 use App\Society;
 use Response;
@@ -113,11 +113,11 @@ class UserControllerApi extends Controller
         ];
 
         if ($user->save()) {
-            $userDetails = new UserDetails;
+            $userDetails = new UserDetail;
             $userDetails->admissionNo = $userInput['admissionNo'];
             $userDetails->contact = $userInput['contact'];
             $userDetails->college = $userInput['college'];
-            $userDetails->usedId = $user->id;
+            $userDetails->userId = $user->id;
             $userDetails->save();
 
             if (Auth::guard('user')->attempt($credentials)) {
