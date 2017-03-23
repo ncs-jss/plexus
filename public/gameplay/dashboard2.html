@@ -20,6 +20,28 @@
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'/>
         <link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
+        <style>
+            .quesRows{
+                margin-top:20px;
+            }
+            .quesRows .row{
+                margin-bottom: 10px;
+            }
+            .quesNo{
+                width: 40px;
+                height: 40px;
+                background: #1DC7EA;
+                border-radius: 100%;
+                font-size: 16px;
+                line-height: 40px;
+                text-align: center;
+                color: #fff;
+                cursor: pointer;
+            }
+            .quesNo:hover{
+                background: #56CCF2;
+            }
+        </style>
     </head>
     <body>
         <div class="wrapper">
@@ -103,14 +125,60 @@
                                         <div class="col-md-4 col-md-push-8">
                                             <div class="clockContainer">
                                                 <div class="endingClock"></div>
+                                            <hr>
                                             </div>
-                                            <div class="levelJumpContainer">
+                                            <div class="levelJumpContainer text-center">
                                                 <div class="form-group">
                                                     <label for="selectQuesNo">Jump To Question:</label>
-                                                    <select class="form-control selectQuesNo" id="selectQuesNo">
+                                                    <br>
+                                                    <!-- <select class="form-control selectQuesNo" id="selectQuesNo">
                                                         <option value="0" selected="selected">Level 1</option>
                                                         <option value="1">Level 2</option>
-                                                    </select>
+                                                    </select> -->
+                                                    <div class="quesRows">
+                                                        <div class="row">
+                                                            <div class="col-xs-2 col-md-offset-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-2 col-md-offset-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-2 col-md-offset-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="quesNo">1</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -165,6 +233,15 @@
                                                                     <p>Option 4</p>
                                                                 </label>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <button type="submit" class="btn btn-info btn-fill pull-right submitBtn">
+                                                                <i class="fa fa-paper-plane"></i>
+                                                                Submit
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
