@@ -13,6 +13,7 @@ use Auth;
 use Redirect;
 use App\Event;
 use App\Society;
+use App\Score;
 use Carbon\Carbon;
 
 class AnswerControllerApi extends Controller
@@ -26,9 +27,7 @@ class AnswerControllerApi extends Controller
     public function __construct()
     {
         $this->middleware(
-            'society', [
-                'except' => ['show']
-            ]
+            'user'
         );
     }
 
@@ -63,6 +62,7 @@ class AnswerControllerApi extends Controller
     public function store(Request $request, $eventId, $id)
     {
         $answerInput = Input::all();
+
         $answerInput = $answerInput['answer'];
         $correct = false;
 

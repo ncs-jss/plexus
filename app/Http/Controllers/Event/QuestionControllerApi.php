@@ -44,6 +44,9 @@ class QuestionControllerApi extends Controller
     {
         $question = Question::where('eventId', $id)->get();
         if ($question) {
+            foreach ($question as $key => $value) {
+                $value->answer = Answer::where('quesId', $value->id)->get()[0];
+            }
             return Response::json(
                 [
                 "status" => false,

@@ -15,6 +15,7 @@ use App\User;
 use App\UserDetail;
 use File;
 use App\Society;
+use App\Score;
 use Response;
 
 class UserControllerApi extends Controller
@@ -221,8 +222,9 @@ class UserControllerApi extends Controller
         $id = Auth::guard('user')->id();
 
         $user = User::find($id);
-        if ($user) {
-            $userDetails = UserDetail::where('userId', $id);
+
+        if (count($user)) {
+            $userDetails = UserDetail::where('userId', $id)->first();
             $user->profile = $userDetails;
             return Response::json(
                 [
@@ -290,6 +292,39 @@ class UserControllerApi extends Controller
             [
             'status' => false,
             'errors' => []
+            ]
+        );
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userInfoEvent($eventId)
+    {
+        $id = Auth::guard('user')->id();
+
+        $user = User::find($id);
+
+        if (count($user)) {
+            $score = Score::where([
+                ['userId', $id],
+                ['eventId', $eventId],
+                ])->first();
+            $user->score = $score;
+            return Response::json(
+                [
+                "status" => true,
+                "data" => $user
+                ]
+            );
+        }
+        return Response::json(
+            [
+            "status" => false,
+            "data" => [],
+            "error" => "User doesn't exist"
             ]
         );
     }

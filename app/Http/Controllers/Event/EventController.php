@@ -157,13 +157,13 @@ class EventController extends Controller
                     ]
                 )->get();
 
-                if (!$getScore) {
+                if (!count($getScore)) {
                     $newUserScore = new Score;
                     $newUserScore->userId = Auth::guard('user')->id();
                     $newUserScore->eventId = $id;
                     $newUserScore->save();
 
-                    return Redirect::to('/event'.$id);
+                    return Redirect::to('/event/'.$id);
                 }
 
                 if ($event->type == 1) {

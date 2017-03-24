@@ -335,34 +335,34 @@ class EventControllerApi extends Controller
                     ['eventId', $id],
                     ['userId', Auth::guard('user')->id()],
                     ]
-                )->get();
+                )->first();
 
                 if ($type == 2) {
                     // MCQ
                 } else {
 
-                    if ($getScore) {
-                        $level = $getScore->level + 1;
-                    } else {
+                    if (!count($getScore)) {
                         $newUserScore = new Score;
                         $newUserScore->userId = Auth::guard('user')->id();
                         $newUserScore->eventId = $id;
                         $newUserScore->save();
                     }
+                    $level = $getScore->level + 1;
+
                     $question = Question::where(
                         [
                         ['eventId', $id],
                         ['level', $level],
                         ]
                     )->first();
-
                 }
             }
         }
+
         if (Auth::guard('society')->check()) {
             $question = Question::where('eventId', $id)->get()->toJson();
-        } else {
-            return Redirect::to('/login');
+        } elseif (!Auth::guard('society')->check() && !Auth::guard('user')->check()) {
+            return Redirect::to('/');
         }
 
         $data = [

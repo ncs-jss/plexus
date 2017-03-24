@@ -164,11 +164,10 @@
                         for (var i = 0, l = data.length; i < l; i++) {
                             allHtml = '<td>' + parseInt(i + 1) + '</td>\n';
                             allHtml += '<td>' + data[i].question + '</td>\n';
-                            allHtml += '<td>' + data[i].answer + '</td>\n';
+                            allHtml += '<td>' + data[i].answer.answer + '</td>\n';
                             allHtml += '<td>' + data[i].image + '</td>\n';
-                            allHtml += '<td>' + data[i].score + '</td>\n';
+                            allHtml += '<td>' + data[i].answer.score + '</td>\n';
                             allHtml += '<td>' + data[i].level + '</td>\n';
-                            allHtml += '<td>' + data[i].forum + '</td>\n';
                             allHtml = openHtml + allHtml + closeHtml;
                             $(".questionList").append(allHtml);
                         }
