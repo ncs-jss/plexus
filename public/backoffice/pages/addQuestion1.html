@@ -116,8 +116,16 @@
                                                     <input class="form-control answer" placeholder="Enter Answer"/>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Level</label>
+                                                    <input class="form-control level" placeholder="Level" type="number" min="1" max="60"/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
                                                     <label>Score</label>
                                                     <input class="form-control score" placeholder="Score" type="number" min="1" max="10"/>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-md-6">
+                                                    <label>Negative Score</label>
+                                                    <input class="form-control nscore" placeholder="Negative Score" type="number" min="1" max="10"/>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
                                                     <label>Image File</label>
@@ -179,6 +187,8 @@
                     ques.score = $(".score").val();
                     // ques.image = $(".image").prop('files');
                     ques.answer = $(".answer").val();
+                    ques.incorrect = $(".nscore").val();
+                    ques.level = $(".level").val();
                     console.log(ques);
                     $.post(apiUrl, ques,
                         function(data, status) {

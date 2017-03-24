@@ -220,7 +220,6 @@ linking = {
             var anchor = $(value).find("a");
             var link = "/event/" + id + anchor.data("href");
             anchor.attr("href",link)
-            console.log(link);
         })
     }
 }
