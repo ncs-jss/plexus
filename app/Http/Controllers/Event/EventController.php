@@ -147,17 +147,34 @@ class EventController extends Controller
             return Redirect::to('');
         } elseif ($event->endTime < Carbon::now()) {
             return Redirect::to('event/'.$id.'/leaderboard');
-        }
+        } elseif ($event->approve == 1 && $event->active == 1) {
+            if (Auth::guard('user')->check()) {
 
-        if (Auth::guard('user')->check()) {
+                $getScore = Score::where(
+                    [
+                    ['eventId', $id],
+                    ['userId', Auth::guard('user')->id()],
+                    ]
+                )->get();
 
-            if ($event->type == 1) {
-                return File::get(public_path()."/gameplay/dashboard1.html");
-            } elseif ($event->type == 2) {
+                if (!$getScore) {
+                    $newUserScore = new Score;
+                    $newUserScore->userId = Auth::guard('user')->id();
+                    $newUserScore->eventId = $id;
+                    $newUserScore->save();
+
+                    return Redirect::to('/event'.$id);
+                }
+
+                if ($event->type == 1) {
+                    return File::get(public_path()."/gameplay/dashboard1.html");
+                } elseif ($event->type == 2) {
+                    return File::get(public_path()."/gameplay/dashboard1.html");
+                }
                 return File::get(public_path()."/gameplay/dashboard1.html");
             }
-            return File::get(public_path()."/gameplay/dashboard1.html");
-        } elseif (Auth::guard('society')->check()) {
+        }
+        if (Auth::guard('society')->check()) {
             return File::get(public_path()."/backoffice/pages/manageEvent.html");
         }
         return Redirect::to("/login");
