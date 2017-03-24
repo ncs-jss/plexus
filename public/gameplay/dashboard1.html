@@ -218,7 +218,7 @@
                                             console.log(linking.eventId);
                                             $.get(apiQuesUrl, function(ques) {
                                                 if (!ques.status) {
-                                                    window.location = ques.redirect;
+                                                    // window.location = ques.redirect;
                                                 } else {
                                                     $.get(apiUserUrl, function(userData) {
                                                         console.log(userData);
