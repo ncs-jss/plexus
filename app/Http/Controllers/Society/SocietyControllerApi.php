@@ -273,7 +273,13 @@ class SocietyControllerApi extends Controller
     public function dashboard()
     {
         $id = Auth::guard('society')->id();
-        $event = Event::where('societyId', $id)->get();
+        $society = Society::find($id);
+        $event = "";
+        if ($society->privilege == 1) {
+            $event = Event::all();
+        } else {
+            $event = Event::where('societyId', $id)->get();
+        }
         return Response::json(
             [
             "status" => true,

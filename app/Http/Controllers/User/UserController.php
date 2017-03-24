@@ -25,12 +25,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(
-            'user',
-            [
-                'except' => [
-                    'profile'
-                ]
-            ]
+            'user'
         );
     }
 
@@ -41,7 +36,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::where('name', 'A')->inRandomOrder()->get();
     }
 
     /**

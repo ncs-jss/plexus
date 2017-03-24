@@ -89,8 +89,10 @@ class UserControllerApi extends Controller
             'class' => 'Success'
         ];
 
-        $this->validate(
-            $request, [
+        $userInput = Input::all();
+
+        $validator = Validator::make(
+            $userInput, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'avatar' => 'required|max:255',
@@ -100,19 +102,46 @@ class UserControllerApi extends Controller
             ]
         );
 
-        $userInput = Input::all();
+        if ($validator->fails()) {
+            return Response::json(
+                [
+                "status" => false,
+                "errors" => $validator->errors()
+                ]
+            );
+        }
+
+        if (isset($userInput['admissionNo'])) {
+
+            $validator = Validator::make(
+                ["admissionNo" => $userInput['admissionNo']], [
+                'admissionNo' => 'required|unique:userdetails',
+                ]
+            );
+
+            if ($validator->fails()) {
+                return Response::json(
+                    [
+                    "status" => false,
+                    "errors" => $validator->errors()
+                    ]
+                );
+            }
+        }
 
         $user = new User;
         $user->name = $userInput['name'];
         $user->email = $userInput['email'];
         $user->password = Hash::make($userInput['password']);
         $user->avatar = $userInput['avatar'];
+
         $credentials = [
             'email' => $userInput['email'],
             'password' => $userInput['password']
         ];
 
         if ($user->save()) {
+
             $userDetails = new UserDetail;
             $userDetails->admissionNo = $userInput['admissionNo'];
             $userDetails->contact = $userInput['contact'];
@@ -193,6 +222,8 @@ class UserControllerApi extends Controller
 
         $user = User::find($id);
         if ($user) {
+            $userDetails = UserDetail::where('userId', $id);
+            $user->profile = $userDetails;
             return Response::json(
                 [
                 "status" => true,

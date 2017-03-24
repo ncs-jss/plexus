@@ -83,19 +83,15 @@ class AnswerControllerApi extends Controller
 
         if ($score == "") {
             $score = new Score;
-            if ($correct) {
-                $score->score = $answer->score;
-                $score->userId = Auth::guard('user')->id();
-                $score->eventId = $eventId;
-                if ($question->type == 3) {
-                    $score->level = $question->level;
-                }
-            }
+            $score->userId = Auth::guard('user')->id();
+            $score->eventId = $eventId;
+            $score->save();
         }
-
-
-
-
+        $data = [
+            "question" => $question,
+            "answer" => $answer
+        ];
+        return $this->correct($correct, $score, $data);
     }
 
     /**
@@ -145,4 +141,24 @@ class AnswerControllerApi extends Controller
     {
         //
     }
+
+    public function correct($correct = False, $score, $data)
+    {
+        if ($correct) {
+            $score->score += $data['answer']->score;
+            if ($data['question']->type != 2) {
+                $score->level = $data['question']->level;
+            }
+            return Response::json([
+                "status" => True,
+                "redirect" => 'event/'.$id.'/dashboard'
+            ]);
+        }
+        return Response::json([
+            "status" => False,
+            "answer" => "Incorrect Answer"
+        ]);
+    }
+
+
 }

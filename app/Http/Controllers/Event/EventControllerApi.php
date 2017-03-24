@@ -48,15 +48,25 @@ class EventControllerApi extends Controller
             [
             ['startTime' , '<=', Carbon::now()],
             ['endTime', '>', Carbon::now()],
+            ['approve', 1],
+            ['active', 1],
             ]
         )->get()->toJson();
 
         $pastEvents = Event::where(
-            'endTime', '<=', Carbon::now()
+            [
+            ['endTime', '<=', Carbon::now()],
+            ['approve', 1],
+            ['active', 1],
+            ]
         )->get()->toJson();
 
         $futureEvents = Event::where(
-            'startTime', '>', Carbon::now()
+            [
+            ['startTime', '>', Carbon::now()],
+            ['approve', 1],
+            ['active', 1],
+            ]
         )->get()->toJson();
 
         $privilege = 0;
@@ -317,46 +327,39 @@ class EventControllerApi extends Controller
             return Redirect::to('');
         } elseif ($event->endTime < Carbon::now()) {
             return Redirect::to('event/'.$id.'/leaderboard');
+        } elseif ($event->approve == 1 && $event->active == 1) {
+            if (Auth::guard('user')->check()) {
+
+                $getScore = Score::where(
+                    [
+                    ['eventId', $id],
+                    ['userId', Auth::guard('user')->id()],
+                    ]
+                )->get();
+
+                if ($type == 2) {
+                    // MCQ
+                } else {
+
+                    if ($getScore) {
+                        $level = $getScore->level + 1;
+                    } else {
+                        $newUserScore = new Score;
+                        $newUserScore->userId = Auth::guard('user')->id();
+                        $newUserScore->eventId = $id;
+                        $newUserScore->save();
+                    }
+                    $question = Question::where(
+                        [
+                        ['eventId', $id],
+                        ['level', $level],
+                        ]
+                    )->first();
+
+                }
+            }
         }
-
-        if (Auth::guard('user')->check()) {
-
-            $getScore = Score::where(
-                [
-                ['eventId', $id],
-                ['userId', Auth::guard('user')->id()],
-                ]
-            )->get();
-
-            if ($type == 1) {
-                //
-            } elseif ($type == 2) {
-                //
-            } else {
-
-            }
-
-
-
-            if ($getScore) {
-                $level = $getScore->level + 1;
-            } else {
-                $newUserScore = new Score;
-                $newUserScore->userId = Auth::guard('user')->id();
-                $newUserScore->eventId = $id;
-
-                $newUserScore->save();
-            }
-
-            $question = Question::where(
-                [
-                ['eventId', $id],
-                ['level', $level],
-                ]
-            )->first()->toJson();
-
-
-        } elseif (Auth::guard('society')->check()) {
+        if (Auth::guard('society')->check()) {
             $question = Question::where('eventId', $id)->get()->toJson();
         } else {
             return Redirect::to('/login');

@@ -22,7 +22,7 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'/>
         <link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
         <style>
-        
+
                 </style>
     </head>
     <body>
@@ -199,10 +199,10 @@
                                             var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer";
                                             // Grab the current date
                                             var currentDate = new Date();
-                    
+
                                             // Set some date in the future. In this case, it's always Jan 1
                                             var futureDate  = new Date(currentDate.getFullYear() + 1, 0, 1);
-                    
+
                                             // Calculate the difference in seconds between the future and current date
                                             var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
                                             // var clock = $('.endingClock').FlipClock(diff,{
@@ -218,7 +218,7 @@
                                             console.log(linking.eventId);
                                             $.get(apiQuesUrl, function(ques) {
                                                 if (!ques.status) {
-                                                    window.location = ques.redirect;
+                                                    // window.location = ques.redirect;
                                                 } else {
                                                     $.get(apiUserUrl, function(userData) {
                                                         console.log(userData);

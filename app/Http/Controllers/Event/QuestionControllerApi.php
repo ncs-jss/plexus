@@ -131,7 +131,7 @@ class QuestionControllerApi extends Controller
 
             if (intval($event->type) == 2) {
                 $question->options = serialize($questionInput['options']);
-            } elseif (intval($event->type) == 3) {
+            } else {
                 $question->level = $questionInput['level'];
             }
 
@@ -150,13 +150,13 @@ class QuestionControllerApi extends Controller
 
             return Response::json(
                 [
-                "status" => true
+                "status" => True
                 ]
             );
         }
         return Response::json(
             [
-            "status" => false,
+            "status" => False,
             "error" => "Invalid Event"
             ]
         );
