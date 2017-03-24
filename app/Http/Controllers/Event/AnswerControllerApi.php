@@ -14,7 +14,10 @@ use Redirect;
 use App\Event;
 use App\Society;
 use App\Score;
+use App\Answer;
+use App\Question;
 use Carbon\Carbon;
+use Response;
 
 class AnswerControllerApi extends Controller
 {
@@ -64,24 +67,24 @@ class AnswerControllerApi extends Controller
         $answerInput = Input::all();
 
         $answerInput = $answerInput['answer'];
-        $correct = false;
+        $correct = 0;
 
         $question = Question::find($id);
 
-        $answer = Answer::where('quesId', $id);
+        $answer = Answer::where('quesId', $id)->first();
 
         $score = Score::where(
             [
-            ['userId' => Auth::guard('user')->id()],
-            ['eventId' => $eventId]
+            ['userId', Auth::guard('user')->id()],
+            ['eventId', $eventId]
             ]
-        );
+        )->first();
 
         if ($answer->answer == $answerInput) {
-            $correct = true;
+            $correct = 1;
         }
 
-        if ($score == "") {
+        if (!count($score)) {
             $score = new Score;
             $score->userId = Auth::guard('user')->id();
             $score->eventId = $eventId;
@@ -91,7 +94,17 @@ class AnswerControllerApi extends Controller
             "question" => $question,
             "answer" => $answer
         ];
-        return $this->correct($correct, $score, $data);
+        $result = $this->correctAnswer($correct, $score, $data);
+        if ($result) {
+            return Response::json([
+                "status" => True,
+                "redirect" => '/event/'.$eventId.'/dashboard'
+            ]);
+        }
+        return Response::json([
+            "status" => False,
+            "answer" => "Incorrect Answer"
+        ]);
     }
 
     /**
@@ -142,23 +155,17 @@ class AnswerControllerApi extends Controller
         //
     }
 
-    public function correct($correct = False, $score, $data)
+    public function correctAnswer($correct, $score, $data)
     {
         if ($correct) {
             $score->score += $data['answer']->score;
             if ($data['question']->type != 2) {
                 $score->level = $data['question']->level;
             }
-            return Response::json([
-                "status" => True,
-                "redirect" => 'event/'.$id.'/dashboard'
-            ]);
+            $score->save();
+            return 1;
         }
-        return Response::json([
-            "status" => False,
-            "answer" => "Incorrect Answer"
-        ]);
+        return 0;
+
     }
-
-
 }

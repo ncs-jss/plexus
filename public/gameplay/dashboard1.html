@@ -290,14 +290,16 @@
                                                     }, 600);
                                                 }
                                                 function submitAnswer() {
+                                                    event.preventDefault();
+
                                                     var selected = {
                                                         answer: $(".answer").val()
                                                     };
                                                     console.log(selected);
                                                     $.post(apiCheckAnsUrl, selected, function (res, status) {
-                                                        console.log("Data: " + res + "\nStatus: " + status);
+                                                        console.log(res);
                                                         $.notifyClose();
-                                                        if (res.status) {
+                                                        if (!res.status) {
                                                             $.notify({
                                                                 icon: 'pe-7s-attention',
                                                                 message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
@@ -315,6 +317,7 @@
                                                                 timer: 10,
                                                                 newest_on_top: true
                                                             });
+                                                            window.location = res.redirect;
                                                         }
                                                     });
                                                 }
