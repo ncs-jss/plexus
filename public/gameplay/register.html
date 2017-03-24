@@ -244,7 +244,7 @@
     <!--  Notifications Plugin    -->
     <script src="/assets/js/bootstrap-notify.js"></script>
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-    <script src="/assets/js/light-bootstrap-dashboard.js"></script>
+    <!-- <script src="/assets/js/light-bootstrap-dashboard.js"></script> -->
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
     <script>
@@ -277,9 +277,11 @@
                 signup.avatar = "/assets/img/avatar-"+$(".avatarContainer input[type='radio']:checked").val()+".png";
                 console.log(signup);
                 $.post(baseUrl+"user", signup,function(data, status) {
-                        console.log("Data: " + data + "\nStatus: " + status);
-                        console.log(JSON.stringify(data));
+                    console.log("Data: " + data + "\nStatus: " + status);
+                    console.log(data);
+                    if (data.status) {
                         window.location = data.redirect;
+                    }
                 });
               }
             });

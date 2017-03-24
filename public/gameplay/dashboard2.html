@@ -25,10 +25,10 @@
         <div class="wrapper">
             <div class="sidebar" data-color="purple" data-image="/assets/img/sidebar-5.jpg">
                 <!--
-                
+
                         Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
                         Tip 2: you can also add an image using data-image tag
-                
+
                     -->
                 <div class="sidebar-wrapper">
                     <div class="logo">
@@ -230,7 +230,7 @@
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
     <script type="text/javascript">
-                $(document).ready(function(){    
+                $(document).ready(function(){
                     var u = "http://127.0.0.1:8080/event/2/leaderboard"
                     // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
                     console.log(u.split("/"));
@@ -239,10 +239,10 @@
                     var apiUserUrl = baseUrl+"event/"+eventId+"/user";
                     var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer";
                     var currentDate = new Date();
-                    
+
                     // Set some date in the future. In this case, it's always Jan 1
                     var futureDate  = new Date(currentDate.getFullYear() + 1, 0, 1);
-                    
+
                     // Calculate the difference in seconds between the future and current date
                     var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
                     // var clock = $('.endingClock').FlipClock(diff,{
@@ -256,7 +256,7 @@
                     });
                     $.get(apiQuesUrl, function(ques) {
                         if (!ques.status) {
-                            window.location = ques.redirect;
+                            // window.location = ques.redirect;
                         } else {
                             $.get(apiUserUrl, function(userData) {
                                 console.log(userData);
@@ -304,9 +304,9 @@
                             var key = e.which;
                             if(key == 13) {
                                 submitAnswer();
-                                return false;  
+                                return false;
                              }
-                        }); 
+                        });
                     });
                 });
             </script>

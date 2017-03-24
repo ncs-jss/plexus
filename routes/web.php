@@ -43,7 +43,6 @@ Route::group(
     Route::get('society/dashboard', 'Society\SocietyControllerApi@dashboard');
     Route::get('/event/{eventId}/leaderboard', 'HomeController@leaderboard');
     Route::get('user/login', 'HomeController@user');
-    Route::post('user/login', 'User\UserController@login');
     Route::resource('event/{eventId}/question', 'Event\QuestionControllerApi');
     Route::post('event/{eventId}/answer/{id}', 'Event\AnswerControllerApi@store');
     Route::resource('society', 'Society\SocietyControllerApi');
