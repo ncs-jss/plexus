@@ -111,7 +111,7 @@ class SocietyControllerApi extends Controller
             return Response::json(
                 [
                 "status" => true,
-                "redirect" => '/'
+                "redirect" => 'society/dashboard'
                 ]
             );
         }
@@ -250,7 +250,7 @@ class SocietyControllerApi extends Controller
         if (Auth::guard('society')->attempt($credentials, $remember)) {
             return Response::json(
                 [
-                'redirect' => '/',
+                'redirect' => '/society/dashboard',
                 'status' => true,
                 'societyId' => Auth::guard('society')->id()
                 ]

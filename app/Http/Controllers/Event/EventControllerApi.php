@@ -145,9 +145,9 @@ class EventControllerApi extends Controller
     public function show($eventCode)
     {
         // Get event details
-        $event = Event::where('eventCode', $eventCode);
+        $event = Event::where('eventCode', $eventCode)->first();
         $id = $event->id;
-        $event->rule = Rule::where('eventId', $id)->first();
+        $event->rules = Rule::where('eventId', $id)->get();
 
         if (Auth::guard('user')->check() || Auth::guard('society')->check()) {
             return Response::json(
@@ -260,10 +260,12 @@ class EventControllerApi extends Controller
     {
         $approve = Input::all();
 
-        $event = Event::where('eventCode', $eventCode)->first();
+        $event = Event::where('eventCode' ,$eventCode)->first();
 
-        if ($approve['approve']) {
+        if ($approve['action']) {
             $event->approve = 1;
+            $event->save();
+
             return Response::json(
                 [
                 "status" => true,
@@ -272,6 +274,8 @@ class EventControllerApi extends Controller
             );
         }
         $event->approve = 0;
+        $event->save();
+
         return Response::json(
             [
             "status" => false,
@@ -291,11 +295,12 @@ class EventControllerApi extends Controller
     {
         $active = Input::all();
 
-        $event = Event::where('eventCode', $eventCode)->first();
+        $event = Event::where('eventCode' ,$eventCode)->first();
         // $event = Event::find($id);
 
-        if ($active['active']) {
+        if ($active['action']) {
             $event->active = 1;
+            $event->save();
             return Response::json(
                 [
                 "status" => true,
@@ -304,6 +309,8 @@ class EventControllerApi extends Controller
             );
         }
         $event->active = 0;
+        $event->save();
+
         return Response::json(
             [
             "status" => false,

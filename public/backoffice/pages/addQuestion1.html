@@ -178,8 +178,8 @@
             $(document).ready(function() {
                 console.log(baseUrl);
                 var ques = {};
-                ques.eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
-                ques.type = "1";
+                ques.eventId = $(location).attr('href').split("/")[4];
+                // ques.type = "1";
                 apiUrl = baseUrl+"event/"+ques.eventId+"/question";
                 $('.addQuesBtn').click(function() {
                     ques.question = $(".question").val();

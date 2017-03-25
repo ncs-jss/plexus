@@ -16,6 +16,7 @@ use App\UserDetail;
 use File;
 use App\Society;
 use App\Score;
+use App\Event;
 use Response;
 
 class UserControllerApi extends Controller
@@ -301,10 +302,10 @@ class UserControllerApi extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function userInfoEvent($eventId)
+    public function userInfoEvent($eventCode)
     {
         $id = Auth::guard('user')->id();
-
+        $eventId = Event::where('eventCode', $eventCode)->first()->id;
         $user = User::find($id);
 
         if (count($user)) {

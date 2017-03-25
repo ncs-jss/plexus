@@ -51,9 +51,9 @@ class EventController extends Controller
             $society = Society::find($id);
 
             if ($society->privilege == 1) {
-                return File::get(public_path()."/backoffice/pages/admin.html");
+                return File::get(public_path()."/backoffice/pages/manageEvent.html");
             }
-            return File::get(public_path()."/backoffice/pages/index.html");
+            return File::get(public_path()."/backoffice/pages/manageEvent.html");
         }
         return File::get(public_path()."/gameplay/welcome.html");
     }
@@ -149,7 +149,7 @@ class EventController extends Controller
         if ($event->startTime > Carbon::now()) {
             return Redirect::to('');
         } elseif ($event->endTime < Carbon::now()) {
-            return Redirect::to('event/'.$id.'/leaderboard');
+            return Redirect::to('event/'.$eventCode.'/leaderboard');
         } elseif ($event->approve == 1 && $event->active == 1) {
             if (Auth::guard('user')->check()) {
 
@@ -166,7 +166,7 @@ class EventController extends Controller
                     $newUserScore->eventId = $eventId;
                     $newUserScore->save();
 
-                    return Redirect::to('/event/'.$id);
+                    return Redirect::to('/event/'.$eventCode);
                 }
 
                 $question = Question::where(

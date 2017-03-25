@@ -143,7 +143,7 @@ class QuestionControllerApi extends Controller
                 $question->level = $questionInput['level'];
             }
 
-            $answer->answer = $questionInput['answer'];
+            $answer->answer = strtolower($questionInput['answer']);
             $question->type = $event->type;
             $question->save();
 

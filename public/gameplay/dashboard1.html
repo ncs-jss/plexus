@@ -199,7 +199,8 @@
             <script type="text/javascript">
                 $(document).ready(function(){
                     // var u = "http://127.0.0.1:8080/event/2/leaderboard"
-                    var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                    var eventId = $(location).attr('href').split("/")[4];
+                    // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
                     // console.log(u.split("/"));
                     // var eventId = parseInt(u.split("/")[4]) || "1";
                     var apiEventUrl = baseUrl+"event/"+eventId+"/dashboard";

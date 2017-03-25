@@ -166,44 +166,7 @@
                                                         <td>
                                                             <div class="row">
                                                                 <div class="col-xs-12">
-                                                                    <ol class="rules">
-                                                                        <li>
-                                                                            <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">
-                                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque obcaecati eius nam corporis ad in blanditiis ab veniam, rerum, sint cumque id, soluta nolla voluptas. Ab vero reprehenderit ducimus magnam.
-                                                                            </h5>
-                                                                            <hr/>
-                                                                        </li>
-                                                                        <li>
-                                                                            <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">
-                                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque obcaecati eius nam corporis ad in blanditiis ab veniam, rerum, sint cumque id, soluta nolla voluptas. Ab vero reprehenderit ducimus magnam.
-                                                                            </h5>
-                                                                            <hr/>
-                                                                        </li>
-                                                                        <li>
-                                                                            <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">
-                                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque obcaecati eius nam corporis ad in blanditiis ab veniam, rerum, sint cumque id, soluta nolla voluptas. Ab vero reprehenderit ducimus magnam.
-                                                                            </h5>
-                                                                            <hr/>
-                                                                        </li>
-                                                                        <li>
-                                                                            <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">
-                                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque obcaecati eius nam corporis ad in blanditiis ab veniam, rerum, sint cumque id, soluta nolla voluptas. Ab vero reprehenderit ducimus magnam.
-                                                                            </h5>
-                                                                            <hr/>
-                                                                        </li>
-                                                                        <li>
-                                                                            <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">
-                                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque obcaecati eius nam corporis ad in blanditiis ab veniam, rerum, sint cumque id, soluta nolla voluptas. Ab vero reprehenderit ducimus magnam.
-                                                                            </h5>
-                                                                            <hr/>
-                                                                        </li>
-                                                                        <li>
-                                                                            <h5 style="margin-top: 0;margin-left: 30px;text-align: left;">
-                                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque obcaecati eius nam corporis ad in blanditiis ab veniam, rerum, sint cumque id, soluta nolla voluptas. Ab vero reprehenderit ducimus magnam.
-                                                                            </h5>
-                                                                            <hr/>
-                                                                        </li>
-                                                                    </ol>
+                                                                    <ol class="rules"></ol>
                                                                 </div>
                                                                 <!-- <div class="col-xs-11">
                                                                     <h5 style="margin-top: 0">Option 1</h5>
@@ -278,7 +241,8 @@
                             var data;
                             console.log(baseUrl);
                             // var u = "http://127.0.0.1:8080/event/2"
-                            var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                            var eventId = $(location).attr('href').split("/")[4];
+
                             // console.log(u.split("/"));
                             // var eventId = parseInt(u.split("/")[4]) || "1";
                             linking.setLinks(eventId);
@@ -302,9 +266,13 @@
                                 var endTime = moment(data.endTime).format('Do MMM, h:mm a');
                                 $(".startTime").html(startTime);
                                 $(".endTime").html(endTime);
-                                var rules = data.rule;
+                                var openHtml = '<li><h5 style="margin-top: 0;margin-left: 30px;text-align: left;">';
+                                var closeHtml = '</h5></li><hr>';
+                                var rules = data.rules;
                                 $.each(rules,function(key,value){
-                                    $(".rules li h5").eq(key).html(value);
+                                    allHtml =  value.rules ;
+                                    allHtml = openHtml + allHtml + closeHtml;
+                                    $(".rules").append(allHtml);
                                 })
                             });
                         });

@@ -182,7 +182,7 @@
                             console.log($(this));
                             var index = $('.deleteQuesBtn').index($(this));
                             console.log(data[index]);
-                            var event_ID = data[index].id;
+                            var event_ID = data[index].eventCode;
                             $.ajax({
                                url: baseUrl+"event/"+event_ID,
                                type: 'DELETE',
@@ -194,7 +194,7 @@
                         $('.editQuesBtn').click(function() {
                             var index = $('.editQuesBtn').index($(this));
                             console.log(data[index]);
-                            var event_ID = data[index].id;
+                            var event_ID = data[index].eventCode;
                             window.location = "/event/"+event_ID+"/edit"
                         });
                     });

@@ -219,7 +219,7 @@
                     console.log(card);
                     card.find("span").html(data[i].eventName);
                     card.find("p").html(data[i].eventDes);
-                    card.find("a").attr("href","/event/"+data[i].id+"/dashboard");
+                    card.find("a").attr("href","/event/"+data[i].eventCode+"/dashboard");
                     var endTime = moment(data[i].endTime).format('Do MMM, h:mm a');
                     card.find("small").html("ends on "+ endTime);
                     card.show();

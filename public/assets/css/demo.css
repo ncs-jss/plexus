@@ -59,7 +59,7 @@
     -o-transform: scale(.40);
     -moz-transform-origin: 0 0;
     -moz-transform: scale(.40);
-    width: 600px;
+    width: 700px;
 }
 .quesImg{
     padding: 20px 0;
@@ -84,11 +84,11 @@
         left: 0px;
         position: absolute;
     }
-    
+
     .options label{
         text-transform: initial;
     }
     .clockContainer{
-        padding: 50px;
+        padding: 15px;
     }
 }

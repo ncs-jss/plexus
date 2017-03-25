@@ -86,7 +86,7 @@ class AnswerControllerApi extends Controller
             ]
         )->first();
 
-        if ($answer->answer == $answerInput) {
+        if ($answer->answer == strtolower($answerInput)) {
             $correct = 1;
         }
 
@@ -172,6 +172,9 @@ class AnswerControllerApi extends Controller
             }
             $score->save();
             return 1;
+        } else {
+            $score->score -= $data['answer']->incorrect;
+            $score->save();
         }
         return 0;
 
