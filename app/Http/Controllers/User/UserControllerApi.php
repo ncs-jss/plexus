@@ -99,7 +99,7 @@ class UserControllerApi extends Controller
             'email' => 'required|email|max:255|unique:users',
             'avatar' => 'required|max:255',
             'password' => 'required|min:6|confirmed',
-            'contact' => 'required|max:10',
+            'contact' => 'required|min:10',
             'college' => 'required',
             ]
         );
@@ -197,9 +197,42 @@ class UserControllerApi extends Controller
      * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $userInput = Input::all();
+
+        $validator = Validator::make(
+            $userInput, [
+            'contact' => 'required|min:10',
+            'name' => 'required|',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return Response::json(
+                [
+                "status" => false,
+                "errors" => $validator->errors()
+                ]
+            );
+        }
+
+        $id = Auth::guard('user')->id();
+
+        $user = User::find($id);
+        $user->name = $userInput['name'];
+
+        $userDetails = UserDetail::where('userId', $id)->first();
+        $userDetails->contact = $userInput['contact'];
+        $userDetails->save();
+        if ($user->save()) {
+            return Response::json([
+                "status" => True
+            ]);
+        }
+        return Response::json([
+            "status" => False
+        ]);
     }
 
     /**
