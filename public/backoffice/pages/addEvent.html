@@ -112,8 +112,12 @@
                                                     <input class="form-control eventName" placeholder="Enter eventName" required/>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
+                                                    <label>eventCode</label>
+                                                    <input class="form-control eventCode" placeholder="Enter eventCode" min="1" max="30" required/>
+                                                </div>
+                                                <div class="form-group col-xs-12">
                                                     <label>eventDes</label>
-                                                    <input class="form-control eventDes" placeholder="Enter eventDes" min="1" max="30" required/>
+                                                    <textarea name="" id="" cols="30" rows="4" class="form-control eventDes"></textarea>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
                                                     <label>Event startTime</label>
@@ -215,6 +219,7 @@
                 $('.addEventBtn').click(function() {
                     event.eventName = $(".eventName").val();
                     event.eventDes = $(".eventDes").val();
+                    event.eventCode = $(".eventCode").val();
                     event.startTime = $(".startTime").val();
                     event.endTime = $(".endTime").val();
                     event.duration = $(".duration").val();
