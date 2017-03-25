@@ -205,12 +205,13 @@
     <script>
         $(document).ready(function() {
             var data;
-            console.log(baseUrl);
+            // console.log(baseUrl);
             var isLogin = localStorage.getItem("plexus.isLogin");
-            if(isLogin){
-                $(".login").removeClass("hidden");
-            }else{
+            // console.log(typeof isLogin);
+            if(isLogin === "true"){
                 $(".logout").removeClass("hidden");
+            }else{
+                $(".login").removeClass("hidden");
             }
             $.get(baseUrl+"event", function(res) {
                 data = JSON.parse(res.currentEvents);
