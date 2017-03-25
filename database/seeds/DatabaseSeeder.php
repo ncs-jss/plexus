@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $society->save();
         echo "Seeding of Society is completed";
 
-        Message::create([
+        Message::insert([
             ['correct' => 'Nicccee...',
             'incorrect' => 'Come on.. You can do better...'
             ],
