@@ -157,10 +157,10 @@
         <script>
                     $(document).ready(function() {
                         var data;
-                        console.log(baseUrl);
+                        // console.log(baseUrl);
                         $.get(baseUrl+"society/dashboard", function(res) {
                             data = res.data;
-                            console.log(data);
+                            // console.log(data);
                             var openHtml = '<tr>';
                             var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-primary addQuesBtn">Add Ques</button><button class="btn btn-success manageQuesBtn">Manage Ques</button><button class="btn btn-warning approveEventBtn">Approve</button><button class="btn btn-primary activateEventBtn">Activate</button><button class="btn btn-success editEventBtn">Edit</button><button class="btn btn-danger deleteEventBtn">Delete</button></div></td></tr>';
                             var allHtml = '';
@@ -184,7 +184,7 @@
                             })
                             $('.addQuesBtn').click(function() {
                                 var index = $('.addQuesBtn').index($(this));
-                                console.log(data[index]);
+                                // console.log(data[index]);
                                 var event_ID = data[index].eventCode;
                                 window.location = "/event/" + event_ID + "/question/create";
                             });
@@ -196,33 +196,33 @@
                             });
                             // Delete feature
                             $('.deleteEventBtn').click(function() {
-                                console.log($(this));
+                                // console.log($(this));
                                 var index = $('.deleteEventBtn').index($(this));
-                                console.log(data[index]);
+                                // console.log(data[index]);
                                 var event_ID = data[index].eventCode;
                                 $.ajax({
                                    url: baseUrl+"event/"+event_ID,
                                    type: 'DELETE',
                                    success: function(data, status) {
-                                    console.log("Data: " + data + "\nStatus: " + status);
+                                    // console.log("Data: " + data + "\nStatus: " + status);
                                 }
                                 });
                             });
                             $('.editEventBtn').click(function() {
                                 var index = $('.editEventBtn').index($(this));
-                                console.log(data[index]);
+                                // console.log(data[index]);
                                 var event_ID = data[index].eventCode;
                                 window.location = "/event/"+event_ID+"/edit"
                             });
                             $('.approveEventBtn').click(function() {
                                 var index = $('.approveEventBtn').index($(this));
-                                console.log(data[index]);
+                                // console.log(data[index]);
                                 var event_ID = data[index].eventCode;
                                 var req = {
                                     action : true
                                 }
                                 $.post(baseUrl+"event/"+event_ID+"/approve", req,function(data, status) {
-                                    console.log(data);
+                                    // console.log(data);
                                     if (data.status) {
 
                                         // window.location = data.redirect;
@@ -232,13 +232,13 @@
                             });
                             $('.activateEventBtn').click(function() {
                                 var index = $('.activateEventBtn').index($(this));
-                                console.log(data[index]);
+                                // console.log(data[index]);
                                 var event_ID = data[index].eventCode;
                                 var req = {
                                     action : true
                                 }
                                 $.post(baseUrl+"event/"+event_ID+"/activate", req,function(data, status) {
-                                    console.log(data);
+                                    // console.log(data);
                                     if (data.status) {
                                         // window.location = data.redirect;
                                     }

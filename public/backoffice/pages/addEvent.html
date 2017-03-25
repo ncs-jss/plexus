@@ -208,7 +208,7 @@
                     format:"YYYY-MM-DD HH:MM"
                 });
                 $('#datetimepicker2').datetimepicker({
-                    useCurrent: false 
+                    useCurrent: false
                 });
                 $("#datetimepicker1").on("dp.change", function (e) {
                     $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
@@ -226,10 +226,10 @@
                     event.totalQues = $(".totalQues").val();
                     event.type = $(".type").val();
                     event.forum = $(".forum").val();
-                    console.log(event);
+                    // console.log(event);
                     $.post(baseUrl+"event", event,
                         function(data, status) {
-                            console.log("Data: " + data + "\nStatus: " + status);
+                            // console.log("Data: " + data + "\nStatus: " + status);
                             if(data.status){
                                 $(".alert-success").removeClass("hidden");
                                 $('#page-wrapper input').val('');

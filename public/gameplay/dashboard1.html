@@ -206,7 +206,7 @@
                     var apiEventUrl = baseUrl+"event/"+eventId+"/dashboard";
                     var apiUserUrl = baseUrl+"event/"+eventId+"/user";
                     linking.setLinks(eventId);
-                    console.log(linking.eventId);
+                    // console.log(linking.eventId);
                     $.get(apiEventUrl, function(res) {
                         if (!res.status) {
                             window.location = res.redirect;
@@ -214,7 +214,7 @@
                             var currentDate = new Date();
                             var futureDate  = new Date(res.event.endTime);
                             var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
-                            console.log(diff);
+                            // console.log(diff);
                             var clock = new FlipClock($('.endingClock'), diff, {
                                 clockFace: 'DailyCounter',
                                 autoStart: true,
@@ -222,7 +222,7 @@
                             });
                             var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer/"+res.question.id;
                             $.get(apiUserUrl, function(userData) {
-                                console.log(userData);
+                                // console.log(userData);
                                 $(".userPoints p b").html(userData.data.score.score);
                                 $(".userName").html(userData.data.name);
                                 $(".userAvatar").attr("src",userData.data.avatar);
@@ -245,9 +245,9 @@
                             var selected = {
                                 answer: $(".answer").val()
                             };
-                            console.log(selected);
+                            // console.log(selected);
                             $.post(apiCheckAnsUrl, selected, function (res, status) {
-                                console.log(res);
+                                // console.log(res);
                                 $.notifyClose();
                                 if (!res.status) {
                                     $.notify({
@@ -282,7 +282,7 @@
                         });
                         $('#submitForm').validator().on('submit', function (e) {
                           if (e.isDefaultPrevented()) {
-                            console.log('test');
+                            // console.log('test');
                           } else {
                             submitAnswer();
                           }
