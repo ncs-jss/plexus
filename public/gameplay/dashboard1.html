@@ -159,136 +159,134 @@
                                     <a href="/">Home</a>
                                     <li>
                                         <li>
-                                            <a href="https://www.facebook.com/nibblecomputersociety/" target="_blank">Forum</a>
-                                            <li></li>
+                                            <a href="https://www.facebook.com/nibblecomputersociety/" target="_blank" class="forum">Forum</a>
                                         </li>
-                                    </li>
-                                </li>
-                            </ul>
-                        </nav>
-                        <p class="copyright pull-right">
-                            © 2017
-                            <a href="http://hackncs.com/">Nibble Computer Society</a>
-                        </p>
+                                    </ul>
+                                </nav>
+                                <p class="copyright pull-right">
+                                    © 2017
+                                    <a href="http://hackncs.com/">Nibble Computer Society</a>
+                                </p>
+                            </div>
+                        </footer>
                     </div>
-                </footer>
-            </div>
-        </div>
-    </body>
-    <!--   Core JS Files   -->
-    <script src="/assets/js/jquery-1.10.2.js" type="text/javascript">
-    </script>
-    <script src="/assets/js/bootstrap.min.js" type="text/javascript">
-    </script>
-    <!--  Checkbox, Radio & Switch Plugins -->
-    <script src="/assets/js/bootstrap-checkbox-radio-switch.js">
-    </script>
-    <script src="/vendor/flipclock/compiled/flipclock.min.js">
-    </script>
-    <script src="/vendor/bootstrap-validator/dist/validator.min.js">
-    </script>
-    <!--  Charts Plugin -->
-    <script src="/assets/js/chartist.min.js">
-    </script>
-    <!--  Notifications Plugin    -->
-    <script src="/assets/js/bootstrap-notify.js">
-    </script>
-    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-    <script src="/assets/js/light-bootstrap-dashboard.js">
-    </script>
-    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-    <script src="/assets/js/demo.js">
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            // var u = "http://127.0.0.1:8080/event/2/leaderboard"
-            var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
-            // console.log(u.split("/"));
-            // var eventId = parseInt(u.split("/")[4]) || "1";
-            var apiEventUrl = baseUrl+"event/"+eventId+"/dashboard";
-            var apiUserUrl = baseUrl+"event/"+eventId+"/user";
-            linking.setLinks(eventId);
-            console.log(linking.eventId);
-            $.get(apiEventUrl, function(res) {
-                if (!res.status) {
-                    window.location = res.redirect;
-                } else {
-                    var currentDate = new Date();
-                    var futureDate  = new Date(res.event.endTime);
-                    var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
-                    console.log(diff);
-                    var clock = new FlipClock($('.endingClock'), diff, {
-                        clockFace: 'DailyCounter',
-                        autoStart: true,
-                        countdown: true
-                    });
-                    var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer/"+res.question.id;
-                    $.get(apiUserUrl, function(userData) {
-                        console.log(userData);
-                        $(".userPoints p b").html(userData.data.score.score);
-                        $(".userName").html(userData.data.name);
-                        $(".userAvatar").attr("src",userData.data.avatar);
-                    });
-                    $(".navbar-brand strong").html(res.event.name);
-                    var image = res.question.image;
-                    if(image){
-                        $(".quesImg img").attr("src",image);
-                    }else{
-                        $(".quesImg").hide();
-                    }
-                    setTimeout(function() {
-                        $(".ques p").addClass("animated fadeIn");
-                        $(".ques p").html(res.question.question);
-                    }, 600);
-                }
-                function submitAnswer() {
-                    event.preventDefault();
-                    var selected = {
-                        answer: $(".answer").val()
-                    };
-                    console.log(selected);
-                    $.post(apiCheckAnsUrl, selected, function (res, status) {
-                        console.log(res);
-                        $.notifyClose();
+                </div>
+            </body>
+            <!--   Core JS Files   -->
+            <script src="/assets/js/jquery-1.10.2.js" type="text/javascript">
+            </script>
+            <script src="/assets/js/bootstrap.min.js" type="text/javascript">
+            </script>
+            <!--  Checkbox, Radio & Switch Plugins -->
+            <script src="/assets/js/bootstrap-checkbox-radio-switch.js">
+            </script>
+            <script src="/vendor/flipclock/compiled/flipclock.min.js">
+            </script>
+            <script src="/vendor/bootstrap-validator/dist/validator.min.js">
+            </script>
+            <!--  Charts Plugin -->
+            <script src="/assets/js/chartist.min.js">
+            </script>
+            <!--  Notifications Plugin    -->
+            <script src="/assets/js/bootstrap-notify.js">
+            </script>
+            <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+            <script src="/assets/js/light-bootstrap-dashboard.js">
+            </script>
+            <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+            <script src="/assets/js/demo.js">
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    // var u = "http://127.0.0.1:8080/event/2/leaderboard"
+                    var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                    // console.log(u.split("/"));
+                    // var eventId = parseInt(u.split("/")[4]) || "1";
+                    var apiEventUrl = baseUrl+"event/"+eventId+"/dashboard";
+                    var apiUserUrl = baseUrl+"event/"+eventId+"/user";
+                    linking.setLinks(eventId);
+                    console.log(linking.eventId);
+                    $.get(apiEventUrl, function(res) {
                         if (!res.status) {
-                            $.notify({
-                                icon: 'pe-7s-attention',
-                                message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
-                            }, {
-                                type: 'danger',
-                                timer: 10,
-                                newest_on_top: true
-                            });
+                            window.location = res.redirect;
                         } else {
-                            $.notify({
-                                icon: 'pe-7s-cup',
-                                message: "Bingo !"
-                            }, {
-                                type: 'success',
-                                timer: 10,
-                                newest_on_top: true
+                            var currentDate = new Date();
+                            var futureDate  = new Date(res.event.endTime);
+                            var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+                            console.log(diff);
+                            var clock = new FlipClock($('.endingClock'), diff, {
+                                clockFace: 'DailyCounter',
+                                autoStart: true,
+                                countdown: true
                             });
+                            var apiCheckAnsUrl = baseUrl+"event/"+eventId+"/answer/"+res.question.id;
+                            $.get(apiUserUrl, function(userData) {
+                                console.log(userData);
+                                $(".userPoints p b").html(userData.data.score.score);
+                                $(".userName").html(userData.data.name);
+                                $(".userAvatar").attr("src",userData.data.avatar);
+                            });
+                            $(".navbar-brand strong").html(res.event.name);
+                            $(".forum").html(res.event.forum);
+                            var image = res.question.image;
+                            if(image){
+                                $(".quesImg img").attr("src",image);
+                            }else{
+                                $(".quesImg").hide();
+                            }
                             setTimeout(function() {
-                                window.location = res.redirect;
+                                $(".ques p").addClass("animated fadeIn");
+                                $(".ques p").html(res.question.question);
                             }, 600);
                         }
+                        function submitAnswer() {
+                            event.preventDefault();
+                            var selected = {
+                                answer: $(".answer").val()
+                            };
+                            console.log(selected);
+                            $.post(apiCheckAnsUrl, selected, function (res, status) {
+                                console.log(res);
+                                $.notifyClose();
+                                if (!res.status) {
+                                    $.notify({
+                                        icon: 'pe-7s-attention',
+                                        message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
+                                    }, {
+                                        type: 'danger',
+                                        timer: 10,
+                                        newest_on_top: true
+                                    });
+                                } else {
+                                    $.notify({
+                                        icon: 'pe-7s-cup',
+                                        message: "Bingo !"
+                                    }, {
+                                        type: 'success',
+                                        timer: 10,
+                                        newest_on_top: true
+                                    });
+                                    setTimeout(function() {
+                                        window.location = res.redirect;
+                                    }, 600);
+                                }
+                            });
+                        }
+                        $(document).keypress(function (e) {
+                            var key = e.which;
+                            if(key == 13) {
+                                submitAnswer();
+                                return false;
+                             }
+                        });
+                        $('#submitForm').validator().on('submit', function (e) {
+                          if (e.isDefaultPrevented()) {
+                            console.log('test');
+                          } else {
+                            submitAnswer();
+                          }
+                        });
                     });
-                }
-                $(document).keypress(function (e) {
-                    var key = e.which;
-                    if(key == 13) {
-                        submitAnswer();
-                        return false;
-                     }
                 });
-                $('#submitForm').validator().on('submit', function (e) {
-                  if (e.isDefaultPrevented()) {
-                    console.log('test');
-                  } else {
-                    submitAnswer();
-                  }
-                });
-            });
-        });
-    </script>
-</html>
+            </script>
+        </html>

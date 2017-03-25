@@ -80,124 +80,19 @@
                     <div class="container-fluid">
                         <div class="navbar-header">
                             <button class="navbar-toggle" data-target="#navigation-example-2" data-toggle="collapse" type="button">
-                                <span class="sr-only">
-                                    Toggle navigation
-                                </span>
-                                <span class="icon-bar">
-                                </span>
-                                <span class="icon-bar">
-                                </span>
-                                <span class="icon-bar">
-                                </span>
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="/">
-                                About
+                            <a class="navbar-brand" href="#">
+                                <strong>Errata</strong>
                             </a>
                         </div>
                         <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav navbar-left">
-                                <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-dashboard">
-                                        </i>
-                                    </a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-globe">
-                                        </i>
-                                        <b class="caret">
-                                        </b>
-                                        <span class="notification">
-                                            5
-                                        </span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#">
-                                                Notification 1
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Notification 2
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Notification 3
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Notification 4
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Another notification
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <i class="fa fa-search">
-                                        </i>
-                                    </a>
-                                </li>
-                            </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <a href="">
-                                        Account
-                                    </a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        Dropdown
-                                        <b class="caret">
-                                        </b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#">
-                                                Action
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Another action
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Something
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Another action
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Something
-                                            </a>
-                                        </li>
-                                        <li class="divider">
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Separated link
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Log out
-                                    </a>
+                                    <a href="/logout">Log out</a>
                                 </li>
                             </ul>
                         </div>
@@ -401,6 +296,7 @@
                                 data = res.data;
                                 console.log(data);
                                 $(".eventName").html(data.eventName);
+                                $(".navbar-brand strong").html(data.eventName);
                                 $(".eventDes").html(data.eventDes);
                                 var startTime = moment(data.startTime).format('Do MMM, h:mm a');
                                 var endTime = moment(data.endTime).format('Do MMM, h:mm a');

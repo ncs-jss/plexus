@@ -155,55 +155,84 @@
         <!-- Custom Theme JavaScript -->
         <script src="/backoffice/dist/js/sb-admin-2.js"></script>
         <script>
-            $(document).ready(function() {
-                var data;
-                console.log(baseUrl);
-                $.get(baseUrl+"society/dashboard", function(res) {
-                    data = res.data;
-                    console.log(data);
-                    var openHtml = '<tr>';
-                    var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-success editEventBtn">Edit</button><button class="btn btn-danger deleteEventBtn">Delete</button></div></td></tr>';
-                    var allHtml = '';
-                    for (var i = 0, l = data.length; i < l; i++) {
-                        allHtml = '<td>' + parseInt(i + 1) + '</td>\n';
-                        allHtml += '<td>' + data[i].eventName + '</td>\n';
-                        allHtml += '<td>' + data[i].startTime + '</td>\n';
-                        allHtml += '<td>' + data[i].endTime + '</td>\n';
-                        allHtml += '<td>' + data[i].duration + '</td>\n';
-                        allHtml += '<td>' + data[i].totalQues + '</td>\n';
-                        allHtml += '<td>' + data[i].forum + '</td>\n';
-                        allHtml = openHtml + allHtml + closeHtml;
-                        $(".eventList").append(allHtml);
+                    $(document).ready(function() {
+                        var data;
+                        console.log(baseUrl);
+                        $.get(baseUrl+"society/dashboard", function(res) {
+                            data = res.data;
+                            console.log(data);
+                            var openHtml = '<tr>';
+                            var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-warning approveEventBtn hidden">Approve</button><button class="btn btn-primary activateEventBtn">Activate</button><button class="btn btn-success editEventBtn">Edit</button><button class="btn btn-danger deleteEventBtn">Delete</button></div></td></tr>';
+                            var allHtml = '';
+                            for (var i = 0, l = data.length; i < l; i++) {
+                                allHtml = '<td>' + parseInt(i + 1) + '</td>\n';
+                                allHtml += '<td>' + data[i].eventName + '</td>\n';
+                                allHtml += '<td>' + data[i].startTime + '</td>\n';
+                                allHtml += '<td>' + data[i].endTime + '</td>\n';
+                                allHtml += '<td>' + data[i].duration + '</td>\n';
+                                allHtml += '<td>' + data[i].totalQues + '</td>\n';
+                                allHtml += '<td>' + data[i].forum + '</td>\n';
+                                allHtml = openHtml + allHtml + closeHtml;
+                                $(".eventList").append(allHtml);
+        
+                            }
+                            $('#dataTables-example').DataTable({
+                                responsive: true
+                            });
+                            $("#searchSidebar").focus(function(){
+                                startDictation("#searchSidebar");
+                            })
+                            // Delete feature
+                            $('.deleteEventBtn').click(function() {
+                                console.log($(this));
+                                var index = $('.deleteEventBtn').index($(this));
+                                console.log(data[index]);
+                                var event_ID = data[index].id;
+                                $.ajax({
+                                   url: baseUrl+"event/"+event_ID,
+                                   type: 'DELETE',
+                                   success: function(data, status) {
+                                    console.log("Data: " + data + "\nStatus: " + status);
+                                }
+                                });
+                            });
+                            $('.editEventBtn').click(function() {
+                                var index = $('.editEventBtn').index($(this));
+                                console.log(data[index]);
+                                var event_ID = data[index].id;
+                                window.location = "/event/"+event_ID+"/edit"
+                            });
+                            $('.approveEventBtn').click(function() {
+                                var index = $('.approveEventBtn').index($(this));
+                                console.log(data[index]);
+                                var event_ID = data[index].id;
+                                var req = {
+                                    activate : true
+                                }
+                                $.post(baseUrl+"event/"+event_ID+"/approve", req,function(data, status) {
+                                    console.log(data);
+                                    if (data.status) {
+                                        window.location = data.redirect;
+                                    }
+                                });
 
-                    }
-                    $('#dataTables-example').DataTable({
-                        responsive: true
-                    });
-                    $("#searchSidebar").focus(function(){
-                        startDictation("#searchSidebar");
-                    })
-                    // Delete feature
-                    $('.deleteEventBtn').click(function() {
-                        console.log($(this));
-                        var index = $('.deleteEventBtn').index($(this));
-                        console.log(data[index]);
-                        var event_ID = data[index].id;
-                        $.ajax({
-                           url: baseUrl+"event/"+event_ID,
-                           type: 'DELETE',
-                           success: function(data, status) {
-                            console.log("Data: " + data + "\nStatus: " + status);
-                        }
+                            });
+                            $('.activateEventBtn').click(function() {
+                                var index = $('.activateEventBtn').index($(this));
+                                console.log(data[index]);
+                                var event_ID = data[index].id;
+                                var req = {
+                                    activate : true
+                                }
+                                $.post(baseUrl+"event/"+event_ID+"/activate", req,function(data, status) {
+                                    console.log(data);
+                                    if (data.status) {
+                                        window.location = data.redirect;
+                                    }
+                                });
+                            });
                         });
                     });
-                    $('.editEventBtn').click(function() {
-                        var index = $('.editEventBtn').index($(this));
-                        console.log(data[index]);
-                        var event_ID = data[index].id;
-                        window.location = "/event/"+event_ID+"/edit"
-                    });
-                });
-            });
-        </script>
+                </script>
     </body>
 </html>
