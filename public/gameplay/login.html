@@ -131,6 +131,15 @@
                                 if(data.status){
                                     localStorage.setItem("plexus.isLogin",true);
                                     window.location = data.redirect;
+                                }else{
+                                    $.notify({
+                                        icon: 'pe-7s-attention',
+                                        message: data.error.join(" and ")
+                                    }, {
+                                        type: 'danger',
+                                        timer: 10,
+                                        newest_on_top: true
+                                    });
                                 }
                             });
                           }
