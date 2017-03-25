@@ -140,22 +140,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>College Name</label>
-                                                        <input type="text" class="form-control college" placeholder="College" value="JSSATE" data-error="That's  too" />
-                                                        <div class="help-block with-errors"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Admission No</label>
-                                                        <input type="text" class="form-control admissionNo" placeholder="Admission No" value="15CS006" data-error="That's  too" data-minlength="7" />
-                                                        <div class="help-block with-errors"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <button type="submit" class="btn btn-info btn-fill submitBtn pull-right">Update Profile</button>
                                             <div class="clearfix"></div>
                                         </form>
@@ -200,4 +184,37 @@
     <script src="/assets/js/light-bootstrap-dashboard.js"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="/assets/js/demo.js"></script>
+    <script>
+        (document).ready(function(){
+            var eventId = $(location).attr('href').split("/")[4];
+            var apiUserUrl = baseUrl+"event/"+eventId+"/user";
+            $.get(apiUserUrl, function(userData) {
+                console.log(userData);
+                $(".userPoints p b").html(userData.data.score.score);
+                $(".userName").html(userData.data.name);
+                $(".userAvatar").attr("src",userData.data.avatar);
+                signup.email = $(".email").val();
+                signup.name = $(".name").val();
+                signup.password = $(".password").val();
+                signup.contact = $(".contact").val();
+            });
+            $('#updateForm').validator().on('submit', function (e) {
+              if (e.isDefaultPrevented()) {
+                console.log('test');
+              } else {
+                event.preventDefault();
+                signup.name = $(".name").val();
+                signup.password = $(".password").val();
+                signup.contact = $(".contact").val();
+                $.post(baseUrl+"user", signup,function(data, status) {
+                    if (data.status) {
+                        if(data.status){
+                            localStorage.setItem("plexus.isLogin",true);   
+                            window.location = data.redirect;
+                        }
+                    }
+                });
+              }
+        })
+    </script>
 </html>
