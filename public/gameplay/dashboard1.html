@@ -125,11 +125,10 @@
                                                 </h2>
                                                 <hr/>
                                             </div>
-                                            <div class="content ques">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos adipisci animi repudiandae, omnis. Illo deserunt, nam blanditiis iste, ab, quibusdam totam dolor consectetur dicta reprehenderit voluptatem laboriosam eius consequuntur veritatis.</p>
-                                                <div class="quesImg text-center">
-                                                    <img alt="" class="hidden-sm" src="/assets/img/one.jpg" style="height: 200px;width: auto;max-width: 100%;"/>
-                                                    <img alt="" class="img-responsive visible-sm" src="/assets/img/one.jpg" style=""/>
+                                            <div class="content ques"></p>
+                                                <div class="quesImg text-center hidden">
+                                                    <img alt="" class="hidden-sm" src="" style="height: 200px;width: auto;max-width: 100%;"/>
+                                                    <img alt="" class="img-responsive visible-sm" src="" style=""/>
                                                 </div>
                                                 <div class="answerBlock">
                                                     <form data-toggle="validator" id="submitForm" role="form">
@@ -226,8 +225,8 @@
                             var image = res.question.image;
                             if(image){
                                 $(".quesImg img").attr("src",image);
+                                $(".quesImg").removeClass("hidden");
                             }else{
-                                $(".quesImg").hide();
                             }
                             setTimeout(function() {
                                 $(".ques p").addClass("animated fadeIn");

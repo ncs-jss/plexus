@@ -24,6 +24,7 @@ Route::get('society/dashboard', 'Society\SocietyController@dashboard');
 Route::get('/event/{eventId}/leaderboard', 'HomeController@showLeaderboard');
 
 Route::get('event/{eventCode}/dashboard', 'Event\EventController@dashboard');
+Route::get('event/{eventCode}/forum', 'HomeController@forum');
 
 Route::resource('event', 'Event\EventController');
 Route::resource('society', 'Society\SocietyController');

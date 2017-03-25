@@ -132,6 +132,9 @@ class QuestionControllerApi extends Controller
             //         $question->image = $fileNamevfile;
             //     }
             // }
+            if (isset($questionInput['image'])) {
+                $question->image = $questionInput['image'];
+            }
 
             if (isset($questionInput['html'])) {
                 $question->html = $questionInput['html'];

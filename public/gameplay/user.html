@@ -246,7 +246,7 @@
                         }else{
                             $.notify({
                                 icon: 'pe-7s-attention',
-                                message: data.errors.join(" and ")
+                                message: $.map(data.errors, function(e){return e;})
                             }, {
                                 type: 'danger',
                                 timer: 10,

@@ -292,7 +292,7 @@ class UserControllerApi extends Controller
         return Response::json(
             [
             'status' => false,
-            'errors' => []
+            'errors' => ["Invalid Credentials"]
             ]
         );
     }

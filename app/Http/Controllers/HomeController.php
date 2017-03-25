@@ -27,7 +27,7 @@ class HomeController extends Controller
             'verify',
             [
                 'except' => [
-                    'logout', 'leaderboard', 'showLeaderboard'
+                    'logout', 'leaderboard', 'showLeaderboard', 'forum'
                 ]
             ]
         );
@@ -115,5 +115,12 @@ class HomeController extends Controller
         Auth::guard('society')->logout();
         Auth::guard('user')->logout();
         return Redirect::to('/login');
+    }
+
+    public function forum($eventCode)
+    {
+        $event = Event::where('eventCode', $eventCode)->first();
+        // return $event->forum;
+        return Redirect::to($event->forum);
     }
 }
