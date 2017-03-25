@@ -32,10 +32,9 @@
                 <div class="sidebar-wrapper">
                     <div class="logo">
                         <div class="text-center" style="margin-top: 20px;">
-                            <img alt="" class="img-circle userAvatar" src="/assets/img/avatar-0.png" style="width: 80px;height: 80px;"/>
+                            <img alt="" class="img-circle userAvatar" src="" style="width: 80px;height: 80px;"/>
                         </div>
                         <a class="simple-text userName" href="/user/edit">
-                            Aditya
                         </a>
                     </div>
                     <ul class="nav">
@@ -91,7 +90,6 @@
                                 <p>
                                     Score :
                                     <b>
-                                        80pts
                                     </b>
                                 </p>
                             </a>
@@ -255,14 +253,10 @@
                                             console.log(linking.eventId);
                                             $.get(apiEventUrl, function(res) {
                                                 if (!res.status) {
-                                                    // window.location = res.redirect;
+                                                    window.location = res.redirect;
                                                 } else {
-                                                    // Grab the current date
                                                     var currentDate = new Date();
-                                                    // var futureDate  = new Date(currentDate.getFullYear() + 1, 0, 1);
                                                     var futureDate  = new Date(res.event.endTime);
-
-                                                    // Calculate the difference in seconds between the future and current date
                                                     var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
                                                     console.log(diff);
                                                     var clock = new FlipClock($('.endingClock'), diff, {
@@ -277,16 +271,16 @@
                                                         $(".userName").html(userData.data.name);
                                                         $(".userAvatar").attr("src",userData.data.avatar);
                                                     });
-                                                    $(".navbar-brand").html()
+                                                    $(".navbar-brand strong").html(res.event.name);
+                                                    var image = res.question.image;
+                                                    if(image){
+                                                        $(".quesImg img").attr("src",image);
+                                                    }else{
+                                                        $(".quesImg").hide();
+                                                    }
                                                     setTimeout(function() {
                                                         $(".ques p").addClass("animated fadeIn");
                                                         $(".ques p").html(res.question.question);
-                                                        var image = res.question.image;
-                                                        if(image){
-                                                            $(".quesImg img").attr("src",image);
-                                                        }else{
-                                                            $(".quesImg").hide();
-                                                        }
                                                     }, 600);
                                                 }
                                                 function submitAnswer() {
