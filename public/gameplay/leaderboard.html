@@ -82,7 +82,7 @@
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <a href="#">Log out</a>
+                                    <a href="/logout">Log out</a>
                                 </li>
                             </ul>
                         </div>
@@ -106,7 +106,6 @@
                                                 <th>Rank</th>
                                                 <th></th>
                                                 <th>Name</th>
-                                                <th>Username</th>
                                                 <th>Score</th>
                                                 <th>Total Submits</th>
                                             </thead>
@@ -119,7 +118,6 @@
                                                     <td>Dakota Rice</td>
                                                     <td>$36,738</td>
                                                     <td>Niger</td>
-                                                    <td>200</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -167,10 +165,10 @@
         $(document).ready(function() {
             var data;
             console.log(baseUrl);
-            var u = "http://127.0.0.1:8080/event/2/leaderboard"
-            // var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
-            console.log(u.split("/"));
-            var eventId = parseInt(u.split("/")[4]) || "1";
+            // var u = "http://127.0.0.1:8080/event/2/leaderboard"
+            var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+            // console.log(u.split("/"));
+            // var eventId = parseInt(u.split("/")[4]) || "1";
             // apiUrl = baseUrl+"event";
             apiUrl = baseUrl+"event/"+eventId+"/leaderboard";
             console.log(apiUrl);
@@ -187,7 +185,7 @@
                     allHtml += '<td><img src="' + data[i].user.avatar + '" class="img-circle" style="width: 40px;height: 40px;"></td>\n';
                     allHtml += '<td>' + data[i].user.name + '</td>\n';
                     allHtml += '<td>' + data[i].score + '</td>\n';
-                    allHtml += '<td>' + (data[i].totalSubmits || 200) + '</td>\n';
+                    allHtml += '<td>' + (data[i].counter || 0) + '</td>\n';
                     allHtml = openHtml + allHtml + closeHtml;
                     $(".userList").append(allHtml);
                 }

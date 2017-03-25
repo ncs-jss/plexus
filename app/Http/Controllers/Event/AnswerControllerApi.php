@@ -16,6 +16,7 @@ use App\Society;
 use App\Score;
 use App\Answer;
 use App\Question;
+use App\Message;
 use Carbon\Carbon;
 use Response;
 
@@ -66,6 +67,8 @@ class AnswerControllerApi extends Controller
     {
         $answerInput = Input::all();
 
+        $randomMessage = Message::inRandomOrder()->first();
+
         $answerInput = $answerInput['answer'];
         $correct = 0;
 
@@ -98,12 +101,13 @@ class AnswerControllerApi extends Controller
         if ($result) {
             return Response::json([
                 "status" => True,
+                "message" => $randomMessage->correct,
                 "redirect" => '/event/'.$eventId.'/dashboard'
             ]);
         }
         return Response::json([
             "status" => False,
-            "answer" => "Incorrect Answer"
+            "message" => $randomMessage->incorrect
         ]);
     }
 
@@ -157,6 +161,7 @@ class AnswerControllerApi extends Controller
 
     public function correctAnswer($correct, $score, $data)
     {
+        $score->counter += 1;
         if ($correct) {
             $score->score += $data['answer']->score;
             if ($data['question']->type != 2) {

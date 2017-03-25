@@ -19,6 +19,6 @@ class Score extends Model
      * @var array
      */
     protected $fillable = [
-        'userId', 'eventId', 'score', 'level', 'logged_on'
+        'userId', 'eventId', 'score', 'level', 'counter', 'logged_on'
     ];
 }

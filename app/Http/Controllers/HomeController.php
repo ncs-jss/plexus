@@ -8,6 +8,7 @@ use Auth;
 use Session;
 use View;
 use App\Score;
+use App\Event;
 use App\User;
 use Response;
 
@@ -86,7 +87,8 @@ class HomeController extends Controller
             ->orderBy('score', 'desc')->limit(5)->get();
         foreach ($score as $key => $value) {
             $user = User::find($value->userId);
-            $score[$key]->user = $user;
+            $value->user = $user;
+            $value->eventName = Event::find($value->eventId)->eventName;
         }
         return Response::json(
             [

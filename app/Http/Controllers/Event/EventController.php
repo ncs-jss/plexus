@@ -155,7 +155,7 @@ class EventController extends Controller
                     ['eventId', $id],
                     ['userId', Auth::guard('user')->id()],
                     ]
-                )->get();
+                )->first();
 
                 if (!count($getScore)) {
                     $newUserScore = new Score;
@@ -166,11 +166,22 @@ class EventController extends Controller
                     return Redirect::to('/event/'.$id);
                 }
 
-                if ($event->type == 1) {
-                    return File::get(public_path()."/gameplay/dashboard1.html");
-                } elseif ($event->type == 2) {
+                $question = Question::where(
+                    [
+                    ['eventId', $id],
+                    ['level', $getScore->level+1],
+                    ]
+                )->first();
+
+                if (!count($question)) {
+                    return Redirect::to('event/'.$id.'/leaderboard');
+                }
+
+                if ($event->type == 2) {
+                    // MCQ
                     return File::get(public_path()."/gameplay/dashboard1.html");
                 }
+
                 return File::get(public_path()."/gameplay/dashboard1.html");
             }
         }
