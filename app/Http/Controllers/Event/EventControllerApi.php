@@ -359,6 +359,7 @@ class EventControllerApi extends Controller
                         $newUserScore = new Score;
                         $newUserScore->userId = Auth::guard('user')->id();
                         $newUserScore->eventId = $id;
+                        $newUserScore->logged_on = Carbon::now();
                         $newUserScore->save();
                     }
                     $level = $getScore->level + 1;

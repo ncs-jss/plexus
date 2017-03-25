@@ -264,6 +264,7 @@
                 signup.college = $(".college").val();
                 signup.contact = $(".contact").val();
                 signup.avatar = "/assets/img/avatar-"+$(".avatarContainer input[type='radio']:checked").val()+".png";
+                // console.log(signup);
                 $.post(baseUrl+"user", signup,function(data, status) {
                     if (data.status) {
                         if(data.status){

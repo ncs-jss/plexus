@@ -114,7 +114,7 @@ class QuestionController extends Controller
             ]
         )->get();
 
-        if (!count($question) {
+        if (!count($question)) {
             /*return Response::json([
                 "status" => False,
                 "error" => 'Not Found'

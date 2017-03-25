@@ -117,7 +117,7 @@ class UserControllerApi extends Controller
 
             $validator = Validator::make(
                 ["admissionNo" => $userInput['admissionNo']], [
-                'admissionNo' => 'required|unique:userdetails',
+                'admissionNo' => 'required|unique:userDetails',
                 ]
             );
 
@@ -197,42 +197,9 @@ class UserControllerApi extends Controller
      * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $userInput = Input::all();
-
-        $validator = Validator::make(
-            $userInput, [
-            'contact' => 'required|min:10',
-            'name' => 'required|',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return Response::json(
-                [
-                "status" => false,
-                "errors" => $validator->errors()
-                ]
-            );
-        }
-
-        $id = Auth::guard('user')->id();
-
-        $user = User::find($id);
-        $user->name = $userInput['name'];
-
-        $userDetails = UserDetail::where('userId', $id)->first();
-        $userDetails->contact = $userInput['contact'];
-        $userDetails->save();
-        if ($user->save()) {
-            return Response::json([
-                "status" => True
-            ]);
-        }
-        return Response::json([
-            "status" => False
-        ]);
+        //
     }
 
     /**
@@ -361,5 +328,50 @@ class UserControllerApi extends Controller
             "error" => "User doesn't exist"
             ]
         );
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProfile(Request $request)
+    {
+        $userInput = Input::all();
+
+        $validator = Validator::make(
+            $userInput, [
+            'contact' => 'required|min:10',
+            'name' => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return Response::json(
+                [
+                "status" => false,
+                "errors" => $validator->errors()
+                ]
+            );
+        }
+
+        $id = Auth::guard('user')->id();
+
+        $user = User::find($id);
+        $user->name = $userInput['name'];
+
+        $userDetails = UserDetail::where('userId', $id)->first();
+        $userDetails->contact = $userInput['contact'];
+        $userDetails->save();
+        if ($user->save()) {
+            return Response::json([
+                "status" => True
+            ]);
+        }
+        return Response::json([
+            "status" => False
+        ]);
     }
 }
