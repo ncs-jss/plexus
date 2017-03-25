@@ -165,6 +165,7 @@ class EventController extends Controller
         } elseif ($event->endTime < Carbon::now()) {
             return Redirect::to('event/'.$eventCode.'/leaderboard');
         } elseif ($event->approve == 1 && $event->active == 1) {
+
             if (Auth::guard('user')->check()) {
 
                 $getScore = Score::where(
@@ -178,6 +179,7 @@ class EventController extends Controller
                     $newUserScore = new Score;
                     $newUserScore->userId = Auth::guard('user')->id();
                     $newUserScore->eventId = $eventId;
+                    $newUserScore->logged_on = Carbon::now();
                     $newUserScore->save();
 
                     return Redirect::to('/event/'.$eventCode);
