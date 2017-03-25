@@ -13,6 +13,7 @@ use Auth;
 use Redirect;
 use App\Event;
 use App\Society;
+use App\Rule;
 use App\Score;
 use App\Question;
 use Carbon\Carbon;
@@ -145,6 +146,7 @@ class EventControllerApi extends Controller
     {
         // Get event details
         $event = Event::find($id);
+        $event->rule = Rule::where('eventId', $id)->first();
 
         if (Auth::guard('user')->check() || Auth::guard('society')->check()) {
             return Response::json(
@@ -355,6 +357,12 @@ class EventControllerApi extends Controller
                         ['level', $level],
                         ]
                     )->first();
+
+                    // return Response::json($question);
+
+                    if (!count($question)) {
+                        return Redirect::to('event/'.$id.'/leaderboard');
+                    }
                 }
             }
         }

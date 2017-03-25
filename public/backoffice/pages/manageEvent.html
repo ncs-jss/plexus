@@ -158,8 +158,8 @@
             $(document).ready(function() {
                 var data;
                 console.log(baseUrl);
-                $.get(baseUrl+"event", function(res) {
-                    data = JSON.parse(res.currentEvents);
+                $.get(baseUrl+"society/dashboard", function(res) {
+                    data = res.data;
                     console.log(data);
                     var openHtml = '<tr>';
                     var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-success editEventBtn">Edit</button><button class="btn btn-danger deleteEventBtn">Delete</button></div></td></tr>';
