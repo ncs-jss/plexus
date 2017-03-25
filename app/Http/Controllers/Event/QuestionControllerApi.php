@@ -40,8 +40,11 @@ class QuestionControllerApi extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($eventCode)
     {
+        $event = Event::where('eventCode', $eventCode)->first();
+        $id = $event->id;
+
         $question = Question::where('eventId', $id)->get();
         if ($question) {
             foreach ($question as $key => $value) {
@@ -80,11 +83,13 @@ class QuestionControllerApi extends Controller
      * @param  int                      $eventId
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $eventId)
+    public function store(Request $request, $eventCode)
     {
-        $event = Event::find($eventId);
+        // $event = Event::find($eventId);
+        $event = Event::where('eventCode', $eventCode)->first();
+        $eventId = $event->id;
 
-        if ($event != "") {
+        if (count($event)) {
 
             $questionInput = Input::all();
 
@@ -168,34 +173,37 @@ class QuestionControllerApi extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $eventId
+     * @param  int $eventCode
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($eventId, $id)
+    public function show($eventCode, $id)
     {
+        $event = Event::where('eventCode', $eventCode)->first();
+        $eventId = $event->id;
+
         $question = Question::where(
             [
             ['id', $id],
             ['eventId', $eventId]
             ]
-        );
+        )->first();
 
-        if ($question == "") {
+        if (count($question)) {
             return File::get(
                 public_path()."/backoffice/pages/index.html"
             );
         }
 
         if (Auth::guard('user')->check()) {
-            $event = Event::find($eventId);
-            if ($event->type == 3) {
+            if ($event->type != 2) {
                 $score = Score::where(
                     [
                     ['userId' => Auth::guard('user')->id()],
                     ['eventId' => $eventId]
                     ]
-                );
+                )->first();
+
                 if ($score->level != $question->level-1) {
                     return Response::json(
                         [
@@ -222,16 +230,19 @@ class QuestionControllerApi extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($eventId, $id)
+    public function edit($eventCode, $id)
     {
+        $event = Event::where('eventCode', $eventCode)->first();
+        $eventId = $event->id;
+
         $question = Question::where(
             [
             ['id', $id],
             ['eventId', $eventId]
             ]
-        );
+        )->first();
 
-        if ($question == "") {
+        if (count($question)) {
             return File::get(
                 public_path()."/backoffice/pages/index.html"
             );
@@ -253,7 +264,7 @@ class QuestionControllerApi extends Controller
      * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $eventId, $id)
+    public function update(Request $request, $eventCode, $id)
     {
         //
     }
@@ -265,17 +276,20 @@ class QuestionControllerApi extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($eventId, $id)
+    public function destroy($eventCode, $id)
     {
+        $event = Event::where('eventCode', $eventCode)->first();
+        $eventId = $event->id;
+
         $question = Question::where(
             [
             ['id', $id],
             ['eventId', $eventId]
             ]
-        );
+        )->first();
 
-        if ($event->delete()) {
-            return Response::json(["success" => "Event is deleted"]);
+        if ($question->delete()) {
+            return Response::json(["success" => "Question is deleted"]);
         }
         return Response::json(["error" => "Error in deletion"]);
     }

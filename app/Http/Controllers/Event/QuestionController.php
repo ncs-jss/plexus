@@ -43,12 +43,14 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  int $eventId
+     * @param  String $eventCode
      * @return \Illuminate\Http\Response
      */
-    public function create($eventId)
+    public function create($eventCode)
     {
-        $event = Event::find($eventId);
+        $event = Event::where('eventCode', $eventCode)->first();
+        // $event = Event::find($eventId);
+
         if ($event != "") {
             switch ($event->type) {
             case 1:
@@ -97,8 +99,11 @@ class QuestionController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($eventId, $id)
+    public function show($eventCode, $id)
     {
+        $event = Event::where('eventCode', $eventCode)->first();
+        $eventId = $event->id;
+
         $question = Question::where(
             [
             ['id', $id],
@@ -128,8 +133,11 @@ class QuestionController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($eventId, $id)
+    public function edit($eventCode, $id)
     {
+        $event = Event::where('eventCode', $eventCode)->first();
+        $eventId = $event->id;
+
         $question = Question::where(
             [
             ['id', $id],

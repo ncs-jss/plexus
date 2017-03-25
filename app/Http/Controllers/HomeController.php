@@ -84,12 +84,15 @@ class HomeController extends Controller
      */
     public function leaderboard($id)
     {
-        $score = Score::where('eventId', $id)
+        $event = Event::where('eventCode', $id)->first();
+        $eventId = $event->id;
+
+        $score = Score::where('eventId', $eventId)
             ->orderBy('score', 'desc')->limit(5)->get();
         foreach ($score as $key => $value) {
             $user = User::find($value->userId);
             $value->user = $user;
-            $value->eventName = Event::find($value->eventId)->eventName;
+            $value->eventName = $event->eventName;
         }
         return Response::json(
             [

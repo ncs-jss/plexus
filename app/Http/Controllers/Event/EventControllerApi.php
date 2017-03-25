@@ -142,10 +142,11 @@ class EventControllerApi extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($eventCode)
     {
         // Get event details
-        $event = Event::find($id);
+        $event = Event::where('eventCode', $eventCode);
+        $id = $event->id;
         $event->rule = Rule::where('eventId', $id)->first();
 
         if (Auth::guard('user')->check() || Auth::guard('society')->check()) {
@@ -172,7 +173,7 @@ class EventControllerApi extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($eventCode)
     {
         //
     }
@@ -181,10 +182,10 @@ class EventControllerApi extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  String                   $eventCode
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $eventCode)
     {
         $eventInput = Input::all();
 
@@ -206,7 +207,7 @@ class EventControllerApi extends Controller
             return $validator->errors()->toJson();
         }
 
-        $event = Event::find($id);
+        $event = Event::where('eventCode', $eventCode)->first();
 
         $event->eventName = $eventInput['eventName'];
         $event->eventDes = $eventInput['eventDes'];
@@ -228,9 +229,9 @@ class EventControllerApi extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($eventCode)
     {
-        $event = Event::find($id);
+        $event = Event::where('eventCode', $eventCode)->first();
 
         if ($event->delete()) {
             return Response::json(
@@ -255,11 +256,11 @@ class EventControllerApi extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function approve($id)
+    public function approve($eventCode)
     {
         $approve = Input::all();
 
-        $event = Event::find($id);
+        $event = Event::where('eventCode', $eventCode)->first();
 
         if ($approve['approve']) {
             $event->approve = 1;
@@ -286,11 +287,12 @@ class EventControllerApi extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function active($id)
+    public function active($eventCode)
     {
         $active = Input::all();
 
-        $event = Event::find($id);
+        $event = Event::where('eventCode', $eventCode)->first();
+        // $event = Event::find($id);
 
         if ($active['active']) {
             $event->active = 1;
@@ -317,10 +319,13 @@ class EventControllerApi extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function dashboard($id)
+    public function dashboard($eventCode)
     {
         // Get event details
-        $event = Event::find($id);
+        $event = Event::where('eventCode', $eventCode)->first();
+        // $event = Event::find($id);
+        $id = $event->id;
+
         $type = $event->type;
         $level = 0;
         $question = [];
@@ -328,7 +333,7 @@ class EventControllerApi extends Controller
         if ($event->startTime > Carbon::now()) {
             return Redirect::to('');
         } elseif ($event->endTime < Carbon::now()) {
-            return Redirect::to('event/'.$id.'/leaderboard');
+            return Redirect::to('event/'.$eventCode.'/leaderboard');
         } elseif ($event->approve == 1 && $event->active == 1) {
             if (Auth::guard('user')->check()) {
 
@@ -361,7 +366,7 @@ class EventControllerApi extends Controller
                     // return Response::json($question);
 
                     if (!count($question)) {
-                        return Redirect::to('event/'.$id.'/leaderboard');
+                        return Redirect::to('event/'.$eventCode.'/leaderboard');
                     }
                 }
             }
