@@ -90,6 +90,10 @@ class EventController extends Controller
         // $event = Event::find($id);
         $event = Event::where('eventCode', $id)->first();
 
+        if (!count($event)) {
+            return Redirect::to('/');
+        }
+
         if (Auth::guard('user')->check()) {
             return File::get(public_path()."/gameplay/about.html");
 
@@ -108,6 +112,11 @@ class EventController extends Controller
      */
     public function edit($id)
     {
+        $event = Event::where('eventCode', $id)->first();
+
+        if (!count($event)) {
+            return Redirect::to('/');
+        }
         return File::get(public_path()."/backoffice/pages/editEvent.html");
     }
 
@@ -143,6 +152,11 @@ class EventController extends Controller
     public function dashboard($eventCode)
     {
         $event = Event::where('eventCode', $eventCode)->first();
+
+        if (!count($event)) {
+            return Redirect::to('/');
+        }
+
         // $event = Event::find($id);
         $eventId = $event->id;
 

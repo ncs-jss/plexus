@@ -102,6 +102,9 @@ class QuestionController extends Controller
     public function show($eventCode, $id)
     {
         $event = Event::where('eventCode', $eventCode)->first();
+        if (!count($event)) {
+            return Redirect::to('/');
+        }
         $eventId = $event->id;
 
         $question = Question::where(
@@ -109,15 +112,15 @@ class QuestionController extends Controller
             ['id', $id],
             ['eventId', $eventId]
             ]
-        );
+        )->get();
 
-        if ($question == "") {
+        if (!count($question) {
             /*return Response::json([
                 "status" => False,
                 "error" => 'Not Found'
             ]);*/
             return File::get(
-                public_path()."/backoffice/pages/index.html"
+                public_path()."/backoffice/pages/addQuestion1.html"
             );
         }
 
