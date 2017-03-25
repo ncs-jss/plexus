@@ -77,7 +77,10 @@
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <!-- <a href="/logout">Log out</a> -->
+                                    <a href="/logout" class="logout hidden">Log out</a>
+                                </li>
+                                <li>
+                                    <a href="/login" class="login hidden">Log In</a>
                                 </li>
                             </ul>
                         </div>
@@ -210,6 +213,12 @@
         $(document).ready(function() {
             var data;
             console.log(baseUrl);
+            var isLogin = localStorage.getItem("plexus.isLogin");
+            if(isLogin){
+                $(".login").removeClass("hidden");
+            }else{
+                $(".logout").removeClass("hidden");
+            }
             $.get(baseUrl+"event", function(res) {
                 data = JSON.parse(res.currentEvents);
                 console.log(data);

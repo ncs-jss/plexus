@@ -240,6 +240,7 @@
     <script>
         $(document).ready(function() {
             var signup = {};
+            localStorage.setItem("plexus.isLogin",false);
             $('.collegeSelect').on('change', function(){
                 collegeToggler();
             });
@@ -270,7 +271,10 @@
                     console.log("Data: " + data + "\nStatus: " + status);
                     console.log(data);
                     if (data.status) {
-                        window.location = data.redirect;
+                        if(data.status){
+                            localStorage.setItem("plexus.isLogin",true);   
+                            window.location = data.redirect;
+                        }
                     }
                 });
               }
