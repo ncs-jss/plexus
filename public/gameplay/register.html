@@ -246,7 +246,6 @@
             });
             function collegeToggler(){
                 var selected = parseInt($(".collegeSelect option:selected").val());
-                // console.log(selected);
                 $(".collegeToggle").eq(selected).hide();
                 $(".college").val("JSSATE");
                 $(".collegeToggle").eq((selected+1)%2).show();
@@ -254,7 +253,6 @@
             collegeToggler();
             $('#registerForm').validator().on('submit', function (e) {
               if (e.isDefaultPrevented()) {
-                // console.log('test');
               } else {
                 // everything looks good!
                 event.preventDefault();
@@ -266,10 +264,7 @@
                 signup.college = $(".college").val();
                 signup.contact = $(".contact").val();
                 signup.avatar = "/assets/img/avatar-"+$(".avatarContainer input[type='radio']:checked").val()+".png";
-                // console.log(signup);
                 $.post(baseUrl+"user", signup,function(data, status) {
-                    // console.log("Data: " + data + "\nStatus: " + status);
-                    // console.log(data);
                     if (data.status) {
                         if(data.status){
                             localStorage.setItem("plexus.isLogin",true);

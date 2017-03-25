@@ -162,7 +162,7 @@
                             data = res.data;
                             // console.log(data);
                             var openHtml = '<tr>';
-                            var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-primary addQuesBtn">Add QUes</button><button class="btn btn-warning approveEventBtn">Approve</button><button class="btn btn-primary activateEventBtn">Activate</button><button class="btn btn-success editEventBtn">Edit</button><button class="btn btn-danger deleteEventBtn">Delete</button></div></td></tr>';
+                            var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-primary addQuesBtn">Add Ques</button><button class="btn btn-success manageQuesBtn">Manage Ques</button><button class="btn btn-warning approveEventBtn">Approve</button><button class="btn btn-primary activateEventBtn">Activate</button><button class="btn btn-success editEventBtn">Edit</button><button class="btn btn-danger deleteEventBtn">Delete</button></div></td></tr>';
                             var allHtml = '';
                             for (var i = 0, l = data.length; i < l; i++) {
                                 allHtml = '<td>' + parseInt(i + 1) + '</td>\n';
@@ -187,6 +187,12 @@
                                 // console.log(data[index]);
                                 var event_ID = data[index].eventCode;
                                 window.location = "/event/" + event_ID + "/question/create";
+                            });
+                            $('.manageQuesBtn').click(function() {
+                                var index = $('.manageQuesBtn').index($(this));
+                                console.log(data[index]);
+                                var event_ID = data[index].eventCode;
+                                window.location = "/event/" + event_ID + "/question/";
                             });
                             // Delete feature
                             $('.deleteEventBtn').click(function() {
