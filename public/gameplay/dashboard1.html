@@ -208,6 +208,9 @@
                             var futureDate  = new Date(res.event.endTime);
                             var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
                             // console.log(diff);
+                            if(diff == 0){
+                                window.location = "/";
+                            }
                             var clock = new FlipClock($('.endingClock'), diff, {
                                 clockFace: 'DailyCounter',
                                 autoStart: true,
