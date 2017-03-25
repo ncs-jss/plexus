@@ -111,8 +111,8 @@
                                                     <input class="form-control nscore" placeholder="Negative Score" type="number" min="1" max="10"/>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Image File</label>
-                                                    <input type="file" accept="image/*" class="form-control image" placeholder="Enter image"/>
+                                                    <label>Image Name</label>
+                                                    <input type="text" class="form-control image" placeholder="Enter Image Name"/>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-6">
                                                     <label>html</label>
@@ -168,7 +168,7 @@
                     ques.question = $(".question").val();
                     ques.image = $(".image").val();
                     ques.score = $(".score").val();
-                    // ques.image = $(".image").prop('files');
+                    ques.image = "/assets/img/event/"+$(".image").val('');
                     ques.answer = $(".answer").val();
                     ques.incorrect = $(".nscore").val();
                     ques.level = $(".level").val();

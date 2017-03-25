@@ -214,7 +214,7 @@ demo = {
 }
 linking = {
     eventId: 0,
-    setLinks: function (id,active) {
+    setLinks: function (id) {
         this.eventId = id;
         $.each($(".eventLink"),function(key,value){
             var anchor = $(value).find("a");
