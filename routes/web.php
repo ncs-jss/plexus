@@ -34,7 +34,7 @@ Route::group(
     ['prefix' => 'api'], function() {
 
     Route::get('user/edit', 'User\UserControllerApi@profile');
-    Route::post('user/edit', 'User\UserControllerApi@update');
+    Route::post('user/edit', 'User\UserControllerApi@updateProfile');
     Route::post('society/login', 'Society\SocietyControllerApi@login');
     Route::post('user/login', 'User\UserControllerApi@login');
     Route::get('/event/{eventCode}/user', 'User\UserControllerApi@userInfoEvent');
