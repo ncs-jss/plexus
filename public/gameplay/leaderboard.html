@@ -23,13 +23,12 @@
     <body>
         <div class="wrapper">
             <div class="sidebar" data-color="purple" data-image="/assets/img/sidebar-5.jpg">
-                <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
                 <div class="sidebar-wrapper">
                     <div class="logo">
                         <div class="text-center" style="margin-top: 20px;">
-                            <img src="/assets/img/avatar-0.png" alt="" class="img-circle userAvatar" style="width: 80px;height: 80px;"/>
+                            <img alt="" class="img-circle userAvatar" src="" style="width: 80px;height: 80px;"/>
                         </div>
-                        <a href="/user/edit" class="simple-text userName">Aditya</a>
+                        <a class="simple-text userName" href="/user/edit"></a>
                     </div>
                     <ul class="nav">
                         <li class="home">
@@ -38,13 +37,13 @@
                                 <p>Home</p>
                             </a>
                         </li>
-                        <li class="dashboard eventLink">
+                        <li class="dashboard eventLink active">
                             <a data-href="/dashboard">
                                 <i class="pe-7s-science"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
-                        <li class="leaderboard eventLink active">
+                        <li class="leaderboard eventLink">
                             <a data-href="/leaderboard">
                                 <i class="pe-7s-graph"></i>
                                 <p>Leaderboard</p>
@@ -60,6 +59,15 @@
                             <a href="/user/edit">
                                 <i class="pe-7s-user"></i>
                                 <p>Edit Profile</p>
+                            </a>
+                        </li>
+                        <li class="active-pro userPoints">
+                            <a href="javascript:void(0)">
+                                <i class="pe-7s-rocket"></i>
+                                <p>
+                                    Score :
+                                    <b></b>
+                                </p>
                             </a>
                         </li>
                     </ul>
@@ -108,7 +116,7 @@
                                                 <th>Name</th>
                                                 <th>Username</th>
                                                 <th>Score</th>
-                                                <th>Total Submits</th>
+                                                <th>Hits</th>
                                             </thead>
                                             <tbody class="userList">
                                                 <tr class="hidden">
@@ -174,14 +182,21 @@
             // apiUrl = baseUrl+"event";
             apiUrl = baseUrl+"event/"+eventId+"/leaderboard";
             console.log(apiUrl);
+            var apiUserUrl = baseUrl+"event/"+eventId+"/user";
+            $.get(apiUserUrl, function(userData) {
+                console.log(userData);
+                $(".userPoints p b").html(userData.data.score.score);
+                $(".userName").html(userData.data.name);
+                $(".userAvatar").attr("src",userData.data.avatar);
+            });
             linking.setLinks(eventId);
             $.get(apiUrl, function(res) {
-                // data = JSON.parse(res.data);
                 data = res.data;
                 console.log(data);
                 var openHtml = '<tr>';
                 var closeHtml = '</tr>';
                 var allHtml = '';
+                $(".navbar-brand strong").html(data.eventName);
                 for (var i = 0, l = data.length; i < l; i++) {
                     allHtml = '<td>' + parseInt(i + 1) + '</td>\n';
                     allHtml += '<td><img src="' + data[i].user.avatar + '" class="img-circle" style="width: 40px;height: 40px;"></td>\n';

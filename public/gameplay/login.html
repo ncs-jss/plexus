@@ -122,15 +122,12 @@
                   if (e.isDefaultPrevented()) {
                     console.log('test');
                   } else {
-                    // everything looks good!
                     event.preventDefault();
                     console.log('test2');
                     login.email = $(".email").val();
                     login.password = $(".password").val();
                     console.log(login);
                     $.post(baseUrl+"user/login", login,function(data, status) {
-                            console.log("Data: " + data + "\nStatus: " + status);
-                            console.log(JSON.stringify(data));
                             window.location = data.redirect;
                     });
                   }
