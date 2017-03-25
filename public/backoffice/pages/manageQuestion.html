@@ -151,13 +151,13 @@
         <script>
                 $(document).ready(function() {
                     var data;
-                    console.log(baseUrl);
-                    var eventId = parseInt($(location).attr('href').split("/")[4]) || "1";
+                    // console.log(baseUrl);
+                    var eventId = $(location).attr('href').split("/")[4];
                     apiUrl = baseUrl+"event/"+eventId+"/question";
                     $.get(apiUrl, function(res) {
-                        console.log(res);
+                        // console.log(res);
                         data = res.data;
-                        console.log(data);
+                        // console.log(data);
                         var openHtml = '<tr>';
                         var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-success editQuesBtn">Edit</button><button class="btn btn-danger deleteQuesBtn">Delete</button></div></td></tr>';
                         var allHtml = '';
@@ -179,21 +179,21 @@
                         })
                         // Delete feature
                         $('.deleteQuesBtn').click(function() {
-                            console.log($(this));
+                            // console.log($(this));
                             var index = $('.deleteQuesBtn').index($(this));
-                            console.log(data[index]);
+                            // console.log(data[index]);
                             var event_ID = data[index].eventCode;
                             $.ajax({
                                url: baseUrl+"event/"+event_ID,
                                type: 'DELETE',
                                success: function(data, status) {
-                                console.log("Data: " + data + "\nStatus: " + status);
+                                // console.log("Data: " + data + "\nStatus: " + status);
                             }
                             });
                         });
                         $('.editQuesBtn').click(function() {
                             var index = $('.editQuesBtn').index($(this));
-                            console.log(data[index]);
+                            // console.log(data[index]);
                             var event_ID = data[index].eventCode;
                             window.location = "/event/"+event_ID+"/edit"
                         });

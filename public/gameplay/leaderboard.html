@@ -172,7 +172,7 @@
     <script>
         $(document).ready(function() {
             var data;
-            console.log(baseUrl);
+            // console.log(baseUrl);
             // var u = "http://127.0.0.1:8080/event/2/leaderboard"
             var eventId = $(location).attr('href').split("/")[4];
 
@@ -180,10 +180,10 @@
             // var eventId = parseInt(u.split("/")[4]) || "1";
             // apiUrl = baseUrl+"event";
             apiUrl = baseUrl+"event/"+eventId+"/leaderboard";
-            console.log(apiUrl);
+            // console.log(apiUrl);
             var apiUserUrl = baseUrl+"event/"+eventId+"/user";
             $.get(apiUserUrl, function(userData) {
-                console.log(userData);
+                // console.log(userData);
                 $(".userPoints p b").html(userData.data.score.score);
                 $(".userName").html(userData.data.name);
                 $(".userAvatar").attr("src",userData.data.avatar);

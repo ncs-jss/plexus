@@ -215,11 +215,11 @@
             }
             $.get(baseUrl+"event", function(res) {
                 data = JSON.parse(res.currentEvents);
-                console.log(data);
+                // console.log(data);
                 var allHtml = '';
                 for (var i = 0, l = data.length; i < l; i++) {
                     var card = $(".card").eq(i);
-                    console.log(card);
+                    // console.log(card);
                     card.find("span").html(data[i].eventName);
                     card.find("p").html(data[i].eventDes);
                     card.find("a").attr("href","/event/"+data[i].eventCode+"/dashboard");

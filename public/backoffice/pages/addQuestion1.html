@@ -176,7 +176,7 @@
         <script src="/backoffice/dist/js/sb-admin-2.js"></script>
         <script>
             $(document).ready(function() {
-                console.log(baseUrl);
+                // console.log(baseUrl);
                 var ques = {};
                 ques.eventId = $(location).attr('href').split("/")[4];
                 // ques.type = "1";
@@ -189,10 +189,10 @@
                     ques.answer = $(".answer").val();
                     ques.incorrect = $(".nscore").val();
                     ques.level = $(".level").val();
-                    console.log(ques);
+                    // console.log(ques);
                     $.post(apiUrl, ques,
                         function(data, status) {
-                            console.log("Data: " + data + "\nStatus: " + status);
+                            // console.log("Data: " + data + "\nStatus: " + status);
                             if(data.status){
                                 $('#page-wrapper input').val('');
                                 $(".alert-success").removeClass("hidden");
