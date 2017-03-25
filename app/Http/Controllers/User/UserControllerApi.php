@@ -117,7 +117,7 @@ class UserControllerApi extends Controller
 
             $validator = Validator::make(
                 ["admissionNo" => $userInput['admissionNo']], [
-                'admissionNo' => 'required|unique:userdetails',
+                'admissionNo' => 'required|unique:userDetails',
                 ]
             );
 
@@ -344,7 +344,7 @@ class UserControllerApi extends Controller
         $validator = Validator::make(
             $userInput, [
             'contact' => 'required|min:10',
-            'name' => 'required|',
+            'name' => 'required',
             ]
         );
 
