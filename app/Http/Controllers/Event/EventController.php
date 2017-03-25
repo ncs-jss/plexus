@@ -87,7 +87,8 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        $event = Event::find($id);
+        // $event = Event::find($id);
+        $event = Event::where('eventCode', $id)->first();
 
         if (Auth::guard('user')->check()) {
             return File::get(public_path()."/gameplay/about.html");
@@ -139,9 +140,11 @@ class EventController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function dashboard($id)
+    public function dashboard($eventCode)
     {
-        $event = Event::find($id);
+        $event = Event::where('eventCode', $eventCode)->first();
+        // $event = Event::find($id);
+        $eventId = $event->id;
 
         if ($event->startTime > Carbon::now()) {
             return Redirect::to('');
@@ -152,7 +155,7 @@ class EventController extends Controller
 
                 $getScore = Score::where(
                     [
-                    ['eventId', $id],
+                    ['eventId', $eventId],
                     ['userId', Auth::guard('user')->id()],
                     ]
                 )->first();
@@ -160,7 +163,7 @@ class EventController extends Controller
                 if (!count($getScore)) {
                     $newUserScore = new Score;
                     $newUserScore->userId = Auth::guard('user')->id();
-                    $newUserScore->eventId = $id;
+                    $newUserScore->eventId = $eventId;
                     $newUserScore->save();
 
                     return Redirect::to('/event/'.$id);
@@ -168,13 +171,13 @@ class EventController extends Controller
 
                 $question = Question::where(
                     [
-                    ['eventId', $id],
+                    ['eventId', $eventId],
                     ['level', $getScore->level+1],
                     ]
                 )->first();
 
                 if (!count($question)) {
-                    return Redirect::to('event/'.$id.'/leaderboard');
+                    return Redirect::to('event/'.$eventCode.'/leaderboard');
                 }
 
                 if ($event->type == 2) {

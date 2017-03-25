@@ -63,7 +63,7 @@ class AnswerControllerApi extends Controller
      * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $eventId, $id)
+    public function store(Request $request, $eventCode, $id)
     {
         $answerInput = Input::all();
 
@@ -75,6 +75,9 @@ class AnswerControllerApi extends Controller
         $question = Question::find($id);
 
         $answer = Answer::where('quesId', $id)->first();
+
+        $event = Event::where('eventCode', $eventCode)->first();
+        $eventId = $event->id;
 
         $score = Score::where(
             [
@@ -102,7 +105,7 @@ class AnswerControllerApi extends Controller
             return Response::json([
                 "status" => True,
                 "message" => $randomMessage->correct,
-                "redirect" => '/event/'.$eventId.'/dashboard'
+                "redirect" => '/event/'.$eventCode.'/dashboard'
             ]);
         }
         return Response::json([
