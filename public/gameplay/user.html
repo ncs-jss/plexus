@@ -241,9 +241,8 @@
                 signup.contact = $(".contact").val();
                 $.post(baseUrl+"user/edit", signup,function(data, status) {
                     if (data.status) {
-                        if(data.status){
-                            window.location = data.redirect;
-                        }else{
+                        window.location = data.redirect;
+                    }else{
                             $.notify({
                                 icon: 'pe-7s-attention',
                                 message: $.map(data.errors, function(e){return e;})
@@ -252,7 +251,6 @@
                                 timer: 10,
                                 newest_on_top: true
                             });
-                        }
                     }
                 });
               }
