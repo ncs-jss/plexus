@@ -95,7 +95,7 @@ class EventController extends Controller
         } elseif (Auth::guard('society')->check()) {
             return File::get(public_path()."/backoffice/pages/editEvent.html");
         }
-        return File::get(public_path()."/login.html");
+        return Redirect::to('/login');
 
     }
 

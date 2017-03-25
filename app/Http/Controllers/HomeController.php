@@ -11,6 +11,7 @@ use App\Score;
 use App\Event;
 use App\User;
 use Response;
+use Redirect;
 
 class HomeController extends Controller
 {
@@ -103,6 +104,6 @@ class HomeController extends Controller
         Session::flush();
         Auth::guard('society')->logout();
         Auth::guard('user')->logout();
-        return "bye";
+        return Redirect::to('/login');
     }
 }

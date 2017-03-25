@@ -296,7 +296,8 @@
                             apiUrl = baseUrl+"event/"+eventId;
                             console.log(apiUrl);
                             $.get(apiUrl, function(res) {
-                                data = JSON.parse(res.currentEvents);
+                                console.log(res);
+                                data = res.data;
                                 console.log(data);
                                 $(".eventName").html(data.eventName);
                                 $(".eventDes").html(data.eventDes);
