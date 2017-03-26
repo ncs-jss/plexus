@@ -95,7 +95,7 @@ class QuestionControllerApi extends Controller
 
             $validator = Validator::make(
                 $questionInput, [
-                'question' => 'required|max:255',
+                'question' => 'required',
                 // 'type' => 'required|max:255',
                 // 'level' => 'required|max:255',
                 'score' => 'required|max:255',
