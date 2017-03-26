@@ -146,10 +146,7 @@ class QuestionControllerApi extends Controller
                 $question->level = $questionInput['level'];
             }
 
-            $answer->answer = strtolower($questionInput['answer']);
-            $question->type = $event->type;
-            $question->save();
-
+            $answer->answer = trim(strtolower($questionInput['answer']));
             $answer->score = $questionInput['score'];
             $answer->quesId = $question->id;
 

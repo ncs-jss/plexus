@@ -86,7 +86,7 @@ class AnswerControllerApi extends Controller
             ]
         )->first();
 
-        if ($answer->answer == strtolower($answerInput)) {
+        if ($answer->answer == trim(strtolower($answerInput))) {
             $correct = 1;
         }
 

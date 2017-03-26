@@ -179,14 +179,14 @@
                                                 <div class="col-md-6 collegeToggle">
                                                     <div class="form-group">
                                                         <label>Then Specify College Name</label>
-                                                        <input type="text" class="form-control college" placeholder="College" value="JSSATE" data-error="That's required too" required/>
+                                                        <input type="text" class="form-control college" placeholder="College" value="JSSATE"/>
                                                         <div class="help-block with-errors"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 collegeToggle">
                                                     <div class="form-group">
                                                         <label>Then Specify Admission No</label>
-                                                        <input type="text" class="form-control admissionNo" placeholder="Eg: 15CSE006" value="" data-error="That's required too" data-minlength="7" required/>
+                                                        <input type="text" class="form-control admissionNo" placeholder="Eg: 15CSE006" value=""/>
                                                         <div class="help-block with-errors"></div>
                                                     </div>
                                                 </div>
@@ -234,7 +234,7 @@
     <script>
         $(document).ready(function() {
             var signup = {};
-            localStorage.setItem("plexus.isLogin",false);
+            localStorage.setItem("plexus.isLogin", false);
             $('.collegeSelect').on('change', function(){
                 collegeToggler();
             });
@@ -245,11 +245,29 @@
                 $(".collegeToggle").eq((selected+1)%2).show();
             }
             collegeToggler();
+            function addUser(signup){
+                $.post(baseUrl+"user", signup,function(data, status) {
+                    if (data.status) {
+                        window.location = data.redirect;
+                        localStorage.setItem("plexus.isLogin", true);
+                    }else{
+                        $.notify({
+                            icon: 'pe-7s-attention',
+                            message: $.map(data.errors, function(e){return e;})
+                        }, {
+                            type: 'danger',
+                            timer: 10,
+                            newest_on_top: true
+                        });
+                    }
+                });
+            }
             $('#registerForm').validator().on('submit', function (e) {
               if (e.isDefaultPrevented()) {
               } else {
                 // everything looks good!
                 event.preventDefault();
+                var selected = parseInt($(".collegeSelect option:selected").val());
                 signup.email = $(".email").val();
                 signup.name = $(".name").val();
                 signup.password = $(".password").val();
@@ -258,21 +276,34 @@
                 signup.college = $(".college").val();
                 signup.contact = $(".contact").val();
                 signup.avatar = "/assets/img/avatar-"+$(".avatarContainer input[type='radio']:checked").val()+".png";
-                // console.log(signup);
-                $.post(baseUrl+"user", signup,function(data, status) {
-                    if (data.status) {
-                        window.location = data.redirect;
+                if(selected == 1){
+                    if(signup.college.length <= 0){
+                        $.notify({
+                            icon: 'pe-7s-attention',
+                            message: "Specify College Name !"
+                        }, {
+                            type: 'danger',
+                            timer: 10,
+                            newest_on_top: true
+                        });
                     }else{
-                            $.notify({
-                                icon: 'pe-7s-attention',
-                                message: $.map(data.errors, function(e){return e;})
-                            }, {
-                                type: 'danger',
-                                timer: 10,
-                                newest_on_top: true
-                            });
+                        signup.admissionNo = "";
+                        addUser(signup);
                     }
-                });
+                }else{
+                    if(signup.admissionNo.length <= 0){
+                        $.notify({
+                            icon: 'pe-7s-attention',
+                            message: "Specify Admission No !"
+                        }, {
+                            type: 'danger',
+                            timer: 10,
+                            newest_on_top: true
+                        });
+                    }else{
+                        addUser(signup);
+                    }
+                }
               }
             });
         });
