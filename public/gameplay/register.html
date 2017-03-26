@@ -67,7 +67,7 @@
                                 /*transform: scale(0.9);*/
                                 /*box-shadow: 0px 0px 1px 10px #eee;*/
                             }
-
+        
                         </style>
     </head>
     <body>
@@ -82,7 +82,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="/">Plexus</a>
+                            <a class="navbar-brand" href="/">Plexus</a>                            
                         </div>
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
@@ -261,16 +261,19 @@
                 // console.log(signup);
                 $.post(baseUrl+"user", signup,function(data, status) {
                     if (data.status) {
-                        window.location = data.redirect;
-                    }else{
+                        if(data.status){
+                            localStorage.setItem("plexus.isLogin",true);
+                            window.location = data.redirect;
+                        }else{
                             $.notify({
                                 icon: 'pe-7s-attention',
-                                message: $.map(data.errors, function(e){return e;})
+                                message: data.errors.join(" and ")
                             }, {
                                 type: 'danger',
                                 timer: 10,
                                 newest_on_top: true
                             });
+                        }
                     }
                 });
               }

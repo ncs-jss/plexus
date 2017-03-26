@@ -90,7 +90,7 @@
                                 <span class="icon-bar"></span>
                             </button>
                             <a class="navbar-brand" href="#">
-                                <strong>Errata</strong>
+                                <strong></strong>
                             </a>
                         </div>
                         <div class="collapse navbar-collapse">
@@ -108,11 +108,11 @@
                             <div class="col-md-5">
                                 <div class="card">
                                     <div class="header">
-                                        <h2 class="title text-center eventName">Errata</h2>
+                                        <h2 class="title text-center eventName" style="text-transform: capitalize;"></h2>
                                         <hr/>
                                     </div>
                                     <div class="content">
-                                        <p class="eventDes">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt fugit mollitia, impedit sit aliquam amet illum esse reprehenderit minus ab error dolore laborum molestias quod ex, tenetur nemo in, sed.</p>
+                                        <p class="eventDes"></p>
                                     </div>
                                 </div>
                                 <div class="card">
@@ -168,8 +168,8 @@
                                             </table>
                                         </div>
                                         <button class="btn btn-info btn-fill playBtn pull-right" type="submit">Play</button>
-                                        <br>
-                                        <br>
+                                        <br/>
+                                        <br/>
                                     </div>
                                 </div>
                             </div>
@@ -210,50 +210,42 @@
     <script src="/assets/js/demo.js">
     </script>
     <script>
-            $(document).ready(function() {
-                var data;
-                // console.log(baseUrl);
-                // var u = "http://127.0.0.1:8080/event/2"
-                var eventId = $(location).attr('href').split("/")[4];
-            
-                // console.log(u.split("/"));
-                // var eventId = parseInt(u.split("/")[4]) || "1";
-                linking.setLinks(eventId);
-                apiUrl = baseUrl+"event/"+eventId;
-                var apiUserUrl = baseUrl+"event/"+eventId+"/user";
-                $.get(apiUserUrl, function(userData) {
-                    console.log(userData);
-                    $(".userPoints p b").html(userData.data.score.score);
-                    $(".userName").html(userData.data.name);
-                    $(".userAvatar").attr("src",userData.data.avatar);
-                });
-                // console.log(apiUrl);
-                $.get(apiUrl, function(res) {
-                    // console.log(res);
-                    data = res.data;
-                    // console.log(data);
-                    $(".eventName").html(data.eventName);
-                    $(".navbar-brand strong").html(data.eventName);
-                    $(".eventDes").html(data.eventDes);
-                    var startTime = moment(data.startTime).format('Do MMM, h:mm a');
-                    var endTime = moment(data.endTime).format('Do MMM, h:mm a');
-                    $(".startTime").html(startTime);
-                    $(".endTime").html(endTime);
-                    var openHtml = '<li><h5 style="margin-top: 0;margin-left: 30px;text-align: left;">';
-                    var closeHtml = '</h5></li><hr>';
-                    var rules = data.rules;
-                    $.each(rules,function(key,value){
-                        allHtml =  value.rules ;
-                        allHtml = openHtml + allHtml + closeHtml;
-                        $(".rules").append(allHtml);
-                    });
-                    
-                });
-                $(".playBtn").click(function(){
-                    console.log('test');
-                    console.log($(".dashboard a"));
-                    $(".dashboard a")[0].click();
-                })
+        $(document).ready(function() {
+            var data;
+            var eventId = $(location).attr('href').split("/")[4];
+            linking.setLinks(eventId);
+            apiUrl = baseUrl+"event/"+eventId;
+            var apiUserUrl = baseUrl+"event/"+eventId+"/user";
+            $.get(apiUserUrl, function(userData) {
+                console.log(userData);
+                $(".userPoints p b").html(userData.data.score.score);
+                $(".userName").html(userData.data.name);
+                $(".userAvatar").attr("src",userData.data.avatar);
             });
-        </script>
+            $.get(apiUrl, function(res) {
+                data = res.data;
+                $(".eventName").html(data.eventName);
+                $(".navbar-brand strong").html(data.eventName);
+                $(".eventDes").html(data.eventDes);
+                var startTime = moment(data.startTime).format('Do MMM, h:mm a');
+                var endTime = moment(data.endTime).format('Do MMM, h:mm a');
+                $(".startTime").html(startTime);
+                $(".endTime").html(endTime);
+                var openHtml = '<li><h5 style="margin-top: 0;margin-left: 30px;text-align: left;">';
+                var closeHtml = '</h5></li><hr>';
+                var rules = data.rules;
+                $.each(rules,function(key,value){
+                    allHtml =  value.rules ;
+                    allHtml = openHtml + allHtml + closeHtml;
+                    $(".rules").append(allHtml);
+                });
+
+            });
+            $(".playBtn").click(function(){
+                console.log('test');
+                console.log($(".dashboard a"));
+                $(".dashboard a")[0].click();
+            })
+        });
+    </script>
 </html>

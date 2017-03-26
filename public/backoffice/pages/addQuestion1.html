@@ -58,12 +58,12 @@
                                 <!-- /input-group -->
                             </li>
                             <li>
-                                <a href="/event/create">
+                                <a href="/society/create">
                                     <i class="fa fa-bar-chart fa-fw"></i>
                                     Add Event
                                 </a>
                             </li>
-
+                            
                         </ul>
                     </div>
                     <!-- /.sidebar-collapse -->
@@ -168,10 +168,7 @@
                     ques.question = $(".question").val();
                     ques.image = $(".image").val();
                     ques.score = $(".score").val();
-                    var image = $(".image").val();
-                    if (image) {
-                        ques.image = "/assets/img/event/" + image;
-                    }
+                    ques.image = "/assets/img/event/"+$(".image").val('');
                     ques.answer = $(".answer").val();
                     ques.incorrect = $(".nscore").val();
                     ques.level = $(".level").val();
