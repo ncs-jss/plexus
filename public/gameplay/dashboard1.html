@@ -281,7 +281,9 @@
                     var selected = {
                         answer: $(".answer").val()
                     };
+                    $('.submitBtn').prop('disabled', true);
                     $.post(apiCheckAnsUrl, selected, function (res, status) {
+                        $('.submitBtn').prop('disabled', false);
                         $.notifyClose();
                         if (!res.status) {
                             $.notify({
