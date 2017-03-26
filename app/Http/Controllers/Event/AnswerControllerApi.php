@@ -166,12 +166,14 @@ class AnswerControllerApi extends Controller
     {
         $score->counter += 1;
         if ($correct) {
-            $score->score += $data['answer']->score;
             if ($data['question']->type != 2) {
-                $score->level = $data['question']->level;
+                if ($score->level + 1 <= $data['question']->level) {
+                    $score->score += $data['answer']->score;
+                    $score->level = $data['question']->level;
+                    $score->save();
+                    return 1;
+                }
             }
-            $score->save();
-            return 1;
         } else {
             $score->score -= $data['answer']->incorrect;
             $score->save();

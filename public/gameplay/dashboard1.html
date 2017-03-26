@@ -283,9 +283,9 @@
                     };
                     $('.submitBtn').prop('disabled', true);
                     $.post(apiCheckAnsUrl, selected, function (res, status) {
-                        $('.submitBtn').prop('disabled', false);
                         $.notifyClose();
                         if (!res.status) {
+                            $('.submitBtn').prop('disabled', false);
                             $.notify({
                                 icon: 'pe-7s-attention',
                                 message: wrongNotifs[Math.random() * wrongNotifs.length >> 0]
