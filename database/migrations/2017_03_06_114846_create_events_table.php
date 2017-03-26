@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('eventName');
             $table->string('eventCode');
-            $table->string('eventDes', 1000);
+            $table->text('eventDes');
             $table->timestamp('startTime')->nullable();
             $table->timestamp('endTime')->nullable();
             $table->integer('duration');

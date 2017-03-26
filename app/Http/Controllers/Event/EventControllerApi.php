@@ -105,7 +105,7 @@ class EventControllerApi extends Controller
         $validator = Validator::make(
             $eventInput, [
             'eventName' => 'required|max:255',
-            'eventDes' => 'required|max:255',
+            'eventDes' => 'required',
             'startTime' => 'required|max:255',
             'endTime' => 'required|max:255',
             'duration' => 'required|max:255',
