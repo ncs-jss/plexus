@@ -203,6 +203,9 @@ class EventController extends Controller
                 if ($event->type == 2) {
                     // MCQ
                     return File::get(public_path()."/gameplay/dashboard1.html");
+                } elseif ($event->type == 3) {
+                    return File::get(public_path()."/gameplay/dashboard3.html");
+
                 }
 
                 return File::get(public_path()."/gameplay/dashboard1.html");

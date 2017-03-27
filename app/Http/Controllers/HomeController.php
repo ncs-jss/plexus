@@ -12,6 +12,7 @@ use App\Event;
 use App\User;
 use Response;
 use Redirect;
+use HTML;
 
 class HomeController extends Controller
 {

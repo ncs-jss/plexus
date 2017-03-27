@@ -28,7 +28,7 @@ class QuestionControllerApi extends Controller
     {
         $this->middleware(
             'society', [
-                'except' => ['show', 'index']
+                "except" => ['index']
             ]
         );
     }
@@ -43,24 +43,47 @@ class QuestionControllerApi extends Controller
     public function index($eventCode)
     {
         $event = Event::where('eventCode', $eventCode)->first();
+        if (!count($event)) {
+            return Response::json([
+                "status" => false,
+                "data" => [],
+                "error" => ['Event not found']
+            ]);
+        }
         $id = $event->id;
 
         $question = Question::where('eventId', $id)->get();
-        if ($question) {
+
+        if (!count($question)) {
+            return Response::json([
+                "status" => false,
+                "data" => [],
+                "error" => ['No Questions Found']
+            ]);
+        }
+
+        if (!Auth::guard('society')->check() && !Auth::guard('user')->check()) {
+            return Response::json([
+                "status" => false,
+                "data" => [],
+                "error" => ['No Questions Found']
+            ]);
+        } elseif (Auth::guard('society')->check()) {
             foreach ($question as $key => $value) {
+                $value->html = htmlspecialchars_decode($value->html);
                 $value->answer = Answer::where('quesId', $value->id)->get()[0];
             }
-            return Response::json(
-                [
+        } elseif (Auth::guard('user')->check() && $event->type != 3) {
+            return Response::json([
                 "status" => false,
-                "data" => $question
-                ]
-            );
+                "data" => [],
+                "error" => ['No Questions Found']
+            ]);
         }
+
         return Response::json(
             [
             "status" => true,
-            "error" => "No Questions Added",
             "data" => $question
             ]
         );
@@ -137,7 +160,7 @@ class QuestionControllerApi extends Controller
             }
 
             if (isset($questionInput['html'])) {
-                $question->html = $questionInput['html'];
+                $question->html = htmlspecialchars($questionInput['html']);
             }
 
             if (intval($event->type) == 2) {
@@ -189,30 +212,14 @@ class QuestionControllerApi extends Controller
             ]
         )->first();
 
-        if (count($question)) {
-            return File::get(
-                public_path()."/backoffice/pages/index.html"
+        if (!count($question)) {
+            return Response::json(
+                [
+                "status" => false,
+                "data" => [],
+                "error" => ["No such questions exists !!!"]
+                ]
             );
-        }
-
-        if (Auth::guard('user')->check()) {
-            if ($event->type != 2) {
-                $score = Score::where(
-                    [
-                    ['userId' => Auth::guard('user')->id()],
-                    ['eventId' => $eventId]
-                    ]
-                )->first();
-
-                if ($score->level != $question->level-1) {
-                    return Response::json(
-                        [
-                        "status" => false,
-                        "error" => "Invalid Level"
-                        ]
-                    );
-                }
-            }
         }
 
         return Response::json(
@@ -242,9 +249,13 @@ class QuestionControllerApi extends Controller
             ]
         )->first();
 
-        if (count($question)) {
-            return File::get(
-                public_path()."/backoffice/pages/index.html"
+        if (!count($question)) {
+            return Response::json(
+                [
+                "status" => false,
+                "data" => [],
+                "error" => ["No such questions exists !!!"]
+                ]
             );
         }
 
