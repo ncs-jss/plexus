@@ -171,7 +171,9 @@ class EventController extends Controller
                 if ($eventCode == "sherlocked") {
                     return Redirect::to('http://sherlocked.zealicon.in/');
                 }
-
+                elseif ($event->type == 3) {
+                    return File::get(public_path()."/gameplay/dashboard3.html");
+                }
                 $getScore = Score::where(
                     [
                     ['eventId', $eventId],
@@ -203,11 +205,7 @@ class EventController extends Controller
                 if ($event->type == 2) {
                     // MCQ
                     return File::get(public_path()."/gameplay/dashboard1.html");
-                } elseif ($event->type == 3) {
-                    return File::get(public_path()."/gameplay/dashboard3.html");
-
                 }
-
                 return File::get(public_path()."/gameplay/dashboard1.html");
             }
         }

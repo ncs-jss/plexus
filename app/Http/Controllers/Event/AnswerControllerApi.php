@@ -17,6 +17,8 @@ use App\Score;
 use App\Answer;
 use App\Question;
 use App\Message;
+use App\User;
+use App\UserDetail;
 use Carbon\Carbon;
 use Response;
 
@@ -181,5 +183,35 @@ class AnswerControllerApi extends Controller
         }
         return 0;
 
+    }
+
+    public function submitFile(Request $request)
+    {
+        $answerSubmit = Input::all();
+
+        $id = Auth::guard('user')->id();
+
+        $user = User::find($id);
+        $userDetails = userDetail::where('userId', $id)->first();
+        $naArr = explode(" ", $user->name);
+        $name = implode("_", $naArr);
+        // return Response::json(Input::file('file'));
+
+        if (isset($answerSubmit['file'])) {
+            if (Input::file('file')->isValid()) {
+                $destinationPathvfile = storage_path('app');
+                $extensionvfile = Input::file('file')->
+                getClientOriginalExtension();
+                // renaming image
+                $fileNamevfile = "";
+                if ($userDetails->admissionNo == "") {
+                    $fileNamevfile = $name."_".$userDetails->college.'.'.$extensionvfile;
+                }
+                $fileNamevfile = $name."_".$userDetails->admissionNo.'.'.$extensionvfile;
+                Input::file('file')->move(
+                    $destinationPathvfile, $fileNamevfile
+                );
+            }
+        }
     }
 }

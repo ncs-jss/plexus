@@ -154,9 +154,7 @@
                                                     <label for="selectQuesNo">Jump To Question:</label>
                                                     <br/>
                                                     <select class="form-control selectQuesNo" id="selectQuesNo">
-                                                        <option value="0">Ques 1</option>
-                                                        <option value="1">Ques 2</option>
-                                                        <option value="2">Ques 3</option>
+                                                        <!-- <option value="0">Ques 1</option> -->
                                                     </select>
                                                 </div>
                                             </div>
@@ -235,32 +233,33 @@
         <script type="text/javascript">
                     $(document).ready(function(){
                         var eventId = $(location).attr('href').split("/")[4];
-                        var apiEventUrl = baseUrl+"event/"+eventId+"/dashboard";
+                        var apiEventUrl = baseUrl+"event/"+eventId+"/question";
                         var apiUserUrl = baseUrl+"event/"+eventId+"/user";
                         linking.setLinks(eventId);
                         // $(".finishBtn").attr("href","/event/"+eventId+"/finish");
                         var quesSwitch = {
-                            index : 0,
-                            total : 3,
-                            list : [{question: "first",image:"/assets/img/gotbg.jpg"},{question: "second"},{question: "third",image:"/assets/img/zeallogo.png"}]
+                            index : 0
                         }
-                        var files;
-                        renderQues(0); //delete in production
+                        // renderQues(0); //delete in production
                         var isFileUploaded = false;
                         $.get(apiEventUrl, function(res) {
                             if (!res.status) {
                                 window.location = res.redirect;
                             } else {
-                                $(".navbar-brand strong").html(res.event.eventName);
+                                $(".navbar-brand strong").html(res.data.event.eventName);
                                 var currentDate = new Date();
-                                var futureDate  = new Date(res.event.endTime);
+                                var futureDate  = new Date(res.data.event.endTime);
                                 var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
                                 if(diff == 0){
                                     window.location = "/";
                                 }
-                                clock(diff); 
-                                quesSwitch.list = res.questions;
-                                renderQues(0);                     
+                                clock(diff);
+                                quesSwitch.list = res.data.questions;
+                                quesSwitch.total = quesSwitch.list.length;
+                                renderQues(0);
+                                for (var i = 0; i < quesSwitch.total; i++) {
+                                    $(".selectQuesNo" ).append($('<option>',{value:i, text:'Option '+parseInt(i + 1)}));
+                                }
                             }
                         });
                         $.get(apiUserUrl, function(userData) {
@@ -353,41 +352,56 @@
                             event.stopPropagation();
                             var apiFileUrl = baseUrl+"event/"+eventId+"/submitFile";
                             console.log(isFileUploaded);
-                            console.log(files);
                             $.notifyClose();
-                            $.notify({
-                                icon: 'pe-7s-attention',
-                                message: "Uploading File !"
-                            }, {
-                                type: 'warning',
-                                timer: 10,
-                                newest_on_top: true
-                            });
-                            $.ajax({
-                                url: apiFileUrl,
-                                type: 'POST',
-                                data: files,
-                                cache: false,
-                                dataType: 'json',
-                                processData: false, // Don't process the files
-                                contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-                                success: function (data, textStatus, jqXHR) {
-                                    $.notifyClose();
-                                    if (typeof data.error === 'undefined') {
-                                        isFileUploaded = true;
-                                        $.notify({
-                                            icon: 'pe-7s-cup',
-                                            message: "File Uploaded Successfully !"
-                                        }, {
-                                            type: 'success',
-                                            timer: 10,
-                                            newest_on_top: true
-                                        });
-                                        setTimeout(function () {
-                                            window.location = "/";
-                                        }, 600);
-                                    } else {
-                                        console.log('ERRORS: ' + data.error);
+                            var file_data = $('.textFile').prop('files')[0];
+                            if(file_data){
+                                $.notify({
+                                    icon: 'pe-7s-attention',
+                                    message: "Uploading File !"
+                                }, {
+                                    type: 'warning',
+                                    timer: 10,
+                                    newest_on_top: true
+                                });
+                                var form_data = new FormData();
+                                form_data.append('file', file_data);
+                                $.ajax({
+                                    url: apiFileUrl,
+                                    type: 'POST',
+                                    data: form_data,
+                                    cache: false,
+                                    dataType: 'text',
+                                    processData: false, // Don't process the files
+                                    contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+                                    success: function (data, textStatus, jqXHR) {
+                                        $.notifyClose();
+                                        if (typeof data.error === 'undefined') {
+                                            isFileUploaded = true;
+                                            $.notify({
+                                                icon: 'pe-7s-cup',
+                                                message: "File Uploaded Successfully !"
+                                            }, {
+                                                type: 'success',
+                                                timer: 10,
+                                                newest_on_top: true
+                                            });
+                                            setTimeout(function () {
+                                                window.location = "/event/"+eventId;
+                                            }, 600);
+                                        } else {
+                                            console.log('ERRORS: ' + data.error);
+                                            $.notify({
+                                                icon: 'pe-7s-attention',
+                                                message: "Some Error Occured ! Please Try Again"
+                                            }, {
+                                                type: 'danger',
+                                                timer: 10,
+                                                newest_on_top: true
+                                            });
+                                        }
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        $.notifyClose();
                                         $.notify({
                                             icon: 'pe-7s-attention',
                                             message: "Some Error Occured ! Please Try Again"
@@ -397,25 +411,19 @@
                                             newest_on_top: true
                                         });
                                     }
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-                                    $.notifyClose();
-                                    $.notify({
-                                        icon: 'pe-7s-attention',
-                                        message: "Some Error Occured ! Please Try Again"
-                                    }, {
-                                        type: 'danger',
-                                        timer: 10,
-                                        newest_on_top: true
-                                    });
-                                }
-                            });
+                                });
+                            }else{
+                                $.notify({
+                                    icon: 'pe-7s-attention',
+                                    message: "Please Input a File !"
+                                }, {
+                                    type: 'danger',
+                                    timer: 10,
+                                    newest_on_top: true
+                                });
+                            }
                         }
                         $(".submitFileBtn").click(submitFile);
-                        $('.textFile').on('change', prepareUpload);
-                        function prepareUpload(event){
-                          files = event.target.files;
-                        }
                     });
                 </script>
     </html>

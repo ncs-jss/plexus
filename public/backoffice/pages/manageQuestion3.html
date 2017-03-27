@@ -46,6 +46,7 @@
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
+
                             <li class="sidebar-search">
                                 <div class="input-group custom-search-form">
                                     <input type="text" class="form-control" placeholder="Search..." id="searchSidebar"/>
@@ -73,7 +74,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Add Question</h1>
+                        <h1 class="page-header">Manage Questions</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -81,88 +82,98 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Question
-                                <strong>1</strong>
-                            </div>
                             <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div role="form">
-                                            <div class="form-group">
-                                                <label>Question</label>
-                                                <textarea class="form-control question"></textarea>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-xs-12 col-md-6">
-                                                    <label>Image Name</label>
-                                                    <input type="text" class="form-control image" placeholder="Enter Image Name"/>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-8 alertBox">
-                                                    <div class="alert alert-danger hidden">
-                                                        <strong>Error !</strong>
-                                                        Question Not Added
-                                                    </div>
-                                                    <div class="alert alert-success hidden">
-                                                        <strong>Success !</strong>
-                                                        Question Added
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <button class="btn btn-success pull-right addQuesBtn">Add Question</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.col-lg-6 (nested) -->
-                                </div>
-                                <!-- /.panel-body -->
+                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>S. No.</th>
+                                            <th>Question</th>
+                                            <th>Image</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="questionList">
+                                        <tr class="hidden">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- /.table-responsive -->
                             </div>
-                            <!-- /.panel -->
+                            <!-- /.panel-body -->
                         </div>
-                        <!-- /.col-lg-12 -->
+                        <!-- /.panel -->
                     </div>
-                    <!-- /.row -->
+                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /#page-wrapper -->
+                <!-- /.row -->
             </div>
+            <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper -->
+        <!-- jQuery -->
         <script src="/vendor/jquery/jquery.min.js"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- DataTables JavaScript -->
+        <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+        <script src="/vendor/datatables-responsive/dataTables.responsive.js"></script>
         <!-- Metis Menu Plugin JavaScript -->
         <script src="/vendor/metisMenu/metisMenu.min.js"></script>
         <!-- Custom Theme JavaScript -->
         <script src="/backoffice/dist/js/sb-admin-2.js"></script>
         <script>
-            $(document).ready(function() {
-                // console.log(baseUrl);
-                var ques = {};
-                ques.eventId = $(location).attr('href').split("/")[4];
-                // ques.type = "1";
-                apiUrl = baseUrl+"event/"+ques.eventId+"/quesType3";
-                $('.addQuesBtn').click(function() {
-                    ques.question = $(".question").val();
-                    var image = $(".image").val();
-                    if (image) {
-                        ques.image = "/assets/img/khoj/" + image;
-                    }
-                    console.log(ques);
-                    $.post(apiUrl, ques,
-                        function(data, status) {
-                            console.log(data);
-                            if(data.status){
-                                $('#page-wrapper input').val('');
-                                $(".alert-success").removeClass("hidden");
-                            }else{
-                                $(".alert-error").removeClass("hidden");
-                            }
+                $(document).ready(function() {
+                    var data;
+                    // console.log(baseUrl);
+                    var eventId = $(location).attr('href').split("/")[4];
+                    apiUrl = baseUrl+"event/"+eventId+"/question";
+                    $.get(apiUrl, function(res) {
+                        // console.log(res);
+                        data = res.data;
+                        // console.log(data);
+                        var openHtml = '<tr>';
+                        var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-success editQuesBtn">Edit</button><button class="btn btn-danger deleteQuesBtn">Delete</button></div></td></tr>';
+                        var allHtml = '';
+                        for (var i = 0, l = data.length; i < l; i++) {
+                            allHtml = '<td>' + parseInt(i + 1) + '</td>\n';
+                            allHtml += '<td>' + data[i].question + '</td>\n';
+                            allHtml += '<td>' + data[i].image + '</td>\n';
+                            allHtml = openHtml + allHtml + closeHtml;
+                            $(".questionList").append(allHtml);
+                        }
+                        $('#dataTables-example').DataTable({
+                            responsive: true
                         });
+                        $("#searchSidebar").focus(function(){
+                            startDictation("#searchSidebar");
+                        })
+                        // Delete feature
+                        $('.deleteQuesBtn').click(function() {
+                            // console.log($(this));
+                            var index = $('.deleteQuesBtn').index($(this));
+                            // console.log(data[index]);
+                            var event_ID = data[index].eventCode;
+                            $.ajax({
+                               url: baseUrl+"event/"+event_ID,
+                               type: 'DELETE',
+                               success: function(data, status) {
+                                // console.log("Data: " + data + "\nStatus: " + status);
+                            }
+                            });
+                        });
+                        $('.editQuesBtn').click(function() {
+                            var index = $('.editQuesBtn').index($(this));
+                            // console.log(data[index]);
+                            var event_ID = data[index].eventCode;
+                            window.location = "/event/"+event_ID+"/edit"
+                        });
+                    });
                 });
-            });
         </script>
     </body>
 </html>

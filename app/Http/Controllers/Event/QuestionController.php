@@ -34,8 +34,15 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($eventCode)
     {
+        $event = Event::where('eventCode', $eventCode)->first();
+        if (!count($event)) {
+            return Redirect::to('/');
+        }
+        if ($event->type == 3) {
+            return File::get(public_path()."/backoffice/pages/manageQuestion3.html");
+        }
         return File::get(public_path()."/backoffice/pages/manageQuestion.html");
 
     }

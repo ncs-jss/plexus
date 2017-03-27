@@ -71,13 +71,24 @@ class QuestionControllerApi extends Controller
         } elseif (Auth::guard('society')->check()) {
             foreach ($question as $key => $value) {
                 $value->html = htmlspecialchars_decode($value->html);
-                $value->answer = Answer::where('quesId', $value->id)->get()[0];
+                if ($event->type != 3) {
+                    $value->answer = Answer::where('quesId', $value->id)->get()[0];
+                }
             }
+        } elseif (Auth::guard('user')->check() && $event->type == 3) {
+            $res = [];
+            $res['questions'] = $question;
+            $res['event'] = $event;
+
+            return Response::json([
+                "status" => true,
+                "data" => $res
+            ]);
         } elseif (Auth::guard('user')->check() && $event->type != 3) {
             return Response::json([
                 "status" => false,
                 "data" => [],
-                "error" => ['No Questions Found']
+                "error" => ["Questions not found"]
             ]);
         }
 
@@ -304,4 +315,64 @@ class QuestionControllerApi extends Controller
         }
         return Response::json(["error" => "Error in deletion"]);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $eventId
+     * @return \Illuminate\Http\Response
+     */
+    public function quesType3(Request $request, $eventCode)
+    {
+        // $event = Event::find($eventId);
+        $event = Event::where('eventCode', $eventCode)->first();
+        $eventId = $event->id;
+
+        if (!count($event)) {
+            return Response::json([
+                "status" => false,
+                "data" => [],
+                "error" => ["Event not found"]
+            ]);
+        }
+
+        $questionInput = Input::all();
+
+        $validator = Validator::make(
+            $questionInput, [
+            'question' => 'required',
+            'image' => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return Response::json(
+                [
+                "status" => false,
+                "errors" => $validator->errors()
+                ]
+            );
+        }
+
+        $question = new Question;
+        $question->question = $questionInput['question'];
+        $question->image = $questionInput['image'];
+        $question->eventId = $eventId;
+        $question->type = $event->type;
+
+        if ($question->save()) {
+            return Response::json(
+                [
+                "status" => True
+                ]
+            );
+        }
+        return Response::json(
+            [
+            "status" => False
+            ]
+        );
+    }
+
 }

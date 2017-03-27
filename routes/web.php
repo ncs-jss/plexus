@@ -47,8 +47,10 @@ Route::group(
     Route::get('society/dashboard', 'Society\SocietyControllerApi@dashboard');
     Route::get('/event/{eventId}/leaderboard', 'HomeController@leaderboard');
     Route::get('user/login', 'HomeController@user');
+    Route::post('event/{eventCode}/quesType3', 'Event\QuestionControllerApi@quesType3');
     Route::resource('event/{eventCode}/question', 'Event\QuestionControllerApi');
     Route::post('event/{eventCode}/answer/{id}', 'Event\AnswerControllerApi@store');
+    Route::post('event/{eventCode}/submitFile', 'Event\AnswerControllerApi@submitFile');
     Route::resource('society', 'Society\SocietyControllerApi');
     Route::resource('user', 'User\UserControllerApi');
     Route::resource('event', 'Event\EventControllerApi');
