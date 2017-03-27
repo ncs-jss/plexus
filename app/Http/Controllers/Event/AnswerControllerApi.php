@@ -170,6 +170,7 @@ class AnswerControllerApi extends Controller
                 if ($score->level + 1 <= $data['question']->level) {
                     $score->score += $data['answer']->score;
                     $score->level = $data['question']->level;
+                    $score->logged_on = Carbon::now();
                     $score->save();
                     return 1;
                 }

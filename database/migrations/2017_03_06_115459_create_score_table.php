@@ -22,7 +22,7 @@ class CreateScoreTable extends Migration
             $table->integer('counter')->default(0);
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('eventId')->references('id')->on('events')->onDelete('cascade');
-             $table->timestamp('logged_on');
+            $table->dateTime('logged_on');
             $table->timestamps();
         });
     }

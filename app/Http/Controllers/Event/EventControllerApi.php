@@ -338,11 +338,15 @@ class EventControllerApi extends Controller
         $question = [];
 
         if ($event->startTime > Carbon::now()) {
-            return Redirect::to('');
+            return Redirect::to('/event');
         } elseif ($event->endTime < Carbon::now()) {
             return Redirect::to('event/'.$eventCode.'/leaderboard');
         } elseif ($event->approve == 1 && $event->active == 1) {
             if (Auth::guard('user')->check()) {
+
+                if ($eventCode == "sherlocked") {
+                    return Redirect::to('http://sherlocked.zealicon.in/');
+                }
 
                 $getScore = Score::where(
                     [

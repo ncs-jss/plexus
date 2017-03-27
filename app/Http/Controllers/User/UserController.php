@@ -36,7 +36,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::where('name', 'A')->inRandomOrder()->get();
+        // return User::where('name', 'A')->inRandomOrder()->get();
     }
 
     /**
