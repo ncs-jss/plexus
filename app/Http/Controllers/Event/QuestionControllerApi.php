@@ -54,6 +54,7 @@ class QuestionControllerApi extends Controller
 
         $question = Question::where('eventId', $id)->get();
 
+
         if (!count($question)) {
             return Response::json([
                 "status" => false,
@@ -72,7 +73,7 @@ class QuestionControllerApi extends Controller
             foreach ($question as $key => $value) {
                 $value->html = htmlspecialchars_decode($value->html);
                 if ($event->type != 3) {
-                    $value->answer = Answer::where('quesId', $value->id)->get()[0];
+                    $value->answer = Answer::where('quesId', $value->id)->first();
                 }
             }
         } elseif (Auth::guard('user')->check() && $event->type == 3) {
@@ -179,7 +180,7 @@ class QuestionControllerApi extends Controller
             } else {
                 $question->level = $questionInput['level'];
             }
-
+            $question->save();
             $answer->answer = trim(strtolower($questionInput['answer']));
             $answer->score = $questionInput['score'];
             $answer->quesId = $question->id;
