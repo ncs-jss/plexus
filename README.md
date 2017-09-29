@@ -3,16 +3,16 @@
 [![Build Status](https://travis-ci.com/ankitjain28may/plexus.svg?token=PPiqU7v6mcqyZ9sMHrpV&branch=master)](https://travis-ci.com/ankitjain28may/plexus)
 [![Coverage Status](https://coveralls.io/repos/github/ncs-jss/plexus/badge.svg?branch=master)](https://coveralls.io/github/ncs-jss/plexus?branch=master)
 
-#Installation and Contribution
+# Installation and Contribution
 
-###Requirements :
+### Requirements :
 
 1. PHP > 5.6
 2. MySQL
 3. Composer
 4. Laravel > 5.3
 
-###Installation :
+### Installation :
 
 Fork and Clone this repo or download it on your local system.
 
@@ -35,6 +35,8 @@ Generate the Application key
 php artisan key:generate
 ```
 
+Set db credentials in `.env` and run the project.
+
 Migrate the database.
 
 ```php
@@ -46,8 +48,6 @@ Seed the database
 ```php
 php artisan db:seed
 ```
-
-Set db credentials in `.env` and run the project.
 
 For Login
 ```
