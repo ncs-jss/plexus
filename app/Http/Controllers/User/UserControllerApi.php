@@ -300,6 +300,7 @@ class UserControllerApi extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function userInfoEvent($eventCode)
@@ -309,10 +310,12 @@ class UserControllerApi extends Controller
         $user = User::find($id);
 
         if (count($user)) {
-            $score = Score::where([
+            $score = Score::where(
+                [
                 ['userId', $id],
                 ['eventId', $eventId],
-                ])->first();
+                ]
+            )->first();
             $user->score = $score;
             return Response::json(
                 [
@@ -334,7 +337,6 @@ class UserControllerApi extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function updateProfile(Request $request)
@@ -366,12 +368,16 @@ class UserControllerApi extends Controller
         $userDetails->contact = $userInput['contact'];
         $userDetails->save();
         if ($user->save()) {
-            return Response::json([
-                "status" => True
-            ]);
+            return Response::json(
+                [
+                "status" => true
+                ]
+            );
         }
-        return Response::json([
-            "status" => False
-        ]);
+        return Response::json(
+            [
+            "status" => false
+            ]
+        );
     }
 }

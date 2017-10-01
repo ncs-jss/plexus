@@ -139,7 +139,7 @@ class EventControllerApi extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function show($eventCode)
@@ -170,7 +170,7 @@ class EventControllerApi extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function edit($eventCode)
@@ -226,7 +226,7 @@ class EventControllerApi extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function destroy($eventCode)
@@ -253,14 +253,14 @@ class EventControllerApi extends Controller
     /**
      * Approve the Event.
      *
-     * @param  int $id
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function approve($eventCode)
     {
         $approve = Input::all();
 
-        $event = Event::where('eventCode' ,$eventCode)->first();
+        $event = Event::where('eventCode', $eventCode)->first();
 
         if ($approve['action']) {
             $event->approve = 1;
@@ -288,14 +288,14 @@ class EventControllerApi extends Controller
     /**
      * Active the Event.
      *
-     * @param  int $id
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function active($eventCode)
     {
         $active = Input::all();
 
-        $event = Event::where('eventCode' ,$eventCode)->first();
+        $event = Event::where('eventCode', $eventCode)->first();
         // $event = Event::find($id);
 
         if ($active['action']) {
@@ -323,7 +323,7 @@ class EventControllerApi extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function dashboard($eventCode)
@@ -386,7 +386,9 @@ class EventControllerApi extends Controller
 
         if (Auth::guard('society')->check()) {
             $question = Question::where('eventId', $id)->get()->toJson();
-        } elseif (!Auth::guard('society')->check() && !Auth::guard('user')->check()) {
+        } elseif (!Auth::guard('society')->check()
+            && !Auth::guard('user')->check()
+        ) {
             return Redirect::to('/event');
         }
 
