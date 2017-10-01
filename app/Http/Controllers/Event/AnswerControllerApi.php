@@ -61,7 +61,7 @@ class AnswerControllerApi extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $eventId
+     * @param  int                      $eventCode
      * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
@@ -104,16 +104,20 @@ class AnswerControllerApi extends Controller
         ];
         $result = $this->correctAnswer($correct, $score, $data);
         if ($result) {
-            return Response::json([
-                "status" => True,
+            return Response::json(
+                [
+                "status" => true,
                 "message" => $randomMessage->correct,
                 "redirect" => '/event/'.$eventCode.'/dashboard'
-            ]);
+                ]
+            );
         }
-        return Response::json([
-            "status" => False,
+        return Response::json(
+            [
+            "status" => false,
             "message" => $randomMessage->incorrect
-        ]);
+            ]
+        );
     }
 
     /**

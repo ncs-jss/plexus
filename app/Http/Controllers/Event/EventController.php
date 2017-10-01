@@ -146,7 +146,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function dashboard($eventCode)
@@ -170,8 +170,7 @@ class EventController extends Controller
 
                 if ($eventCode == "sherlocked") {
                     return Redirect::to('http://sherlocked.zealicon.in/');
-                }
-                elseif ($event->type == 3) {
+                } elseif ($event->type == 3) {
                     return File::get(public_path()."/gameplay/dashboard3.html");
                 }
                 $getScore = Score::where(

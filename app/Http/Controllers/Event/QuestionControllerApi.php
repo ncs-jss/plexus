@@ -37,18 +37,20 @@ class QuestionControllerApi extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  int $id
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function index($eventCode)
     {
         $event = Event::where('eventCode', $eventCode)->first();
         if (!count($event)) {
-            return Response::json([
+            return Response::json(
+                [
                 "status" => false,
                 "data" => [],
                 "error" => ['Event not found']
-            ]);
+                ]
+            );
         }
         $id = $event->id;
 
@@ -56,19 +58,23 @@ class QuestionControllerApi extends Controller
 
 
         if (!count($question)) {
-            return Response::json([
+            return Response::json(
+                [
                 "status" => false,
                 "data" => [],
                 "error" => ['No Questions Found']
-            ]);
+                ]
+            );
         }
 
         if (!Auth::guard('society')->check() && !Auth::guard('user')->check()) {
-            return Response::json([
+            return Response::json(
+                [
                 "status" => false,
                 "data" => [],
                 "error" => ['No Questions Found']
-            ]);
+                ]
+            );
         } elseif (Auth::guard('society')->check()) {
             foreach ($question as $key => $value) {
                 $value->html = htmlspecialchars_decode($value->html);
@@ -81,16 +87,20 @@ class QuestionControllerApi extends Controller
             $res['questions'] = $question;
             $res['event'] = $event;
 
-            return Response::json([
+            return Response::json(
+                [
                 "status" => true,
                 "data" => $res
-            ]);
+                ]
+            );
         } elseif (Auth::guard('user')->check() && $event->type != 3) {
-            return Response::json([
+            return Response::json(
+                [
                 "status" => false,
                 "data" => [],
                 "error" => ["Questions not found"]
-            ]);
+                ]
+            );
         }
 
         return Response::json(
@@ -115,7 +125,7 @@ class QuestionControllerApi extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $eventId
+     * @param  int                      $eventCode
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $eventCode)
@@ -193,13 +203,13 @@ class QuestionControllerApi extends Controller
 
             return Response::json(
                 [
-                "status" => True
+                "status" => true
                 ]
             );
         }
         return Response::json(
             [
-            "status" => False,
+            "status" => false,
             "error" => "Invalid Event"
             ]
         );
@@ -245,7 +255,7 @@ class QuestionControllerApi extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $eventId
+     * @param  int $eventCode
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
@@ -283,7 +293,7 @@ class QuestionControllerApi extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $eventId
+     * @param  int                      $eventCode
      * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
@@ -295,7 +305,7 @@ class QuestionControllerApi extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $eventId
+     * @param  int $eventCode
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
@@ -321,7 +331,7 @@ class QuestionControllerApi extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $eventId
+     * @param  int                      $eventCode
      * @return \Illuminate\Http\Response
      */
     public function quesType3(Request $request, $eventCode)
@@ -331,11 +341,13 @@ class QuestionControllerApi extends Controller
         $eventId = $event->id;
 
         if (!count($event)) {
-            return Response::json([
+            return Response::json(
+                [
                 "status" => false,
                 "data" => [],
                 "error" => ["Event not found"]
-            ]);
+                ]
+            );
         }
 
         $questionInput = Input::all();
@@ -365,13 +377,13 @@ class QuestionControllerApi extends Controller
         if ($question->save()) {
             return Response::json(
                 [
-                "status" => True
+                "status" => true
                 ]
             );
         }
         return Response::json(
             [
-            "status" => False
+            "status" => false
             ]
         );
     }

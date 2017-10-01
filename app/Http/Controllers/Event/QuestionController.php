@@ -32,6 +32,7 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  int $eventCode
      * @return \Illuminate\Http\Response
      */
     public function index($eventCode)
@@ -102,7 +103,7 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $eventId
+     * @param  int $eventCode
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
@@ -139,7 +140,7 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $eventId
+     * @param  int $eventCode
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
