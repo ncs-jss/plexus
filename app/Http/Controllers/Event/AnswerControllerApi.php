@@ -209,9 +209,13 @@ class AnswerControllerApi extends Controller
                 // renaming image
                 $fileNamevfile = "";
                 if ($userDetails->admissionNo == "") {
-                    $fileNamevfile = $name."_".$userDetails->college.'.'.$extensionvfile;
+                    $fileNamevfile = $name . "_";
+                    $fileNamevfile .= $userDetails->college . '.';
+                    $fileNamevfile .= $extensionvfile;
                 }
-                $fileNamevfile = $name."_".$userDetails->admissionNo.'.'.$extensionvfile;
+                $fileNamevfile = $name . "_";
+                $fileNamevfile .= $userDetails->admissionNo . '.';
+                $fileNamevfile .= $extensionvfile;
                 Input::file('file')->move(
                     $destinationPathvfile, $fileNamevfile
                 );

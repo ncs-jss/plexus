@@ -96,7 +96,10 @@ class HomeController extends Controller
         $eventId = $event->id;
 
         $score = Score::where('eventId', $eventId)
-            ->orderBy('score', 'desc')->orderBy('logged_on', 'asc')->limit(30)->get();
+            ->orderBy('score', 'desc')
+            ->orderBy('logged_on', 'asc')
+            ->limit(30)
+            ->get();
         foreach ($score as $key => $value) {
             $user = User::find($value->userId);
             $value->user = $user;
