@@ -1,7 +1,7 @@
 # plexus
 
-[![Build Status](https://travis-ci.com/ankitjain28may/plexus.svg?token=PPiqU7v6mcqyZ9sMHrpV&branch=master)](https://travis-ci.com/ankitjain28may/plexus)
-[![Coverage Status](https://coveralls.io/repos/github/ncs-jss/plexus/badge.svg?branch=master)](https://coveralls.io/github/ncs-jss/plexus?branch=master)
+[![Build Status](https://travis-ci.org/ncs-jss/plexus.svg?branch=master)](https://travis-ci.org/ncs-jss/plexus)
+[![passing Status](https://coveralls.io/repos/github/ncs-jss/plexus/badge.svg?branch=master)](https://coveralls.io/github/ncs-jss/plexus?branch=master)
 
 # Installation and Contribution
 
