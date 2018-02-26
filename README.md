@@ -1,18 +1,19 @@
 # plexus
 
-[![Build Status](https://travis-ci.com/ankitjain28may/plexus.svg?token=PPiqU7v6mcqyZ9sMHrpV&branch=master)](https://travis-ci.com/ankitjain28may/plexus)
+[![Build Status](https://travis-ci.org/ncs-jss/plexus.svg?branch=master)](https://travis-ci.org/ncs-jss/plexus)
 [![Coverage Status](https://coveralls.io/repos/github/ncs-jss/plexus/badge.svg?branch=master)](https://coveralls.io/github/ncs-jss/plexus?branch=master)
 
-#Installation and Contribution
+# Installation and Contribution
 
-###Requirements :
+### Requirements :
 
 1. PHP > 5.6
 2. MySQL
 3. Composer
 4. Laravel > 5.3
+5. Php CodeSniffer
 
-###Installation :
+### Installation :
 
 Fork and Clone this repo or download it on your local system.
 
