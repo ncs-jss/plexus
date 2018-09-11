@@ -1,4 +1,4 @@
-# plexus
+# Plexus
 
 [![Build Status](https://travis-ci.org/ncs-jss/plexus.svg?branch=master)](https://travis-ci.org/ncs-jss/plexus)
 [![Coverage Status](https://coveralls.io/repos/github/ncs-jss/plexus/badge.svg?branch=master)](https://coveralls.io/github/ncs-jss/plexus?branch=master)
@@ -29,6 +29,7 @@ After installing composer, Rename the file `.env.example` to `.env`.
 ```shell
 cp .env.example .env
 ```
+> Set db credentials in `.env` and run the following Commands.
 
 Generate the Application key
 
@@ -47,8 +48,6 @@ Seed the database
 ```php
 php artisan db:seed
 ```
-
-Set db credentials in `.env` and run the project.
 
 For Login
 ```
