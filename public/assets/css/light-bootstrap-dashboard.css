@@ -255,7 +255,7 @@ input:focus {
   top: 0;
   left: 0;
   background-size: cover;
-  background-position: center center;
+  background-position: 0 center;
 }
 .sidebar .logo {
   padding: 10px 15px;
@@ -458,13 +458,8 @@ body > .navbar-collapse[data-color="red"]:after {
 }
 .sidebar[data-color="purple"]:after,
 body > .navbar-collapse[data-color="purple"]:after {
-  background: #9368E9;
-  background: -moz-linear-gradient(top, #9368E9 0%, #943bea 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9368E9), color-stop(100%, #943bea));
-  background: -webkit-linear-gradient(top, #9368E9 0%, #943bea 100%);
-  background: -o-linear-gradient(top, #9368E9 0%, #943bea 100%);
-  background: -ms-linear-gradient(top, #9368E9 0%, #943bea 100%);
-  background: linear-gradient(to bottom, #9368E9 0%, #943bea 100%);
+  background: #3375e0;
+ 
   background-size: 150% 150%;
 }
 
