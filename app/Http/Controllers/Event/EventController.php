@@ -90,7 +90,7 @@ class EventController extends Controller
         // $event = Event::find($id);
         $event = Event::where('eventCode', $id)->first();
 
-        if (!count($event)) {
+        if (!$event->count()) {
             return view('error');
         }
 
@@ -114,7 +114,7 @@ class EventController extends Controller
     {
         $event = Event::where('eventCode', $id)->first();
 
-        if (!count($event)) {
+        if (!$event->count()) {
             return view('error');
         }
         return File::get(public_path()."/backoffice/pages/editEvent.html");
@@ -153,7 +153,7 @@ class EventController extends Controller
     {
         $event = Event::where('eventCode', $eventCode)->first();
 
-        if (!count($event)) {
+        if (!$event->count()) {
             return view('errors');
         }
 

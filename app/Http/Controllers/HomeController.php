@@ -75,7 +75,7 @@ class HomeController extends Controller
     public function showLeaderboard($id)
     {
         $event = Event::where('eventCode', $id)->first();
-        if (!count($event)) {
+        if (!$event->count()) {
             return Redirect::to('/');
         }
         return File::get(public_path()."/gameplay/leaderboard.html");
@@ -90,7 +90,7 @@ class HomeController extends Controller
     public function leaderboard($id)
     {
         $event = Event::where('eventCode', $id)->first();
-        /*if (!count($event)) {
+        /*if (!$event->count()) {
             return Redirect::to('/');
         }*/
         $eventId = $event->id;
