@@ -274,9 +274,10 @@ class SocietyControllerApi extends Controller
     {
         $id = Auth::guard('society')->id();
         $society = Society::find($id);
+        // return $society->privilege;
         $event = "";
         if ($society->privilege == 1) {
-            $event = Event::all();
+            $event = Event::whereIn('active',[0,1])->get();
         } else {
             $event = Event::where('societyId', $id)->get();
         }

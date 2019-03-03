@@ -145,7 +145,7 @@
                     $.get(apiUrl, function(res) {
                         // console.log(res);
                         data = res.data;
-                        // console.log(data);
+                        console.log(data);
                         var openHtml = '<tr>';
                         var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-success editQuesBtn">Edit</button><button class="btn btn-danger deleteQuesBtn">Delete</button></div></td></tr>';
                         var allHtml = '';
@@ -170,7 +170,7 @@
                             // console.log($(this));
                             var index = $('.deleteQuesBtn').index($(this));
                             // console.log(data[index]);
-                            var event_ID = data[index].eventCode;
+                            var event_ID = data[index].eventId;
                             $.ajax({
                                url: baseUrl+"event/"+event_ID,
                                type: 'DELETE',
@@ -182,7 +182,7 @@
                         $('.editQuesBtn').click(function() {
                             var index = $('.editQuesBtn').index($(this));
                             // console.log(data[index]);
-                            var event_ID = data[index].eventCode;
+                            var event_ID = data[index].eventId;
                             window.location = "/event/"+event_ID+"/edit"
                         });
                     });

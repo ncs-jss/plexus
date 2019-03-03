@@ -90,7 +90,7 @@ class EventController extends Controller
         // $event = Event::find($id);
         $event = Event::where('eventCode', $id)->first();
 
-        if (!count($event)) {
+        if (!$event) {
             return view('error');
         }
 
@@ -112,9 +112,9 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        $event = Event::where('eventCode', $id)->first();
+        $event = Event::where('id', $id)->first();
 
-        if (!count($event)) {
+        if (!$event) {
             return view('error');
         }
         return File::get(public_path()."/backoffice/pages/editEvent.html");
@@ -153,8 +153,8 @@ class EventController extends Controller
     {
         $event = Event::where('eventCode', $eventCode)->first();
 
-        if (!count($event)) {
-            return view('errors');
+        if (!$event) {
+            return view('error');
         }
 
         // $event = Event::find($id);
@@ -180,7 +180,7 @@ class EventController extends Controller
                     ]
                 )->first();
 
-                if (!count($getScore)) {
+                if (!$getScore) {
                     $newUserScore = new Score;
                     $newUserScore->userId = Auth::guard('user')->id();
                     $newUserScore->eventId = $eventId;
@@ -197,7 +197,7 @@ class EventController extends Controller
                     ]
                 )->first();
 
-                if (!count($question)) {
+                if (!$question) {
                     return Redirect::to('event/'.$eventCode.'/leaderboard');
                 }
 

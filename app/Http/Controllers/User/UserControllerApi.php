@@ -224,7 +224,7 @@ class UserControllerApi extends Controller
 
         $user = User::find($id);
 
-        if (count($user)) {
+        if ($user) {
             $userDetails = UserDetail::where('userId', $id)->first();
             $user->profile = $userDetails;
             return Response::json(

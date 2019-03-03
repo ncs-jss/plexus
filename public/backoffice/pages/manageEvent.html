@@ -139,10 +139,11 @@
         <script>
                     $(document).ready(function() {
                         var data;
-                        // console.log(baseUrl);
+                        console.log(baseUrl);
                         $.get(baseUrl+"society/dashboard", function(res) {
                             data = res.data;
-                            // console.log(data);
+                            console.log(data);
+                            console.log(res.status);
                             var openHtml = '<tr>';
                             var closeHtml = '<td><div class="btn-group btn-justified pull-right"><button class="btn btn-primary addQuesBtn">Add Ques</button><button class="btn btn-success manageQuesBtn">Manage Ques</button><button class="btn btn-warning approveEventBtn">Approve</button><button class="btn btn-primary activateEventBtn">Activate</button><button class="btn btn-success editEventBtn">Edit</button><button class="btn btn-danger deleteEventBtn">Delete</button></div></td></tr>';
                             var allHtml = '';

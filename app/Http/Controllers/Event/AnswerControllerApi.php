@@ -92,7 +92,7 @@ class AnswerControllerApi extends Controller
             $correct = 1;
         }
 
-        if (!count($score)) {
+        if (!$score) {
             $score = new Score;
             $score->userId = Auth::guard('user')->id();
             $score->eventId = $eventId;

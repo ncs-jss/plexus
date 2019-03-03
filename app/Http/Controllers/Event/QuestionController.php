@@ -38,7 +38,7 @@ class QuestionController extends Controller
     public function index($eventCode)
     {
         $event = Event::where('eventCode', $eventCode)->first();
-        if (!count($event)) {
+        if (!$event) {
             return Redirect::to('/');
         }
         if ($event->type == 3) {

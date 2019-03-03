@@ -43,7 +43,7 @@ class QuestionControllerApi extends Controller
     public function index($eventCode)
     {
         $event = Event::where('eventCode', $eventCode)->first();
-        if (!count($event)) {
+        if (!$event) {
             return Response::json(
                 [
                 "status" => false,
@@ -134,7 +134,7 @@ class QuestionControllerApi extends Controller
         $event = Event::where('eventCode', $eventCode)->first();
         $eventId = $event->id;
 
-        if (count($event)) {
+        if ($event) {
 
             $questionInput = Input::all();
 

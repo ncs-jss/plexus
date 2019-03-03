@@ -359,7 +359,7 @@ class EventControllerApi extends Controller
                     // MCQ
                 } else {
 
-                    if (!count($getScore)) {
+                    if (!$getScore) {
                         $newUserScore = new Score;
                         $newUserScore->userId = Auth::guard('user')->id();
                         $newUserScore->eventId = $id;
@@ -377,7 +377,7 @@ class EventControllerApi extends Controller
 
                     // return Response::json($question);
 
-                    if (!count($question)) {
+                    if (!$question) {
                         return Redirect::to('event/'.$eventCode.'/leaderboard');
                     }
                 }
