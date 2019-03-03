@@ -309,7 +309,7 @@ class UserControllerApi extends Controller
         $eventId = Event::where('eventCode', $eventCode)->first()->id;
         $user = User::find($id);
 
-        if (count($user)) {
+        if ($user) {
             $score = Score::where(
                 [
                 ['userId', $id],

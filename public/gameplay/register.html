@@ -59,21 +59,19 @@
                             .avatarContainer input[type="radio"]:checked + .avatar {
                                 -webkit-transition: 1.5s;
                                 transition: 1.5s;
-                                background-image: url(/assets/img/pokeball.png);
-                                /*
                                 -webkit-transform: scale(1.1);
-                                transform: scale(1.1) ;*/
-                                /*box-sizing: content-box;*/
-                                /*-webkit-transform: scale(0.9);*/
-                                /*transform: scale(0.9);*/
-                                /*box-shadow: 0px 0px 1px 10px #eee;*/
+                                transform: scale(1.1) ;
+                                border: 10px solid #95afc0;
+                               /* box-sizing: content-box;
+                               transform: scale(0.9);*/
+                                box-shadow: 0px 0px 1px 10px #eee;
                             }
 
                         </style>
     </head>
     <body>
         <div class="wrapper">
-            <div class="main-panel" style="width: 100%;background: #56CCF2;background:linear-gradient(to bottom, rgba(16, 114, 146, 0.7) , rgba(24, 89, 177, 0.7)),url(/assets/img/60-lines.png)">
+             <div class="main-panel" style="width: 100%;background: #56CCF2;background:linear-gradient(to bottom, rgba(44, 44, 41, 1) , rgba(31, 31, 29, 1)),url(/assets/img/60-lines.png)">
                 <nav class="navbar navbar-default navbar-fixed">
                     <div class="container-fluid">
                         <div class="navbar-header">
@@ -109,7 +107,7 @@
                                             <div class="avatarContainer row">
                                                 <div class="col-xs-3">
                                                     <label>
-                                                        <input type="radio" name="selectAvatar" value="0" required/>
+                                                        <input type="radio" name="selectAvatar" value="0" checked required/>
                                                         <div class="avatar"></div>
                                                     </label>
                                                 </div>
@@ -214,7 +212,7 @@
                 <footer class="footer">
                     <div class="container-fluid">
                         <p class="copyright pull-right">
-                            &copy; 2018
+                            &copy; 2019
                             <a href="http://hackncs.com/">Nibble Computer Society</a>
                         </p>
                     </div>
